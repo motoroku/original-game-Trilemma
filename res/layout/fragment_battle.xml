@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/BattleFragment_LinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/BattleFragment_listViewA"
+        android:layout_width="match_parent"
+        android:layout_height="170dp" >
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/BattleFragment_textViewA_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A-1" />
+
+            <TextView
+                android:id="@+id/BattleFragment_textViewA_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A-2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/BattleFragment_textViewB_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B-1" />
+
+            <TextView
+                android:id="@+id/BattleFragment_textViewB_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B-2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/BattleFragment_textViewC_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C-1" />
+
+            <TextView
+                android:id="@+id/BattleFragment_textViewC_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C-2" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/BattleFragment_buttonA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A" />
+
+        <Button
+            android:id="@+id/BattleFragment_buttonB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="B" />
+
+        <Button
+            android:id="@+id/BattleFragment_buttonC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/BattleFragment_buttonD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="D" />
+
+        <Button
+            android:id="@+id/BattleFragment_buttonE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E" />
+
+        <Button
+            android:id="@+id/BattleFragment_buttonF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="F" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/BattleFragment_listViewB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+</LinearLayout>
