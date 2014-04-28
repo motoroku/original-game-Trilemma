@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dw.system.battle.BattleLogic;
+import dw.system.entity.BattleStatus;
+import dw.system.entity.BattleStatus.ActionStatus;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -54,36 +56,6 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	private BattleLogic mBattleLogic;
 
 	// ---------------------------------------------------
-	// Enum
-	public enum ActionStatus {
-		çUåÇ {
-			public String value = "Attack";
-
-			@Override
-			String ActionStatusName() {
-				return "Attack";
-			}
-		},
-		ñhå‰ {
-			public String value = "Deffence";
-
-			@Override
-			String ActionStatusName() {
-				return "Deffense";
-			}
-		},
-		É`ÉÉÅ[ÉW {
-			public String value = "Charge";
-
-			@Override
-			String ActionStatusName() {
-				return "Charge";
-			}
-		};
-		abstract String ActionStatusName();
-	}
-
-	// ---------------------------------------------------
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -94,8 +66,13 @@ public class BattleFragment extends Fragment implements OnClickListener {
 
 		mBattleLogic = new BattleLogic();
 
-		// LinearLayout battleLayout = (LinearLayout)
-		// v.findViewById(R.id.BattleActivity_LinearLayout);
+		mTextViewA1.setText("PLAYER");
+		mTextViewB1.setText("HP:" + mBattleLogic.mBattleElements.mCharacterMap.get(BattleStatus.PLAYER).mHp);
+		mTextViewC1.setText("SP:" + mBattleLogic.mBattleElements.mCharacterMap.get(BattleStatus.PLAYER).mSp);
+
+		mTextViewA2.setText("NPC");
+		mTextViewB2.setText("HP:" + mBattleLogic.mBattleElements.mCharacterMap.get(BattleStatus.NPC).mHp);
+		mTextViewC2.setText("SP:" + mBattleLogic.mBattleElements.mCharacterMap.get(BattleStatus.NPC).mSp);
 
 		return v;
 	}
@@ -104,15 +81,15 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.BattleFragment_buttonA:
-				mBattleLogic.attack();
+				StartAction(0);
 				outputInfo(ActionStatus.çUåÇ);
 				break;
 			case R.id.BattleFragment_buttonB:
-				mBattleLogic.defense();
+				StartAction(10);
 				outputInfo(ActionStatus.ñhå‰);
 				break;
 			case R.id.BattleFragment_buttonC:
-				mBattleLogic.charge();
+				StartAction(11);
 				outputInfo(ActionStatus.É`ÉÉÅ[ÉW);
 				break;
 			case R.id.BattleFragment_buttonD:
@@ -128,11 +105,23 @@ public class BattleFragment extends Fragment implements OnClickListener {
 
 				break;
 		}
+
+		mTextViewB1.setText("HP:" + mBattleLogic.mBattleElements.mCharacterMap.get(BattleStatus.PLAYER).mHp);
+		mTextViewC1.setText("SP:" + mBattleLogic.mBattleElements.mCharacterMap.get(BattleStatus.PLAYER).mSp);
+		mTextViewB2.setText("HP:" + mBattleLogic.mBattleElements.mCharacterMap.get(BattleStatus.NPC).mHp);
+		mTextViewC2.setText("SP:" + mBattleLogic.mBattleElements.mCharacterMap.get(BattleStatus.NPC).mSp);
 	}
 
-	private void outputInfo(ActionStatus status) {
-		mAdapterA.add(status.ActionStatusName());
+	private void outputInfo(BattleStatus.ActionStatus actionStatus) {
+		mAdapterA.add(actionStatus.ActionStatusName());
 		mListViewA.setAdapter(mAdapterA);
+	}
+
+	private void StartAction(int action) {
+		mBattleLogic.StartBattle(action);
+		if (mBattleLogic.isBattleEnd(true)) {
+			mBattleLogic.EndTurn();
+		}
 	}
 
 	private void setViews(View v, Context context) {
