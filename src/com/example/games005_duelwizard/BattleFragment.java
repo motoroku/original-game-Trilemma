@@ -3,7 +3,7 @@ package com.example.games005_duelwizard;
 import java.util.ArrayList;
 import java.util.List;
 
-import dw.system.battle.BattleLogic;
+import dw.system.battle.BattleSystem;
 import dw.system.entity.BattleStatus;
 import dw.system.entity.BattleStatus.ActionStatus;
 
@@ -53,7 +53,7 @@ public class BattleFragment extends Fragment implements OnClickListener {
 
 	// ---------------------------------------------------
 	// Logic
-	private BattleLogic mBattleLogic;
+	private BattleSystem mBattleSystem;
 
 	// ---------------------------------------------------
 
@@ -64,15 +64,15 @@ public class BattleFragment extends Fragment implements OnClickListener {
 
 		setViews(v, context);
 
-		mBattleLogic = new BattleLogic();
+		mBattleSystem = new BattleSystem();
 
 		mTextViewA1.setText("PLAYER");
-		mTextViewB1.setText("HP:" + mBattleLogic.mBattleElements.mCharacterMap.get(BattleStatus.PLAYER).mHp);
-		mTextViewC1.setText("SP:" + mBattleLogic.mBattleElements.mCharacterMap.get(BattleStatus.PLAYER).mSp);
+		mTextViewB1.setText("HP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.PLAYER).mHp);
+		mTextViewC1.setText("SP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.PLAYER).mSp);
 
 		mTextViewA2.setText("NPC");
-		mTextViewB2.setText("HP:" + mBattleLogic.mBattleElements.mCharacterMap.get(BattleStatus.NPC).mHp);
-		mTextViewC2.setText("SP:" + mBattleLogic.mBattleElements.mCharacterMap.get(BattleStatus.NPC).mSp);
+		mTextViewB2.setText("HP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.NPC).mHp);
+		mTextViewC2.setText("SP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.NPC).mSp);
 
 		return v;
 	}
@@ -106,10 +106,10 @@ public class BattleFragment extends Fragment implements OnClickListener {
 				break;
 		}
 
-		mTextViewB1.setText("HP:" + mBattleLogic.mBattleElements.mCharacterMap.get(BattleStatus.PLAYER).mHp);
-		mTextViewC1.setText("SP:" + mBattleLogic.mBattleElements.mCharacterMap.get(BattleStatus.PLAYER).mSp);
-		mTextViewB2.setText("HP:" + mBattleLogic.mBattleElements.mCharacterMap.get(BattleStatus.NPC).mHp);
-		mTextViewC2.setText("SP:" + mBattleLogic.mBattleElements.mCharacterMap.get(BattleStatus.NPC).mSp);
+		mTextViewB1.setText("HP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.PLAYER).mHp);
+		mTextViewC1.setText("SP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.PLAYER).mSp);
+		mTextViewB2.setText("HP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.NPC).mHp);
+		mTextViewC2.setText("SP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.NPC).mSp);
 	}
 
 	private void outputInfo(BattleStatus.ActionStatus actionStatus) {
@@ -118,9 +118,9 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	}
 
 	private void StartAction(int action) {
-		mBattleLogic.StartBattle(action);
-		if (mBattleLogic.isBattleEnd(true)) {
-			mBattleLogic.EndTurn();
+		mBattleSystem.StartBattle(action);
+		if (mBattleSystem.isBattleEnd(true)) {
+			mBattleSystem.EndTurn();
 		}
 	}
 

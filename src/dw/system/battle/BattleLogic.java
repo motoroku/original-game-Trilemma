@@ -1,45 +1,62 @@
 package dw.system.battle;
 
+import java.util.Map;
+
+import dw.skill.Skill;
+import dw.system.entity.BattleStatus;
+import dw.system.entity.BattleStatus.ActionStatus;
 import dw.system.entity.BattleStatus.BattleResult;
 import dw.system.entity.CharacterEntity;
-import dw.system.entity.Enemy;
-import dw.system.entity.Skill;
 
 public class BattleLogic {
 
-	BattleService mBattleService;
-	public BattleElements mBattleElements;
-
-	public BattleLogic() {
-		mBattleService = new BattleService();
-		mBattleElements = new BattleElements();
-	}
-
 	/**
-	 * 画面で決定された行動に基いて 1ターンの一連の処理を開始する
-	 * @param buttonNum タップされたボタン
+	 * 
+	 * @param playerAction
+	 * @param npcAction
+	 * @return
 	 */
-	public void StartBattle(int buttonNum) {
-		// NPCの行動を決定するAIメソッドこのへんで実行する
-		// NPCの行動を決定する
-		mBattleElements.mNpc.usingSkill = mBattleElements.mNpc.mSkillList[11];
+	public BattleResult decideActionResult(ActionStatus playerAction, ActionStatus npcAction) {
+		BattleResult result;
 
-		// プレイヤーの行動を設定する
-		mBattleElements.mPlayer.usingSkill = mBattleElements.mPlayer.mSkillList[buttonNum];
-		// プレイヤーとNPCの行動で勝敗判定を行う
-		mBattleElements = mBattleService.decideActionResult(mBattleElements);
-		// 勝敗によってスキルの処理を行う
-		mBattleElements = mBattleService.transactBattleAction(mBattleElements);
-		// 1ターン終了時の初期化処理
-		mBattleElements.mPlayer.usingSkill = null;
-		mBattleElements.mNpc.usingSkill = null;
+		if (playerAction == ActionStatus.攻撃 && npcAction == ActionStatus.防御) {
+			result = BattleResult.lose;
+		} else if (playerAction == ActionStatus.攻撃 && npcAction == ActionStatus.チャージ) {
+			result = BattleResult.win;
+		} else if (playerAction == ActionStatus.攻撃 && npcAction == ActionStatus.攻撃) {
+			result = BattleResult.clash;
+		} else if (playerAction == ActionStatus.チャージ && npcAction == ActionStatus.攻撃) {
+			result = BattleResult.lose;
+		} else if (playerAction == ActionStatus.チャージ && npcAction == ActionStatus.防御) {
+			result = BattleResult.win;
+		} else if (playerAction == ActionStatus.防御 && npcAction == ActionStatus.攻撃) {
+			result = BattleResult.win;
+		} else if (playerAction == ActionStatus.防御 && npcAction == ActionStatus.チャージ) {
+			result = BattleResult.lose;
+		} else {
+			result = BattleResult.draw;
+		}
+
+		return result;
 	}
 
-	public void EndTurn() {
-
+	public BattleElements setTurn(BattleElements elements, String actor) {
+		if (actor == BattleStatus.PLAYER) {
+			elements.setPlayerTurn();
+		} else if (actor == BattleStatus.NPC) {
+			elements.setEnemyTurn();
+		}
+		elements.target = setTarget(elements);
+		return elements;
 	}
 
-	public boolean isBattleEnd(boolean isEnd) {
-		return isEnd;
+	private CharacterEntity setTarget(BattleElements elements) {
+		Skill usingSkill = elements.actor.usingSkill;
+		if (usingSkill.target == BattleStatus.PLAYER) {
+			elements.setTargetPlayer();
+		} else if (usingSkill.target == BattleStatus.NPC) {
+			elements.setTargetPlayer();
+		}
+		return elements.target;
 	}
 }
