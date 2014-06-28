@@ -82,15 +82,12 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		switch (v.getId()) {
 			case R.id.BattleFragment_buttonA:
 				StartAction(0);
-				outputInfo(ActionStatus.çUåÇ);
 				break;
 			case R.id.BattleFragment_buttonB:
 				StartAction(10);
-				outputInfo(ActionStatus.ñhå‰);
 				break;
 			case R.id.BattleFragment_buttonC:
 				StartAction(11);
-				outputInfo(ActionStatus.É`ÉÉÅ[ÉW);
 				break;
 			case R.id.BattleFragment_buttonD:
 
@@ -99,12 +96,12 @@ public class BattleFragment extends Fragment implements OnClickListener {
 
 				break;
 			case R.id.BattleFragment_buttonF:
-
 				break;
 			default:
-
 				break;
 		}
+
+		outputInfo(mBattleSystem);
 
 		mTextViewB1.setText("HP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.PLAYER).mHp);
 		mTextViewC1.setText("SP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.PLAYER).mSp);
@@ -113,8 +110,13 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	}
 
 	private void outputInfo(BattleStatus.ActionStatus actionStatus) {
-		mAdapterA.add(actionStatus.ActionStatusName());
+		mAdapterA.add(actionStatus.getActionStatusName());
 		mListViewA.setAdapter(mAdapterA);
+	}
+
+	private void outputInfo(BattleSystem system) {
+		mAdapterA.add("PlayerAction:" + system.playerAction);
+		mAdapterA.add("EnemyAction:" + system.enemyAction);
 	}
 
 	private void StartAction(int action) {

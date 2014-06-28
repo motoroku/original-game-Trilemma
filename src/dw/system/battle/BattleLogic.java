@@ -55,7 +55,7 @@ public class BattleLogic {
 		if (usingSkill.target == BattleStatus.PLAYER) {
 			elements.setTargetPlayer();
 		} else if (usingSkill.target == BattleStatus.NPC) {
-			elements.setTargetPlayer();
+			elements.setTargetEnemy();
 		}
 		return elements.target;
 	}

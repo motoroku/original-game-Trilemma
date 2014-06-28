@@ -1,10 +1,25 @@
 package dw.system.battle;
 
 import dw.system.entity.CharacterEntity;
+import dw.system.entity.BattleStatus.ActionStatus;
+import dw.system.entity.BattleStatus.BattleResult;
 
 public class SkillManager {
 
 	public BattleElements transactSkill(BattleElements elements) {
+		CharacterEntity actor = elements.actor;
+		CharacterEntity target = elements.target;
+
+		if (actor.usingSkill.actionStatus == ActionStatus.çUåÇ) {
+			target.mHp = target.mHp - 10;
+		} else if (actor.usingSkill.actionStatus == ActionStatus.ñhå‰) {
+			target.mHp = target.mHp + 10;
+		} else if (actor.usingSkill.actionStatus == ActionStatus.É`ÉÉÅ[ÉW) {
+			actor.mSp++;
+		}
+
+		elements.actor = actor;
+		elements.target = target;
 
 		return elements;
 	}

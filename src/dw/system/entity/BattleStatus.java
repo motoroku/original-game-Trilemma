@@ -12,7 +12,7 @@ public class BattleStatus {
 			public String value = "Attack";
 
 			@Override
-			public String ActionStatusName() {
+			public String getActionStatusName() {
 				return "Attack";
 			}
 		},
@@ -20,7 +20,7 @@ public class BattleStatus {
 			public String value = "Deffence";
 
 			@Override
-			public String ActionStatusName() {
+			public String getActionStatusName() {
 				return "Deffense";
 			}
 		},
@@ -28,11 +28,11 @@ public class BattleStatus {
 			public String value = "Charge";
 
 			@Override
-			public String ActionStatusName() {
+			public String getActionStatusName() {
 				return "Charge";
 			}
 		};
-		public abstract String ActionStatusName();
+		public abstract String getActionStatusName();
 	}
 
 	public enum BattleResult {

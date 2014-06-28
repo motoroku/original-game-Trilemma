@@ -11,6 +11,9 @@ public class BattleSystem {
 	BattleService mBattleService;
 	public BattleElements mBattleElements;
 
+	public String playerAction;
+	public String enemyAction;
+
 	public BattleSystem() {
 		mBattleService = new BattleService();
 		mBattleElements = new BattleElements();
@@ -29,6 +32,10 @@ public class BattleSystem {
 		mBattleElements = mBattleService.getAction(mBattleElements, BattleStatus.PLAYER);
 		// スキルの処理を行う
 		mBattleElements = mBattleService.transactBattleTurn(mBattleElements);
+
+		playerAction = mBattleElements.getPlayer().usingSkill.actionStatus.getActionStatusName();
+		enemyAction = mBattleElements.getEnemy().usingSkill.actionStatus.getActionStatusName();
+
 		// 1ターン終了時の初期化処理
 		mBattleElements = mBattleService.resetAction(mBattleElements);
 	}

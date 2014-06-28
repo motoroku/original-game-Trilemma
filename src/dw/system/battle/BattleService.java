@@ -1,6 +1,7 @@
 package dw.system.battle;
 
 import java.lang.annotation.ElementType;
+import java.util.Random;
 
 import dw.skill.Skill;
 import dw.system.entity.BattleStatus;
@@ -55,7 +56,18 @@ public class BattleService {
 		if (actor == BattleStatus.PLAYER) {
 			elements.characterMap.get(BattleStatus.PLAYER).usingSkill = elements.characterMap.get(BattleStatus.PLAYER).mSkillList[elements.inputButton];
 		} else if (actor == BattleStatus.NPC) {
-			elements.characterMap.get(BattleStatus.NPC).usingSkill = elements.characterMap.get(BattleStatus.NPC).mSkillList[11];
+			Random random = new Random();
+			int num = random.nextInt(3) + 1;
+			if (num == 1) {
+				num = 0;
+			} else if (num == 2) {
+				num = 10;
+			} else if (num == 3) {
+				num = 11;
+			} else {
+
+			}
+			elements.characterMap.get(BattleStatus.NPC).usingSkill = elements.characterMap.get(BattleStatus.NPC).mSkillList[num];
 		}
 		return elements;
 	}
