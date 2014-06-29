@@ -8,15 +8,15 @@ import dw.system.entity.Enemy;
 
 public class BattleSystem {
 
-	BattleService mBattleService;
-	public BattleElements mBattleElements;
+	BattleService battleService;
+	public BattleElements battleElements;
 
 	public String playerAction;
 	public String enemyAction;
 
 	public BattleSystem() {
-		mBattleService = new BattleService();
-		mBattleElements = new BattleElements();
+		battleService = new BattleService();
+		battleElements = new BattleElements();
 	}
 
 	/**
@@ -24,20 +24,20 @@ public class BattleSystem {
 	 * @param buttonNum タップされたボタン
 	 */
 	public void StartBattle(int buttonNum) {
-		mBattleElements.inputButton = buttonNum;
+		battleElements.inputButton = buttonNum;
 		// NPCの行動を決定するAIメソッドこのへんで実行する
 		// NPCの行動を決定する
-		mBattleElements = mBattleService.getAction(mBattleElements, BattleStatus.NPC);
+		battleElements = battleService.getAction(battleElements, BattleStatus.NPC);
 		// プレイヤーの行動を設定する
-		mBattleElements = mBattleService.getAction(mBattleElements, BattleStatus.PLAYER);
+		battleElements = battleService.getAction(battleElements, BattleStatus.PLAYER);
 		// スキルの処理を行う
-		mBattleElements = mBattleService.transactBattleTurn(mBattleElements);
+		battleElements = battleService.transactBattleTurn(battleElements);
 
-		playerAction = mBattleElements.getPlayer().usingSkill.actionStatus.getActionStatusName();
-		enemyAction = mBattleElements.getEnemy().usingSkill.actionStatus.getActionStatusName();
+		playerAction = battleElements.getPlayer().usingSkill.actionStatus.getActionStatusName();
+		enemyAction = battleElements.getEnemy().usingSkill.actionStatus.getActionStatusName();
 
 		// 1ターン終了時の初期化処理
-		mBattleElements = mBattleService.resetAction(mBattleElements);
+		battleElements = battleService.turnEnd(battleElements);
 	}
 
 	public void EndTurn() {
@@ -46,5 +46,9 @@ public class BattleSystem {
 
 	public boolean isBattleEnd(boolean isEnd) {
 		return isEnd;
+	}
+
+	public boolean isHaveNecessaryPoint(int buttonNum, CharacterEntity character) {
+		return battleService.logic.isHaveNecessaryPoint(buttonNum, character);
 	}
 }

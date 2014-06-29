@@ -1,5 +1,6 @@
 package dw.system.battle;
 
+import dw.skill.AttackSkill;
 import dw.system.entity.CharacterEntity;
 import dw.system.entity.BattleStatus.ActionStatus;
 import dw.system.entity.BattleStatus.BattleResult;
@@ -11,7 +12,9 @@ public class SkillManager {
 		CharacterEntity target = elements.target;
 
 		if (actor.usingSkill.actionStatus == ActionStatus.çUåÇ) {
-			target.mHp = target.mHp - 10;
+			AttackSkill skill = (AttackSkill) actor.usingSkill;
+			target.mHp = target.mHp - skill.damage;
+			actor.mSp = actor.mSp - 1;
 		} else if (actor.usingSkill.actionStatus == ActionStatus.ñhå‰) {
 			target.mHp = target.mHp + 10;
 		} else if (actor.usingSkill.actionStatus == ActionStatus.É`ÉÉÅ[ÉW) {

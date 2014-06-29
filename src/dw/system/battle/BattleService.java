@@ -40,9 +40,11 @@ public class BattleService {
 	 * @param elements
 	 * @return
 	 */
-	public BattleElements resetAction(BattleElements elements) {
+	public BattleElements turnEnd(BattleElements elements) {
 		elements.characterMap.get(BattleStatus.PLAYER).usingSkill = null;
 		elements.characterMap.get(BattleStatus.NPC).usingSkill = null;
+
+		elements.turnCount++;
 		return elements;
 	}
 
@@ -56,19 +58,17 @@ public class BattleService {
 		if (actor == BattleStatus.PLAYER) {
 			elements.characterMap.get(BattleStatus.PLAYER).usingSkill = elements.characterMap.get(BattleStatus.PLAYER).mSkillList[elements.inputButton];
 		} else if (actor == BattleStatus.NPC) {
-			Random random = new Random();
-			int num = random.nextInt(3) + 1;
-			if (num == 1) {
-				num = 0;
-			} else if (num == 2) {
-				num = 10;
-			} else if (num == 3) {
-				num = 11;
-			} else {
-
+			Enemy enemy = (Enemy) elements.characterMap.get(BattleStatus.NPC);
+			int num = enemy.getEnemyAction();
+			elements.getEnemy().usingSkill = enemy.mSkillList[num];
+			if (!logic.isHaveNecessaryPoint(num, elements.getEnemy())) {
+				elements = getAction(elements, BattleStatus.NPC);
 			}
-			elements.characterMap.get(BattleStatus.NPC).usingSkill = elements.characterMap.get(BattleStatus.NPC).mSkillList[num];
 		}
 		return elements;
+	}
+
+	public boolean isHaveNecessaryPoint(int buttonNum, CharacterEntity character) {
+		return logic.isHaveNecessaryPoint(buttonNum, character);
 	}
 }

@@ -13,6 +13,7 @@ public class ChargeSkill extends Skill {
 	public ChargeSkill(String name) {
 		actionStatus = ActionStatus.ƒ`ƒƒ[ƒW;
 		target = name;
+		necessaryPoint = 0;
 	}
 
 	public int getChargePoint() {

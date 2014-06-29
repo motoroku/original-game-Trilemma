@@ -10,5 +10,6 @@ public class DefenseSkill extends Skill {
 	public DefenseSkill(String name) {
 		actionStatus = ActionStatus.ñhå‰;
 		target = name;
+		necessaryPoint = 0;
 	}
 }

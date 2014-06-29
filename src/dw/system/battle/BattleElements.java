@@ -6,6 +6,8 @@ import java.util.Map;
 import dw.system.entity.BattleStatus;
 import dw.system.entity.BattleStatus.BattleResult;
 import dw.system.entity.CharacterEntity;
+import dw.system.entity.Enemy;
+import dw.system.entity.Player;
 
 public class BattleElements {
 	public BattleResult result;
@@ -13,10 +15,11 @@ public class BattleElements {
 	public Map<String, CharacterEntity> characterMap = new HashMap<String, CharacterEntity>();
 	public CharacterEntity actor;
 	public CharacterEntity target;
+	public int turnCount;
 
 	public BattleElements() {
-		CharacterEntity player = new CharacterEntity(BattleStatus.PLAYER);
-		CharacterEntity npc = new CharacterEntity(BattleStatus.NPC);
+		CharacterEntity player = new Player(BattleStatus.PLAYER);
+		CharacterEntity npc = new Enemy(BattleStatus.NPC);
 
 		characterMap.put(BattleStatus.PLAYER, player);
 		characterMap.put(BattleStatus.NPC, npc);

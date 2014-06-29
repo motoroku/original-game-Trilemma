@@ -10,5 +10,6 @@ public class Skill {
 
 	public ActionStatus actionStatus;
 	public String target;
+	public int necessaryPoint;
 
 }

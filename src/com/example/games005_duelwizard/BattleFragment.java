@@ -6,6 +6,7 @@ import java.util.List;
 import dw.system.battle.BattleSystem;
 import dw.system.entity.BattleStatus;
 import dw.system.entity.BattleStatus.ActionStatus;
+import dw.system.entity.CharacterEntity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -53,7 +54,7 @@ public class BattleFragment extends Fragment implements OnClickListener {
 
 	// ---------------------------------------------------
 	// Logic
-	private BattleSystem mBattleSystem;
+	private BattleSystem battleSystem;
 
 	// ---------------------------------------------------
 
@@ -64,15 +65,15 @@ public class BattleFragment extends Fragment implements OnClickListener {
 
 		setViews(v, context);
 
-		mBattleSystem = new BattleSystem();
+		battleSystem = new BattleSystem();
 
 		mTextViewA1.setText("PLAYER");
-		mTextViewB1.setText("HP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.PLAYER).mHp);
-		mTextViewC1.setText("SP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.PLAYER).mSp);
+		mTextViewB1.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).mHp);
+		mTextViewC1.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).mSp);
 
 		mTextViewA2.setText("NPC");
-		mTextViewB2.setText("HP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.NPC).mHp);
-		mTextViewC2.setText("SP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.NPC).mSp);
+		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.NPC).mHp);
+		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.NPC).mSp);
 
 		return v;
 	}
@@ -81,16 +82,16 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.BattleFragment_buttonA:
-				StartAction(0);
+				startAction(0);
 				break;
 			case R.id.BattleFragment_buttonB:
-				StartAction(10);
+				startAction(10);
 				break;
 			case R.id.BattleFragment_buttonC:
-				StartAction(11);
+				startAction(11);
 				break;
 			case R.id.BattleFragment_buttonD:
-
+				resetBattleSystem();
 				break;
 			case R.id.BattleFragment_buttonE:
 
@@ -101,29 +102,56 @@ public class BattleFragment extends Fragment implements OnClickListener {
 				break;
 		}
 
-		outputInfo(mBattleSystem);
+		if (isBattleEnd()) {
+			outPutInfoToA("WIN");
+			resetBattleSystem();
+		}
 
-		mTextViewB1.setText("HP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.PLAYER).mHp);
-		mTextViewC1.setText("SP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.PLAYER).mSp);
-		mTextViewB2.setText("HP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.NPC).mHp);
-		mTextViewC2.setText("SP:" + mBattleSystem.mBattleElements.characterMap.get(BattleStatus.NPC).mSp);
+		mListViewA.setSelection(mAdapterA.getCount());
+		mTextViewB1.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).mHp);
+		mTextViewC1.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).mSp);
+		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.NPC).mHp);
+		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.NPC).mSp);
 	}
 
-	private void outputInfo(BattleStatus.ActionStatus actionStatus) {
-		mAdapterA.add(actionStatus.getActionStatusName());
-		mListViewA.setAdapter(mAdapterA);
+	private void startAction(int buttonNum) {
+		CharacterEntity player = battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER);
+		if (battleSystem.isHaveNecessaryPoint(buttonNum, player)) {
+			startBattle(buttonNum);
+			outputActionResult(battleSystem);
+		} else {
+			outPutInfoToA("SP‚ª‘«‚è‚Ü‚¹‚ñ");
+		}
 	}
 
-	private void outputInfo(BattleSystem system) {
+	private void startBattle(int action) {
+		battleSystem.StartBattle(action);
+		if (battleSystem.isBattleEnd(true)) {
+			battleSystem.EndTurn();
+		}
+	}
+
+	private boolean isBattleEnd() {
+		return battleSystem.battleElements.getEnemy().mHp <= 0;
+	}
+
+	private void resetBattleSystem() {
+		battleSystem = new BattleSystem();
+		mAdapterB.add("RESET");
+	}
+
+	private void outPutInfoToA(String message) {
+		mAdapterA.add("Message:" + message);
+	}
+
+	private void outputInfoToB(String message) {
+		mAdapterB.add("System:" + message);
+	}
+
+	private void outputActionResult(BattleSystem system) {
+		mAdapterA.add("Turn:" + battleSystem.battleElements.turnCount);
 		mAdapterA.add("PlayerAction:" + system.playerAction);
 		mAdapterA.add("EnemyAction:" + system.enemyAction);
-	}
-
-	private void StartAction(int action) {
-		mBattleSystem.StartBattle(action);
-		if (mBattleSystem.isBattleEnd(true)) {
-			mBattleSystem.EndTurn();
-		}
 	}
 
 	private void setViews(View v, Context context) {
