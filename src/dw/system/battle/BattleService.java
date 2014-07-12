@@ -1,12 +1,7 @@
 package dw.system.battle;
 
-import java.lang.annotation.ElementType;
-import java.util.Random;
-
-import dw.skill.Skill;
 import dw.system.entity.BattleStatus;
 import dw.system.entity.BattleStatus.ActionStatus;
-import dw.system.entity.BattleStatus.BattleResult;
 import dw.system.entity.CharacterEntity;
 import dw.system.entity.Enemy;
 
@@ -15,7 +10,7 @@ public class BattleService {
 	SkillManager mSkillManager = new SkillManager();
 
 	/**
-	 * 
+	 * 戦闘処理を行う
 	 * @param elements
 	 * @return
 	 */
@@ -36,7 +31,7 @@ public class BattleService {
 	}
 
 	/**
-	 * 
+	 * ターン終了時の処理を行う 。使用スキルを初期化する
 	 * @param elements
 	 * @return
 	 */
@@ -49,7 +44,7 @@ public class BattleService {
 	}
 
 	/**
-	 * 
+	 * 使用スキルを設定する
 	 * @param elements
 	 * @param actor
 	 * @return
@@ -68,6 +63,12 @@ public class BattleService {
 		return elements;
 	}
 
+	/**
+	 * スキルを使用するのに必要なスキルポイントを持っているかどうかを判定する
+	 * @param buttonNum
+	 * @param character
+	 * @return
+	 */
 	public boolean isHaveNecessaryPoint(int buttonNum, CharacterEntity character) {
 		return logic.isHaveNecessaryPoint(buttonNum, character);
 	}

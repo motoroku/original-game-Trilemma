@@ -1,18 +1,19 @@
 package dw.system.battle;
 
-import dw.skill.Skill;
 import dw.system.entity.BattleStatus;
-import dw.system.entity.BattleStatus.BattleResult;
 import dw.system.entity.CharacterEntity;
-import dw.system.entity.Enemy;
 
 public class BattleSystem {
 
 	BattleService battleService;
 	public BattleElements battleElements;
 
+	// -------------------------------------------------------------------------------------------
+	// 画面出力用
 	public String playerAction;
 	public String enemyAction;
+
+	// -------------------------------------------------------------------------------------------
 
 	public BattleSystem() {
 		battleService = new BattleService();
@@ -24,8 +25,8 @@ public class BattleSystem {
 	 * @param buttonNum タップされたボタン
 	 */
 	public void StartBattle(int buttonNum) {
+		// 画面から入力されたボタンを設定する
 		battleElements.inputButton = buttonNum;
-		// NPCの行動を決定するAIメソッドこのへんで実行する
 		// NPCの行動を決定する
 		battleElements = battleService.getAction(battleElements, BattleStatus.NPC);
 		// プレイヤーの行動を設定する
@@ -33,8 +34,11 @@ public class BattleSystem {
 		// スキルの処理を行う
 		battleElements = battleService.transactBattleTurn(battleElements);
 
+		// -------------------------------------------------------------------------------------------
+		// 画面出力用
 		playerAction = battleElements.getPlayer().usingSkill.actionStatus.getActionStatusName();
 		enemyAction = battleElements.getEnemy().usingSkill.actionStatus.getActionStatusName();
+		// -------------------------------------------------------------------------------------------
 
 		// 1ターン終了時の初期化処理
 		battleElements = battleService.turnEnd(battleElements);

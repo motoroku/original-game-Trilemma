@@ -12,11 +12,12 @@ public class SkillManager {
 		CharacterEntity target = elements.target;
 
 		if (actor.usingSkill.actionStatus == ActionStatus.çUåÇ) {
-			AttackSkill skill = (AttackSkill) actor.usingSkill;
-			target.mHp = target.mHp - skill.damage;
+			if (elements.result == BattleResult.win) {
+				AttackSkill skill = (AttackSkill) actor.usingSkill;
+				target.mHp = target.mHp - skill.damage;
+			}
 			actor.mSp = actor.mSp - 1;
 		} else if (actor.usingSkill.actionStatus == ActionStatus.ñhå‰) {
-			target.mHp = target.mHp + 10;
 		} else if (actor.usingSkill.actionStatus == ActionStatus.É`ÉÉÅ[ÉW) {
 			actor.mSp++;
 		}

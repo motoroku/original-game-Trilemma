@@ -1,7 +1,5 @@
 package dw.system.battle;
 
-import java.util.Map;
-
 import dw.skill.Skill;
 import dw.system.entity.BattleStatus;
 import dw.system.entity.BattleStatus.ActionStatus;
@@ -11,7 +9,7 @@ import dw.system.entity.CharacterEntity;
 public class BattleLogic {
 
 	/**
-	 * 
+	 * 使用スキルの勝敗判定を行う
 	 * @param playerAction
 	 * @param npcAction
 	 * @return
@@ -40,6 +38,12 @@ public class BattleLogic {
 		return result;
 	}
 
+	/**
+	 * 行動するキャラクターを設定する
+	 * @param elements
+	 * @param actor
+	 * @return
+	 */
 	public BattleElements setTurn(BattleElements elements, String actor) {
 		if (actor == BattleStatus.PLAYER) {
 			elements.setPlayerTurn();
@@ -50,6 +54,11 @@ public class BattleLogic {
 		return elements;
 	}
 
+	/**
+	 * 使用スキルの対象を設定する
+	 * @param elements
+	 * @return
+	 */
 	private CharacterEntity setTarget(BattleElements elements) {
 		Skill usingSkill = elements.actor.usingSkill;
 		if (usingSkill.target == BattleStatus.PLAYER) {
@@ -60,6 +69,12 @@ public class BattleLogic {
 		return elements.target;
 	}
 
+	/**
+	 * 使用スキルの必要スキルポイントを持っているかどうかを判定する
+	 * @param buttonNum
+	 * @param character
+	 * @return
+	 */
 	public boolean isHaveNecessaryPoint(int buttonNum, CharacterEntity character) {
 		Skill selectedSkill = character.mSkillList[buttonNum];
 		if (character.mSp >= selectedSkill.necessaryPoint) {
