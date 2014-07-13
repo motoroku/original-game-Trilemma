@@ -85,18 +85,21 @@ public class BattleFragment extends Fragment implements OnClickListener {
 				startAction(0);
 				break;
 			case R.id.BattleFragment_buttonB:
-				startAction(10);
+				startAction(1);
 				break;
 			case R.id.BattleFragment_buttonC:
-				startAction(11);
+				startAction(2);
 				break;
 			case R.id.BattleFragment_buttonD:
-				resetBattleSystem();
-				break;
-			case R.id.BattleFragment_buttonE:
+				startAction(10);
 
 				break;
+			case R.id.BattleFragment_buttonE:
+				startAction(11);
+				break;
 			case R.id.BattleFragment_buttonF:
+				resetBattleSystem();
+				mAdapterA.clear();
 				break;
 			default:
 				break;

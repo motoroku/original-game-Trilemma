@@ -32,7 +32,8 @@ public class BattleSystem {
 		// プレイヤーの行動を設定する
 		battleElements = battleService.getAction(battleElements, BattleStatus.PLAYER);
 		// スキルの処理を行う
-		battleElements = battleService.transactBattleTurn(battleElements);
+		battleElements = battleService.ActSkills(battleElements, BattleStatus.PLAYER);
+		battleElements = battleService.ActSkills(battleElements, BattleStatus.NPC);
 
 		// -------------------------------------------------------------------------------------------
 		// 画面出力用

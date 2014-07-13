@@ -78,19 +78,19 @@
             android:id="@+id/BattleFragment_buttonA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="A" />
+            android:text="Attack1" />
 
         <Button
             android:id="@+id/BattleFragment_buttonB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="B" />
+            android:text="Attack2" />
 
         <Button
             android:id="@+id/BattleFragment_buttonC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="C" />
+            android:text="Attack3" />
     </LinearLayout>
 
     <LinearLayout
@@ -101,19 +101,19 @@
             android:id="@+id/BattleFragment_buttonD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="D" />
+            android:text="Defense" />
 
         <Button
             android:id="@+id/BattleFragment_buttonE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="E" />
+            android:text="Charge" />
 
         <Button
             android:id="@+id/BattleFragment_buttonF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="F" />
+            android:text="Reset" />
     </LinearLayout>
 
     <ListView

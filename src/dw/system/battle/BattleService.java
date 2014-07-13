@@ -10,11 +10,11 @@ public class BattleService {
 	SkillManager mSkillManager = new SkillManager();
 
 	/**
-	 * 戦闘処理を行う
+	 * プレイヤーとNPCの戦闘処理をまとめて行う
 	 * @param elements
 	 * @return
 	 */
-	public BattleElements transactBattleTurn(BattleElements elements) {
+	public BattleElements ActSkills(BattleElements elements) {
 		ActionStatus playerAction = elements.getPlayer().usingSkill.actionStatus;
 		ActionStatus npcAction = elements.getEnemy().usingSkill.actionStatus;
 		// Playerのスキルを発動させて、結果を取得する
@@ -27,6 +27,35 @@ public class BattleService {
 		elements = logic.setTurn(elements, BattleStatus.NPC);
 		elements = mSkillManager.transactSkill(elements);
 		elements.setCharacters();
+		return elements;
+	}
+
+	/**
+	 * 戦闘処理を行う。
+	 * @param elements
+	 * @param actor 行動を行うキャラクター
+	 * @return
+	 */
+	public BattleElements ActSkills(BattleElements elements, String actor) {
+		ActionStatus actorAction;
+		ActionStatus receiverAction;
+
+		if (actor == BattleStatus.PLAYER) {
+			actorAction = elements.getPlayer().usingSkill.actionStatus;
+			receiverAction = elements.getEnemy().usingSkill.actionStatus;
+		} else {
+			actorAction = elements.getEnemy().usingSkill.actionStatus;
+			receiverAction = elements.getPlayer().usingSkill.actionStatus;
+		}
+
+		elements.result = logic.decideActionResult(actorAction, receiverAction);
+		// スキルの対象を設定する
+		elements = logic.setTurn(elements, actor);
+		// スキルを発動する処理を行う
+		elements = mSkillManager.transactSkill(elements);
+		// スキルの効果を適用した結果をエレメントのキャラクターに反映させる
+		elements.setCharacters();
+
 		return elements;
 	}
 
