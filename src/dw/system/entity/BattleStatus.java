@@ -39,6 +39,10 @@ public class BattleStatus {
 		win, lose, draw, clash
 	}
 
+	public enum AttackSkillType {
+		Normal, Special
+	}
+
 	// ---------------------------------------------------
 
 }
