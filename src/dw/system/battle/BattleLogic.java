@@ -39,12 +39,12 @@ public class BattleLogic {
 	}
 
 	/**
-	 * 行動するキャラクターを設定する
+	 * 行動するキャラクターとスキルの対象を設定する
 	 * @param elements
 	 * @param actor
 	 * @return
 	 */
-	public BattleElements setTurn(BattleElements elements, String actor) {
+	public BattleElements setSkillActor(BattleElements elements, String actor) {
 		if (actor == BattleStatus.PLAYER) {
 			elements.setPlayerTurn();
 		} else if (actor == BattleStatus.NPC) {

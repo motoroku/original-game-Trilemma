@@ -3,6 +3,7 @@ package dw.system.battle;
 import java.util.HashMap;
 import java.util.Map;
 
+import dw.skill.Skill;
 import dw.system.entity.BattleStatus;
 import dw.system.entity.BattleStatus.BattleResult;
 import dw.system.entity.CharacterEntity;
@@ -68,5 +69,13 @@ public class BattleElements {
 			return null;
 		}
 		return characterMap.get(name);
+	}
+
+	public Skill getActorSkill() {
+		return actor.usingSkill;
+	}
+
+	public Skill getTargetSkill() {
+		return target.usingSkill;
 	}
 }

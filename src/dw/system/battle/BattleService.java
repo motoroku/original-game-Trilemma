@@ -19,12 +19,12 @@ public class BattleService {
 		ActionStatus npcAction = elements.getEnemy().usingSkill.actionStatus;
 		// Playerのスキルを発動させて、結果を取得する
 		elements.result = logic.decideActionResult(playerAction, npcAction);
-		elements = logic.setTurn(elements, BattleStatus.PLAYER);
+		elements = logic.setSkillActor(elements, BattleStatus.PLAYER);
 		elements = mSkillManager.transactSkill(elements);
 		elements.setCharacters();
 		// NPCのスキルを発動させて、結果を取得する
 		elements.result = logic.decideActionResult(npcAction, playerAction);
-		elements = logic.setTurn(elements, BattleStatus.NPC);
+		elements = logic.setSkillActor(elements, BattleStatus.NPC);
 		elements = mSkillManager.transactSkill(elements);
 		elements.setCharacters();
 		return elements;
@@ -50,7 +50,7 @@ public class BattleService {
 
 		elements.result = logic.decideActionResult(actorAction, receiverAction);
 		// スキルの対象を設定する
-		elements = logic.setTurn(elements, actor);
+		elements = logic.setSkillActor(elements, actor);
 		// スキルを発動する処理を行う
 		elements = mSkillManager.transactSkill(elements);
 		// スキルの効果を適用した結果をエレメントのキャラクターに反映させる

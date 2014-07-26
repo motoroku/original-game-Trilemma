@@ -1,5 +1,10 @@
 package dw.system.entity;
 
+/**
+ * 戦闘関連で利用するenumクラスをまとめるクラス
+ * @author mori_yu
+ * 
+ */
 public class BattleStatus {
 
 	public static String PLAYER = "player";
