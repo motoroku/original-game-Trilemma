@@ -14,7 +14,7 @@ public class BattleService {
 	 * @param elements
 	 * @return
 	 */
-	public BattleElements ActSkills(BattleElements elements) {
+	public boolean ActBattleActions(BattleElements elements) {
 		ActionStatus playerAction = elements.getPlayer().usingSkill.actionStatus;
 		ActionStatus npcAction = elements.getEnemy().usingSkill.actionStatus;
 		// Playerのスキルを発動させて、結果を取得する
@@ -27,7 +27,7 @@ public class BattleService {
 		elements = logic.setSkillActor(elements, BattleStatus.NPC);
 		elements = mSkillManager.transactSkill(elements);
 		elements.setCharacters();
-		return elements;
+		return true;
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class BattleService {
 	 * @param actor 行動を行うキャラクター
 	 * @return
 	 */
-	public BattleElements ActSkills(BattleElements elements, String actor) {
+	public boolean ActBattleAction(BattleElements elements, String actor) {
 		ActionStatus actorAction;
 		ActionStatus receiverAction;
 
@@ -56,7 +56,7 @@ public class BattleService {
 		// スキルの効果を適用した結果をエレメントのキャラクターに反映させる
 		elements.setCharacters();
 
-		return elements;
+		return true;
 	}
 
 	/**
@@ -64,12 +64,12 @@ public class BattleService {
 	 * @param elements
 	 * @return
 	 */
-	public BattleElements turnEnd(BattleElements elements) {
+	public boolean turnEnd(BattleElements elements) {
 		elements.characterMap.get(BattleStatus.PLAYER).usingSkill = null;
 		elements.characterMap.get(BattleStatus.NPC).usingSkill = null;
 
 		elements.turnCount++;
-		return elements;
+		return true;
 	}
 
 	/**
@@ -80,11 +80,10 @@ public class BattleService {
 	 */
 	public BattleElements getAction(BattleElements elements, String actor) {
 		if (actor == BattleStatus.PLAYER) {
-			elements.characterMap.get(BattleStatus.PLAYER).usingSkill = elements.characterMap.get(BattleStatus.PLAYER).mSkillList[elements.inputButton];
+			elements.getPlayer().usingSkill = elements.getPlayer().skillList[elements.inputButton];
 		} else if (actor == BattleStatus.NPC) {
-			Enemy enemy = (Enemy) elements.characterMap.get(BattleStatus.NPC);
-			int num = enemy.getEnemyAction();
-			elements.getEnemy().usingSkill = enemy.mSkillList[num];
+			int num = ((Enemy) elements.getEnemy()).getEnemyAction();
+			elements.getEnemy().usingSkill = elements.getEnemy().skillList[num];
 			if (!logic.isHaveNecessaryPoint(num, elements.getEnemy())) {
 				elements = getAction(elements, BattleStatus.NPC);
 			}

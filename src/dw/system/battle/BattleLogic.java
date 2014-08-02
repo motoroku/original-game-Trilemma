@@ -76,8 +76,8 @@ public class BattleLogic {
 	 * @return
 	 */
 	public boolean isHaveNecessaryPoint(int buttonNum, CharacterEntity character) {
-		Skill selectedSkill = character.mSkillList[buttonNum];
-		if (character.mSp >= selectedSkill.necessaryPoint) {
+		Skill selectedSkill = character.skillList[buttonNum];
+		if (character.sp >= selectedSkill.necessarySkillPoint) {
 			return true;
 		}
 		return false;

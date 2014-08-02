@@ -5,7 +5,6 @@ import java.util.List;
 
 import dw.system.battle.BattleSystem;
 import dw.system.entity.BattleStatus;
-import dw.system.entity.BattleStatus.ActionStatus;
 import dw.system.entity.CharacterEntity;
 
 import android.content.Context;
@@ -17,7 +16,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -68,12 +66,12 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		battleSystem = new BattleSystem();
 
 		mTextViewA1.setText("PLAYER");
-		mTextViewB1.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).mHp);
-		mTextViewC1.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).mSp);
+		mTextViewB1.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).hp);
+		mTextViewC1.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).sp);
 
 		mTextViewA2.setText("NPC");
-		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.NPC).mHp);
-		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.NPC).mSp);
+		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.NPC).hp);
+		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.NPC).sp);
 
 		return v;
 	}
@@ -111,10 +109,10 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		}
 
 		mListViewA.setSelection(mAdapterA.getCount());
-		mTextViewB1.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).mHp);
-		mTextViewC1.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).mSp);
-		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.NPC).mHp);
-		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.NPC).mSp);
+		mTextViewB1.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).hp);
+		mTextViewC1.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).sp);
+		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.NPC).hp);
+		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.NPC).sp);
 	}
 
 	private void startAction(int buttonNum) {
@@ -135,7 +133,7 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	}
 
 	private boolean isBattleEnd() {
-		return battleSystem.battleElements.getEnemy().mHp <= 0;
+		return battleSystem.battleElements.getEnemy().hp <= 0;
 	}
 
 	private void resetBattleSystem() {

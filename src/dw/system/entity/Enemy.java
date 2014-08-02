@@ -2,20 +2,20 @@ package dw.system.entity;
 
 import java.util.Random;
 
-import dw.skill.AttackSkill;
-import dw.skill.ChargeSkill;
-import dw.skill.DefenseSkill;
 import dw.skill.Skill;
-import dw.system.entity.BattleStatus.AttackSkillType;
+import dw.system.entity.BattleStatus.ActionStatus;
+import dw.system.entity.BattleStatus.SkillType;
 
 public class Enemy extends CharacterEntity {
 
 	public Enemy(String name) {
 		super(name);
 
-		mSkillList[0] = new AttackSkill(name, 10, 1, AttackSkillType.Normal);
-		mSkillList[1] = new AttackSkill(name, 15, 2, AttackSkillType.Normal);
-		mSkillList[2] = new AttackSkill(name, 25, 3, AttackSkillType.Normal);
+		skillList[0] = new Skill(name, 10, 1, ActionStatus.çUåÇ, SkillType.NormalAttack);
+		skillList[1] = new Skill(name, 15, 2, ActionStatus.çUåÇ, SkillType.NormalAttack);
+		skillList[2] = new Skill(name, 25, 3, ActionStatus.çUåÇ, SkillType.NormalAttack);
+
+		sp = 2;
 	}
 
 	public int getEnemyAction() {

@@ -18,7 +18,7 @@ public class BattleStatus {
 
 			@Override
 			public String getActionStatusName() {
-				return "Attack";
+				return value;
 			}
 		},
 		ñhå‰ {
@@ -26,7 +26,7 @@ public class BattleStatus {
 
 			@Override
 			public String getActionStatusName() {
-				return "Deffense";
+				return value;
 			}
 		},
 		É`ÉÉÅ[ÉW {
@@ -34,20 +34,39 @@ public class BattleStatus {
 
 			@Override
 			public String getActionStatusName() {
-				return "Charge";
+				return value;
 			}
 		};
 		public abstract String getActionStatusName();
 	}
 
+	// ---------------------------------------------------
+
 	public enum BattleResult {
 		win, lose, draw, clash
 	}
 
-	public enum AttackSkillType {
-		Normal, Special
+	// ---------------------------------------------------
+
+	public enum SkillType {
+		NormalAttack {
+			public int no = 1;
+
+			@Override
+			public int getNo() {
+				return no;
+			}
+		},
+		SpecialAttack {
+			public int no = 2;
+
+			@Override
+			public int getNo() {
+				return no;
+			}
+		};
+		public abstract int getNo();
 	}
 
 	// ---------------------------------------------------
-
 }

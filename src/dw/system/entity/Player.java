@@ -1,15 +1,18 @@
 package dw.system.entity;
 
-import dw.skill.AttackSkill;
-import dw.system.entity.BattleStatus.AttackSkillType;
+import dw.skill.Skill;
+import dw.system.entity.BattleStatus.ActionStatus;
+import dw.system.entity.BattleStatus.SkillType;
 
 public class Player extends CharacterEntity {
 
 	public Player(String name) {
 		super(name);
 
-		mSkillList[0] = new AttackSkill(name, 20, 1, AttackSkillType.Normal);
-		mSkillList[1] = new AttackSkill(name, 30, 2, AttackSkillType.Normal);
-		mSkillList[2] = new AttackSkill(name, 40, 3, AttackSkillType.Normal);
+		skillList[0] = new Skill(name, 20, 1, ActionStatus.çUåÇ, SkillType.NormalAttack);
+		skillList[1] = new Skill(name, 30, 2, ActionStatus.çUåÇ, SkillType.NormalAttack);
+		skillList[2] = new Skill(name, 40, 3, ActionStatus.çUåÇ, SkillType.NormalAttack);
+
+		sp = 5;
 	}
 }

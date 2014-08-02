@@ -4,7 +4,6 @@ import dw.system.entity.BattleStatus;
 import dw.system.entity.CharacterEntity;
 
 public class BattleSystem {
-
 	BattleService battleService;
 	public BattleElements battleElements;
 
@@ -32,8 +31,8 @@ public class BattleSystem {
 		// プレイヤーの行動を設定する
 		battleElements = battleService.getAction(battleElements, BattleStatus.PLAYER);
 		// スキルの処理を行う
-		battleElements = battleService.ActSkills(battleElements, BattleStatus.PLAYER);
-		battleElements = battleService.ActSkills(battleElements, BattleStatus.NPC);
+		battleService.ActBattleAction(battleElements, BattleStatus.PLAYER);
+		battleService.ActBattleAction(battleElements, BattleStatus.NPC);
 
 		// -------------------------------------------------------------------------------------------
 		// 画面出力用
@@ -42,7 +41,7 @@ public class BattleSystem {
 		// -------------------------------------------------------------------------------------------
 
 		// 1ターン終了時の初期化処理
-		battleElements = battleService.turnEnd(battleElements);
+		battleService.turnEnd(battleElements);
 	}
 
 	public void EndTurn() {

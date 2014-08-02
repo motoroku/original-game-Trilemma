@@ -1,7 +1,8 @@
 package dw.skill;
 
 import dw.system.battle.BattleElements;
-import dw.system.entity.BattleStatus.AttackSkillType;
+import dw.system.entity.BattleStatus.BattleResult;
+import dw.system.entity.BattleStatus.SkillType;
 import dw.system.entity.CharacterEntity;
 
 /**
@@ -9,19 +10,19 @@ import dw.system.entity.CharacterEntity;
  * @author mori_yu
  * 
  */
-public class skillCollection {
-	public AttackSkillType attackSkillType;
-
-	public skillCollection() {
+public class SkillCollection {
+	public SkillCollection() {
 	}
 
+	// ----------------------------------------------------------------------------------------
+	// 使用スキルの分岐処理
 	public boolean actAttackSkill(BattleElements elements) {
-		AttackSkill skill = (AttackSkill) elements.getActorSkill();
+		Skill skill = elements.getActorSkill();
 		switch (skill.type) {
-			case Normal:
+			case NormalAttack:
 				normalAttack(elements, skill);
 				break;
-			case Special:
+			case SpecialAttack:
 				break;
 			default:
 				break;
@@ -30,12 +31,12 @@ public class skillCollection {
 	}
 
 	public boolean actAttackSkillOnClash(BattleElements elements) {
-		AttackSkill skill = (AttackSkill) elements.getActorSkill();
+		Skill skill = elements.getActorSkill();
 		switch (skill.type) {
-			case Normal:
+			case NormalAttack:
 				normalAttackOnClash(elements, skill);
 				break;
-			case Special:
+			case SpecialAttack:
 				break;
 			default:
 				break;
@@ -43,39 +44,68 @@ public class skillCollection {
 		return true;
 	}
 
-	public boolean normalAttack(BattleElements elements, AttackSkill skill) {
+	// ----------------------------------------------------------------------------------------
+	/**
+	 * 基本攻撃スキル
+	 * @param elements
+	 * @param skill
+	 * @return
+	 */
+	public boolean normalAttack(BattleElements elements, Skill skill) {
 		CharacterEntity target = elements.target;
 		CharacterEntity actor = elements.actor;
 
-		target.mHp = target.mHp - skill.damage;
+		target.hp = target.hp - skill.point;
 
 		elements.target = target;
 		elements.actor = actor;
 		return true;
 	}
 
-	public boolean normalAttackOnClash(BattleElements elements, AttackSkill skill) {
+	/**
+	 * 基本攻撃スキル。Clash時に利用する。
+	 * @param elements
+	 * @param skill
+	 * @return
+	 */
+	public boolean normalAttackOnClash(BattleElements elements, Skill skill) {
 		CharacterEntity target = elements.target;
 		CharacterEntity actor = elements.actor;
 
-		AttackSkill targetSkill = (AttackSkill) target.usingSkill;
-		target.mHp = target.mHp - (skill.damage - targetSkill.damage);
+		Skill targetSkill = target.usingSkill;
+		target.hp = target.hp - (skill.point - targetSkill.point);
 
 		elements.target = target;
 		elements.actor = actor;
 		return true;
 	}
 
-	public void consumeSkillPoint(BattleElements elements) {
-		CharacterEntity actor = elements.actor;
-		Skill skill = elements.getActorSkill();
-		actor.mSp = actor.mSp - skill.necessaryPoint;
-		elements.actor = actor;
-	}
-
+	// ----------------------------------------------------------------------------------------
+	/**
+	 * 基本チャージスキル
+	 * @param elements
+	 */
 	public void chargeSkillPoint(BattleElements elements) {
 		CharacterEntity actor = elements.actor;
-		actor.mSp++;
+
+		actor.sp++;
+
 		elements.actor = actor;
 	}
+
+	// ----------------------------------------------------------------------------------------
+	/**
+	 * スキルポイントの消費処理
+	 * @param elements
+	 */
+	public void consumeSkillPoint(BattleElements elements) {
+		CharacterEntity actor = elements.actor;
+
+		Skill skill = elements.getActorSkill();
+		actor.sp = actor.sp - skill.necessarySkillPoint;
+
+		elements.actor = actor;
+	}
+
+	// ----------------------------------------------------------------------------------------
 }
