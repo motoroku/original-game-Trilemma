@@ -4,5 +4,7 @@
     <string name="app_name">DuelWizard</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="Game_Title">世界一の魔法使いを目指して頑張る</string>
+    <string name="GameStart">スタート</string>
 
 </resources>
