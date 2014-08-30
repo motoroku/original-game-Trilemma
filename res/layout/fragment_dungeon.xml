@@ -4,23 +4,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView1"
+    <Button
+        android:id="@+id/DungeonFragment_button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Game_Title"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/magician" />
+        android:text="敵A" />
 
     <Button
-        android:id="@+id/StartFragment_button_start"
+        android:id="@+id/DungeonFragment_button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/GameStart" />
+        android:text="敵B" />
+
+    <Button
+        android:id="@+id/DungeonFragment_button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="出口" />
 
 </LinearLayout>

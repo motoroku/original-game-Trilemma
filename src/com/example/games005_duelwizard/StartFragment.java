@@ -13,7 +13,7 @@ import android.widget.Button;
 
 public class StartFragment extends Fragment implements OnClickListener {
 
-	OnBattleStartListener mListener;
+	OnGameStartListener mListener;
 	Button mButtonGameStart;
 
 	@Override
@@ -46,11 +46,11 @@ public class StartFragment extends Fragment implements OnClickListener {
 		mButtonGameStart.setOnClickListener(this);
 	}
 
-	public void setOnBattleStartListener(OnBattleStartListener listener) {
+	public void setOnGameStartListener(OnGameStartListener listener) {
 		this.mListener = listener;
 	}
 
-	public interface OnBattleStartListener extends EventListener {
+	public interface OnGameStartListener extends EventListener {
 		void onGameStart();
 	}
 }

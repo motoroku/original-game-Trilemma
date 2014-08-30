@@ -69,4 +69,71 @@ public class BattleStatus {
 	}
 
 	// ---------------------------------------------------
+
+	public enum SelectActionList {
+		skill1 {
+			public int no = 0;
+
+			@Override
+			public int getActionNo() {
+				return no;
+			}
+		},
+		skill2 {
+			public int no = 1;
+
+			@Override
+			public int getActionNo() {
+				return no;
+			}
+
+		},
+		skill3 {
+			public int no = 2;
+
+			@Override
+			public int getActionNo() {
+				return no;
+			}
+
+		},
+		skill4 {
+			public int no = 3;
+
+			@Override
+			public int getActionNo() {
+				return no;
+			}
+
+		},
+		skill5 {
+			public int no = 4;
+
+			@Override
+			public int getActionNo() {
+				return no;
+			}
+
+		},
+		defense {
+			public int no = 5;
+
+			@Override
+			public int getActionNo() {
+				return no;
+			}
+
+		},
+		charge {
+			public int no = 6;
+
+			@Override
+			public int getActionNo() {
+				return no;
+			}
+
+		},
+		;
+		public abstract int getActionNo();
+	}
 }

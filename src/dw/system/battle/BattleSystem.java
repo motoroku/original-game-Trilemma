@@ -1,6 +1,7 @@
 package dw.system.battle;
 
 import dw.system.entity.BattleStatus;
+import dw.system.entity.BattleStatus.SelectActionList;
 import dw.system.entity.CharacterEntity;
 
 public class BattleSystem {
@@ -23,9 +24,9 @@ public class BattleSystem {
 	 * 画面で決定された行動に基いて 1ターンの一連の処理を開始する
 	 * @param buttonNum タップされたボタン
 	 */
-	public void StartBattle(int buttonNum) {
+	public void StartBattle(SelectActionList selectedAction) {
 		// 画面から入力されたボタンを設定する
-		battleElements.inputButton = buttonNum;
+		battleElements.inputButton = selectedAction.getActionNo();
 		// NPCの行動を決定する
 		battleElements = battleService.getAction(battleElements, BattleStatus.NPC);
 		// プレイヤーの行動を設定する
@@ -52,7 +53,7 @@ public class BattleSystem {
 		return isEnd;
 	}
 
-	public boolean isHaveNecessaryPoint(int buttonNum, CharacterEntity character) {
-		return battleService.logic.isHaveNecessaryPoint(buttonNum, character);
+	public boolean isHaveNecessaryPoint(SelectActionList skill, CharacterEntity character) {
+		return battleService.logic.isHaveNecessaryPoint(skill.getActionNo(), character);
 	}
 }

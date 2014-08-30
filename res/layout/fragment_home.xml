@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/HomeFragment_textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/HomeFragment_textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/HomeFragment_textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/HomeFragment_textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/HomeFragment_imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="153dp"
+        android:layout_weight="0.30"
+        android:src="@drawable/octpas" />
+
+    <ListView
+        android:id="@+id/HomeFragment_listView1"
+        android:layout_width="match_parent"
+        android:layout_height="154dp"
+        android:layout_weight="1.36" >
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp" >
+
+        <Button
+            android:id="@+id/HomeFragment_button1"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="移動"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/HomeFragment_button2"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="冒険"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/HomeFragment_button3"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="タウン"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/HomeFragment_button4"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="キャラ"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/HomeFragment_button5"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="その他"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</LinearLayout>
