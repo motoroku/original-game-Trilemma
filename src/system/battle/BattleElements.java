@@ -1,14 +1,15 @@
-package dw.system.battle;
+package system.battle;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import dw.skill.Skill;
-import dw.system.entity.BattleStatus;
-import dw.system.entity.BattleStatus.BattleResult;
-import dw.system.entity.CharacterEntity;
-import dw.system.entity.Enemy;
-import dw.system.entity.Player;
+
+import entity.BattleStatus;
+import entity.CharacterEntity;
+import entity.Enemy;
+import entity.Player;
+import entity.BattleStatus.BattleResult;
+import entity.skill.Skill;
 
 public class BattleElements {
 	public BattleResult result;

@@ -1,8 +1,8 @@
-package dw.system.entity;
+package entity;
 
-import dw.skill.Skill;
-import dw.system.entity.BattleStatus.ActionStatus;
-import dw.system.entity.BattleStatus.SkillType;
+import entity.BattleStatus.ActionStatus;
+import entity.BattleStatus.SkillType;
+import entity.skill.Skill;
 
 public class Player extends CharacterEntity {
 

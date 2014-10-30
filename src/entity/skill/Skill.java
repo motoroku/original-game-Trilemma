@@ -1,8 +1,8 @@
-package dw.skill;
+package entity.skill;
 
-import dw.system.entity.BattleStatus;
-import dw.system.entity.BattleStatus.ActionStatus;
-import dw.system.entity.BattleStatus.SkillType;
+import entity.BattleStatus;
+import entity.BattleStatus.ActionStatus;
+import entity.BattleStatus.SkillType;
 
 public class Skill {
 

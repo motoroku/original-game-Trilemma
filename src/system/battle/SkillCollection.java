@@ -1,9 +1,9 @@
-package dw.skill;
+package system.battle;
 
-import dw.system.battle.BattleElements;
-import dw.system.entity.BattleStatus.BattleResult;
-import dw.system.entity.BattleStatus.SkillType;
-import dw.system.entity.CharacterEntity;
+import entity.CharacterEntity;
+import entity.BattleStatus.BattleResult;
+import entity.BattleStatus.SkillType;
+import entity.skill.Skill;
 
 /**
  * Skillの処理メソッドを持つクラス

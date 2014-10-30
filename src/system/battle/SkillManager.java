@@ -1,9 +1,8 @@
-package dw.system.battle;
+package system.battle;
 
-import dw.skill.Skill;
-import dw.skill.SkillCollection;
-import dw.system.entity.BattleStatus.ActionStatus;
-import dw.system.entity.BattleStatus.BattleResult;
+import entity.BattleStatus.ActionStatus;
+import entity.BattleStatus.BattleResult;
+import entity.skill.Skill;
 
 public class SkillManager {
 	public SkillCollection skillCollection = new SkillCollection();

@@ -1,10 +1,15 @@
-package com.example.games005_duelwizard;
+package activities;
 
-import com.example.games005_duelwizard.BattleFragment.OnBattleEndListener;
-import com.example.games005_duelwizard.DungeonFragment.OnBattleStartListener;
-import com.example.games005_duelwizard.HomeFragment.OnQuestStartListener;
-import com.example.games005_duelwizard.StartFragment.OnGameStartListener;
+import com.example.games005_duelwizard.R;
 
+import activities.fragment.BattleFragment;
+import activities.fragment.DungeonFragment;
+import activities.fragment.HomeFragment;
+import activities.fragment.StartFragment;
+import activities.fragment.BattleFragment.OnBattleEndListener;
+import activities.fragment.DungeonFragment.OnBattleStartListener;
+import activities.fragment.HomeFragment.OnQuestStartListener;
+import activities.fragment.StartFragment.OnGameStartListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;

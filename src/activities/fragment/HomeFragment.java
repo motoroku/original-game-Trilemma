@@ -1,9 +1,18 @@
-package com.example.games005_duelwizard;
+package activities.fragment;
 
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
 
+import battle.enemy.DaoMaster;
+import battle.enemy.DaoSession;
+import battle.enemy.XXX;
+import battle.enemy.XXXDao;
+
+import com.example.games005_duelwizard.R;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -26,10 +35,16 @@ public class HomeFragment extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_home, container, false);
+		Context context = v.getContext();
 
 		setViews(v);
 
 		mAdapter.add("äCÇâjÇ¢Ç≈Ç¢ÇΩÇÁÉ^ÉRÇ…èPÇÌÇÍÇΩÅI");
+
+		SQLiteDatabase db = new DaoMaster.DevOpenHelper(context, "XXX", null).getWritableDatabase();
+		DaoSession daoSession = new DaoMaster(db).newSession();
+		XXXDao xxx = daoSession.getXXXDao();
+		XXX xxxEntity = new XXX();
 
 		return v;
 	}

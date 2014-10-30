@@ -1,4 +1,4 @@
-package dw.system.entity;
+package entity;
 
 /**
  * 戦闘関連で利用するenumクラスをまとめるクラス

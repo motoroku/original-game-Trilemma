@@ -53,35 +53,35 @@
 
         <Button
             android:id="@+id/HomeFragment_button1"
-            android:layout_width="65dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="移動"
             android:textSize="12sp" />
 
         <Button
             android:id="@+id/HomeFragment_button2"
-            android:layout_width="65dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="冒険"
             android:textSize="12sp" />
 
         <Button
             android:id="@+id/HomeFragment_button3"
-            android:layout_width="65dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="タウン"
             android:textSize="12sp" />
 
         <Button
             android:id="@+id/HomeFragment_button4"
-            android:layout_width="65dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="キャラ"
             android:textSize="12sp" />
 
         <Button
             android:id="@+id/HomeFragment_button5"
-            android:layout_width="65dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="その他"
             android:textSize="12sp" />

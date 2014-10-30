@@ -1,8 +1,8 @@
-package dw.system.battle;
+package system.battle;
 
-import dw.system.entity.BattleStatus;
-import dw.system.entity.BattleStatus.SelectActionList;
-import dw.system.entity.CharacterEntity;
+import entity.BattleStatus;
+import entity.CharacterEntity;
+import entity.BattleStatus.SelectActionList;
 
 public class BattleSystem {
 	BattleService battleService;
@@ -54,6 +54,6 @@ public class BattleSystem {
 	}
 
 	public boolean isHaveNecessaryPoint(SelectActionList skill, CharacterEntity character) {
-		return battleService.logic.isHaveNecessaryPoint(skill.getActionNo(), character);
+		return battleService.isHaveNecessaryPoint(skill.getActionNo(), character);
 	}
 }

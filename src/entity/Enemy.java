@@ -1,11 +1,12 @@
-package dw.system.entity;
+package entity;
 
 import java.util.Random;
 
-import dw.skill.Skill;
-import dw.system.entity.BattleStatus.ActionStatus;
-import dw.system.entity.BattleStatus.SelectActionList;
-import dw.system.entity.BattleStatus.SkillType;
+
+import entity.BattleStatus.ActionStatus;
+import entity.BattleStatus.SelectActionList;
+import entity.BattleStatus.SkillType;
+import entity.skill.Skill;
 
 public class Enemy extends CharacterEntity {
 

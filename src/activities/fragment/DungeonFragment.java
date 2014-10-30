@@ -1,6 +1,8 @@
-package com.example.games005_duelwizard;
+package activities.fragment;
 
 import java.util.EventListener;
+
+import com.example.games005_duelwizard.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

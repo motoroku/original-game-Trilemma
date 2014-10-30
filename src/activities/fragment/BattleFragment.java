@@ -1,13 +1,16 @@
-package com.example.games005_duelwizard;
+package activities.fragment;
 
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
 
-import dw.system.battle.BattleSystem;
-import dw.system.entity.BattleStatus;
-import dw.system.entity.BattleStatus.SelectActionList;
-import dw.system.entity.CharacterEntity;
+import system.battle.BattleSystem;
+
+import com.example.games005_duelwizard.R;
+
+import entity.BattleStatus;
+import entity.CharacterEntity;
+import entity.BattleStatus.SelectActionList;
 
 import android.content.Context;
 import android.os.Bundle;
