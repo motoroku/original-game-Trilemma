@@ -1,19 +1,23 @@
 package entity;
 
-import java.util.Random;
-
+import system.battle.EnemyAI;
+import system.battle.iEnemyAI;
 
 import entity.BattleStatus.ActionStatus;
-import entity.BattleStatus.SelectActionList;
 import entity.BattleStatus.SkillType;
 import entity.skill.Skill;
 
 public class Enemy extends CharacterEntity {
-
-	private Random random = new Random();
+	public iEnemyAI enemyAi;
+	public int attackRate;
+	public int defenseRate;
+	public int chargeRate;
 
 	public Enemy(String name) {
 		super(name);
+
+		this.characterType = BattleStatus.ENEMY;
+		enemyAi = new EnemyAI();
 
 		skillList[0] = new Skill(name, 10, 1, ActionStatus.çUåÇ, SkillType.NormalAttack);
 		skillList[1] = new Skill(name, 15, 2, ActionStatus.çUåÇ, SkillType.NormalAttack);
@@ -23,25 +27,7 @@ public class Enemy extends CharacterEntity {
 	}
 
 	public int getEnemyAction() {
-		int num = getRandomNum(3, false);
-		if (num == 1) {
-			num = getRandomNum(3, true);
-		} else if (num == 2) {
-			num = SelectActionList.defense.getActionNo();
-		} else if (num == 3) {
-			num = SelectActionList.charge.getActionNo();
-		}
-
-		return num;
+		return enemyAi.getEnemyAction(attackRate, defenseRate, chargeRate);
 	}
 
-	private int getRandomNum(int max, boolean isZero) {
-		int num;
-		if (isZero) {
-			num = random.nextInt(max);
-		} else {
-			num = random.nextInt(max) + 1;
-		}
-		return num;
-	}
 }

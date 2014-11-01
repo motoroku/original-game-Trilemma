@@ -10,7 +10,7 @@ import com.example.games005_duelwizard.R;
 
 import entity.BattleStatus;
 import entity.CharacterEntity;
-import entity.BattleStatus.SelectActionList;
+import entity.BattleStatus.SelectedActionList;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -75,8 +75,8 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		mTextViewC1.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).sp);
 
 		mTextViewA2.setText("NPC");
-		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.NPC).hp);
-		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.NPC).sp);
+		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).hp);
+		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).sp);
 
 		mAdapterA.add("ìGÇ™åªÇÍÇΩÅI");
 
@@ -87,25 +87,25 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.BattleFragment_button_Skill1:
-				startAction(SelectActionList.skill1);
+				startAction(SelectedActionList.skill1);
 				break;
 			case R.id.BattleFragment_button_Skill2:
-				startAction(SelectActionList.skill2);
+				startAction(SelectedActionList.skill2);
 				break;
 			case R.id.BattleFragment_button_Skill3:
-				startAction(SelectActionList.skill3);
+				startAction(SelectedActionList.skill3);
 				break;
 			case R.id.BattleFragment_button_Skill4:
-				startAction(SelectActionList.skill4);
+				startAction(SelectedActionList.skill4);
 				break;
 			case R.id.BattleFragment_button_Skill5:
-				startAction(SelectActionList.skill5);
+				startAction(SelectedActionList.skill5);
 				break;
 			case R.id.BattleFragment_button_Defense:
-				startAction(SelectActionList.defense);
+				startAction(SelectedActionList.defense);
 				break;
 			case R.id.BattleFragment_button_Charge:
-				startAction(SelectActionList.charge);
+				startAction(SelectedActionList.charge);
 				break;
 			case R.id.BattleFragment_button_xxx:
 				mListener.onBattleEnd();
@@ -126,11 +126,11 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		mListViewA.setSelection(mAdapterA.getCount());
 		mTextViewB1.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).hp);
 		mTextViewC1.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).sp);
-		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.NPC).hp);
-		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.NPC).sp);
+		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).hp);
+		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).sp);
 	}
 
-	private void startAction(SelectActionList selectedAction) {
+	private void startAction(SelectedActionList selectedAction) {
 		CharacterEntity player = battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER);
 		if (battleSystem.isHaveNecessaryPoint(selectedAction, player)) {
 			startBattle(selectedAction);
@@ -140,7 +140,7 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		}
 	}
 
-	private void startBattle(SelectActionList selectedAction) {
+	private void startBattle(SelectedActionList selectedAction) {
 		battleSystem.StartBattle(selectedAction);
 		if (battleSystem.isBattleEnd(true)) {
 			battleSystem.EndTurn();

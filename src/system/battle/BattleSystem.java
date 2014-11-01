@@ -2,7 +2,7 @@ package system.battle;
 
 import entity.BattleStatus;
 import entity.CharacterEntity;
-import entity.BattleStatus.SelectActionList;
+import entity.BattleStatus.SelectedActionList;
 
 public class BattleSystem {
 	BattleService battleService;
@@ -24,16 +24,16 @@ public class BattleSystem {
 	 * 画面で決定された行動に基いて 1ターンの一連の処理を開始する
 	 * @param buttonNum タップされたボタン
 	 */
-	public void StartBattle(SelectActionList selectedAction) {
+	public void StartBattle(SelectedActionList selectedAction) {
 		// 画面から入力されたボタンを設定する
 		battleElements.inputButton = selectedAction.getActionNo();
 		// NPCの行動を決定する
-		battleElements = battleService.getAction(battleElements, BattleStatus.NPC);
+		battleElements = battleService.getAction(battleElements, BattleStatus.ENEMY);
 		// プレイヤーの行動を設定する
 		battleElements = battleService.getAction(battleElements, BattleStatus.PLAYER);
 		// スキルの処理を行う
 		battleService.ActBattleAction(battleElements, BattleStatus.PLAYER);
-		battleService.ActBattleAction(battleElements, BattleStatus.NPC);
+		battleService.ActBattleAction(battleElements, BattleStatus.ENEMY);
 
 		// -------------------------------------------------------------------------------------------
 		// 画面出力用
@@ -53,7 +53,7 @@ public class BattleSystem {
 		return isEnd;
 	}
 
-	public boolean isHaveNecessaryPoint(SelectActionList skill, CharacterEntity character) {
+	public boolean isHaveNecessaryPoint(SelectedActionList skill, CharacterEntity character) {
 		return battleService.isHaveNecessaryPoint(skill.getActionNo(), character);
 	}
 }

@@ -9,6 +9,8 @@ public class Player extends CharacterEntity {
 	public Player(String name) {
 		super(name);
 
+		this.characterType = BattleStatus.PLAYER;
+
 		skillList[0] = new Skill(name, 20, 1, ActionStatus.UŒ‚, SkillType.NormalAttack);
 		skillList[1] = new Skill(name, 30, 2, ActionStatus.UŒ‚, SkillType.NormalAttack);
 		skillList[2] = new Skill(name, 40, 3, ActionStatus.UŒ‚, SkillType.NormalAttack);

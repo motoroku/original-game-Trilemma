@@ -29,11 +29,11 @@ public class SkillManager {
 		}
 		// 防御のスキルの場合
 		else if (elements.getActorSkill().actionStatus == ActionStatus.防御) {
-			Skill skill = elements.getActorSkill();
+			// Skill skill = elements.getActorSkill();
 		}
 		// チャージスキルの場合
 		else if (elements.getActorSkill().actionStatus == ActionStatus.チャージ) {
-			Skill skill = elements.getActorSkill();
+			// Skill skill = elements.getActorSkill();
 			skillCollection.chargeSkillPoint(elements);
 		}
 

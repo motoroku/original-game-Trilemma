@@ -6,6 +6,7 @@ import entity.skill.Skill;
 public class CharacterEntity {
 
 	public String name;
+	public String characterType;
 
 	public Skill[] skillList;
 	public Item[] itemList;

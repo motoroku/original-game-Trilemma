@@ -8,7 +8,7 @@ package entity;
 public class BattleStatus {
 
 	public static String PLAYER = "player";
-	public static String NPC = "npc";
+	public static String ENEMY = "enemy";
 
 	// ---------------------------------------------------
 	// Enum
@@ -70,7 +70,7 @@ public class BattleStatus {
 
 	// ---------------------------------------------------
 
-	public enum SelectActionList {
+	public enum SelectedActionList {
 		skill1 {
 			public int no = 0;
 

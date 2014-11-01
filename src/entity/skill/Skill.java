@@ -19,10 +19,10 @@ public class Skill {
 		actionStatus = status;
 		this.point = point;
 		necessarySkillPoint = skillPoint;
-		if (actor == BattleStatus.NPC) {
+		if (actor == BattleStatus.ENEMY) {
 			target = BattleStatus.PLAYER;
 		} else if (actor == BattleStatus.PLAYER) {
-			target = BattleStatus.NPC;
+			target = BattleStatus.ENEMY;
 		}
 		this.type = type;
 	}

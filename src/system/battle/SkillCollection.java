@@ -1,8 +1,6 @@
 package system.battle;
 
 import entity.CharacterEntity;
-import entity.BattleStatus.BattleResult;
-import entity.BattleStatus.SkillType;
 import entity.skill.Skill;
 
 /**

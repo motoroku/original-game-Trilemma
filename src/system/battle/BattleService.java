@@ -25,7 +25,7 @@ public class BattleService {
 		elements.setCharacters();
 		// NPCのスキルを発動させて、結果を取得する
 		elements.result = decideActionResult(npcAction, playerAction);
-		elements = setSkillActor(elements, BattleStatus.NPC);
+		elements = setSkillActor(elements, BattleStatus.ENEMY);
 		elements = mSkillManager.transactSkill(elements);
 		elements.setCharacters();
 		return true;
@@ -50,12 +50,14 @@ public class BattleService {
 		}
 
 		elements.result = decideActionResult(actorAction, receiverAction);
-		// スキルの対象を設定する
+		// スキル使用者とその対象を設定する
 		elements = setSkillActor(elements, actor);
 		// スキルを発動する処理を行う
 		elements = mSkillManager.transactSkill(elements);
 		// スキルの効果を適用した結果をエレメントのキャラクターに反映させる
 		elements.setCharacters();
+		// スキルの使用履歴を保存
+		elements.setTurnHistory();
 
 		return true;
 	}
@@ -67,7 +69,7 @@ public class BattleService {
 	 */
 	public boolean turnEnd(BattleElements elements) {
 		elements.characterMap.get(BattleStatus.PLAYER).usingSkill = null;
-		elements.characterMap.get(BattleStatus.NPC).usingSkill = null;
+		elements.characterMap.get(BattleStatus.ENEMY).usingSkill = null;
 
 		elements.turnCount++;
 		return true;
@@ -82,11 +84,11 @@ public class BattleService {
 	public BattleElements getAction(BattleElements elements, String actor) {
 		if (actor == BattleStatus.PLAYER) {
 			elements.getPlayer().usingSkill = elements.getPlayer().skillList[elements.inputButton];
-		} else if (actor == BattleStatus.NPC) {
+		} else if (actor == BattleStatus.ENEMY) {
 			int num = ((Enemy) elements.getEnemy()).getEnemyAction();
 			elements.getEnemy().usingSkill = elements.getEnemy().skillList[num];
 			if (!isHaveNecessaryPoint(num, elements.getEnemy())) {
-				elements = getAction(elements, BattleStatus.NPC);
+				elements = getAction(elements, BattleStatus.ENEMY);
 			}
 		}
 		return elements;
@@ -131,7 +133,7 @@ public class BattleService {
 	public BattleElements setSkillActor(BattleElements elements, String actor) {
 		if (actor == BattleStatus.PLAYER) {
 			elements.setPlayerTurn();
-		} else if (actor == BattleStatus.NPC) {
+		} else if (actor == BattleStatus.ENEMY) {
 			elements.setEnemyTurn();
 		}
 		elements.target = setTarget(elements);
@@ -147,7 +149,7 @@ public class BattleService {
 		Skill usingSkill = elements.actor.usingSkill;
 		if (usingSkill.target == BattleStatus.PLAYER) {
 			elements.setTargetPlayer();
-		} else if (usingSkill.target == BattleStatus.NPC) {
+		} else if (usingSkill.target == BattleStatus.ENEMY) {
 			elements.setTargetEnemy();
 		}
 		return elements.target;
