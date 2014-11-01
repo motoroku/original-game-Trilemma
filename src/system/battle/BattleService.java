@@ -11,24 +11,35 @@ public class BattleService {
 	SkillManager mSkillManager = new SkillManager();
 
 	/**
-	 * プレイヤーとNPCの戦闘処理をまとめて行う
+	 * 使用スキルを設定する
 	 * @param elements
+	 * @param actor
 	 * @return
 	 */
-	public boolean ActBattleActions(BattleElements elements) {
-		ActionStatus playerAction = elements.getPlayer().usingSkill.actionStatus;
-		ActionStatus npcAction = elements.getEnemy().usingSkill.actionStatus;
-		// Playerのスキルを発動させて、結果を取得する
-		elements.result = decideActionResult(playerAction, npcAction);
-		elements = setSkillActor(elements, BattleStatus.PLAYER);
-		elements = mSkillManager.transactSkill(elements);
-		elements.setCharacters();
-		// NPCのスキルを発動させて、結果を取得する
-		elements.result = decideActionResult(npcAction, playerAction);
-		elements = setSkillActor(elements, BattleStatus.ENEMY);
-		elements = mSkillManager.transactSkill(elements);
-		elements.setCharacters();
-		return true;
+	public void getAction(BattleElements elements, String actor) {
+		if (actor == BattleStatus.PLAYER) {
+			elements.getPlayer().usingSkill = elements.getPlayer().skillList[elements.inputButton];
+		} else if (actor == BattleStatus.ENEMY) {
+			int num = ((Enemy) elements.getEnemy()).getEnemyAction();
+			elements.getEnemy().usingSkill = elements.getEnemy().skillList[num];
+			if (!isHaveNecessaryPoint(num, elements.getEnemy())) {
+				getAction(elements, BattleStatus.ENEMY);
+			}
+		}
+	}
+
+	/**
+	 * 使用スキルの必要スキルポイントを持っているかどうかを判定する
+	 * @param buttonNum
+	 * @param character
+	 * @return
+	 */
+	public boolean isHaveNecessaryPoint(int buttonNum, CharacterEntity character) {
+		Skill selectedSkill = character.skillList[buttonNum];
+		if (character.sp >= selectedSkill.necessarySkillPoint) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -37,7 +48,7 @@ public class BattleService {
 	 * @param actor 行動を行うキャラクター
 	 * @return
 	 */
-	public boolean ActBattleAction(BattleElements elements, String actor) {
+	public boolean processBattleAction(BattleElements elements, String actor) {
 		ActionStatus actorAction;
 		ActionStatus receiverAction;
 
@@ -51,11 +62,11 @@ public class BattleService {
 
 		elements.result = decideActionResult(actorAction, receiverAction);
 		// スキル使用者とその対象を設定する
-		elements = setSkillActor(elements, actor);
+		setSkillActor(elements, actor);
 		// スキルを発動する処理を行う
 		elements = mSkillManager.transactSkill(elements);
 		// スキルの効果を適用した結果をエレメントのキャラクターに反映させる
-		elements.setCharacters();
+		elements.applyBattleResult();
 		// スキルの使用履歴を保存
 		elements.setTurnHistory();
 
@@ -63,36 +74,23 @@ public class BattleService {
 	}
 
 	/**
-	 * ターン終了時の処理を行う 。使用スキルを初期化する
+	 * ターン終了時の処理を行う 。戦闘要素の初期化。
 	 * @param elements
 	 * @return
 	 */
-	public boolean turnEnd(BattleElements elements) {
+	public boolean endProcessing(BattleElements elements) {
 		elements.characterMap.get(BattleStatus.PLAYER).usingSkill = null;
 		elements.characterMap.get(BattleStatus.ENEMY).usingSkill = null;
+
+		elements.actor = null;
+		elements.target = null;
 
 		elements.turnCount++;
 		return true;
 	}
 
-	/**
-	 * 使用スキルを設定する
-	 * @param elements
-	 * @param actor
-	 * @return
-	 */
-	public BattleElements getAction(BattleElements elements, String actor) {
-		if (actor == BattleStatus.PLAYER) {
-			elements.getPlayer().usingSkill = elements.getPlayer().skillList[elements.inputButton];
-		} else if (actor == BattleStatus.ENEMY) {
-			int num = ((Enemy) elements.getEnemy()).getEnemyAction();
-			elements.getEnemy().usingSkill = elements.getEnemy().skillList[num];
-			if (!isHaveNecessaryPoint(num, elements.getEnemy())) {
-				elements = getAction(elements, BattleStatus.ENEMY);
-			}
-		}
-		return elements;
-	}
+	// ------------------------------------------------------------------------------------------------------
+	// Private Method
 
 	/**
 	 * 使用スキルの勝敗判定を行う
@@ -100,7 +98,7 @@ public class BattleService {
 	 * @param npcAction
 	 * @return
 	 */
-	public BattleResult decideActionResult(ActionStatus playerAction, ActionStatus npcAction) {
+	private BattleResult decideActionResult(ActionStatus playerAction, ActionStatus npcAction) {
 		BattleResult result;
 
 		if (playerAction == ActionStatus.攻撃 && npcAction == ActionStatus.防御) {
@@ -130,14 +128,13 @@ public class BattleService {
 	 * @param actor
 	 * @return
 	 */
-	public BattleElements setSkillActor(BattleElements elements, String actor) {
+	private void setSkillActor(BattleElements elements, String actor) {
 		if (actor == BattleStatus.PLAYER) {
 			elements.setPlayerTurn();
 		} else if (actor == BattleStatus.ENEMY) {
 			elements.setEnemyTurn();
 		}
 		elements.target = setTarget(elements);
-		return elements;
 	}
 
 	/**
@@ -155,17 +152,5 @@ public class BattleService {
 		return elements.target;
 	}
 
-	/**
-	 * 使用スキルの必要スキルポイントを持っているかどうかを判定する
-	 * @param buttonNum
-	 * @param character
-	 * @return
-	 */
-	public boolean isHaveNecessaryPoint(int buttonNum, CharacterEntity character) {
-		Skill selectedSkill = character.skillList[buttonNum];
-		if (character.sp >= selectedSkill.necessarySkillPoint) {
-			return true;
-		}
-		return false;
-	}
+	// ------------------------------------------------------------------------------------------------------
 }

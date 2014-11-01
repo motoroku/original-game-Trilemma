@@ -47,7 +47,7 @@ public class BattleElements {
 		target = characterMap.get(BattleStatus.ENEMY);
 	}
 
-	public void setCharacters() {
+	public void applyBattleResult() {
 		if (actor.name == BattleStatus.PLAYER) {
 			characterMap.put(BattleStatus.PLAYER, actor);
 		} else if (actor.name == BattleStatus.ENEMY) {

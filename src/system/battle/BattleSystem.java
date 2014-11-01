@@ -28,12 +28,12 @@ public class BattleSystem {
 		// 画面から入力されたボタンを設定する
 		battleElements.inputButton = selectedAction.getActionNo();
 		// NPCの行動を決定する
-		battleElements = battleService.getAction(battleElements, BattleStatus.ENEMY);
+		battleService.getAction(battleElements, BattleStatus.ENEMY);
 		// プレイヤーの行動を設定する
-		battleElements = battleService.getAction(battleElements, BattleStatus.PLAYER);
+		battleService.getAction(battleElements, BattleStatus.PLAYER);
 		// スキルの処理を行う
-		battleService.ActBattleAction(battleElements, BattleStatus.PLAYER);
-		battleService.ActBattleAction(battleElements, BattleStatus.ENEMY);
+		battleService.processBattleAction(battleElements, BattleStatus.PLAYER);
+		battleService.processBattleAction(battleElements, BattleStatus.ENEMY);
 
 		// -------------------------------------------------------------------------------------------
 		// 画面出力用
@@ -42,7 +42,7 @@ public class BattleSystem {
 		// -------------------------------------------------------------------------------------------
 
 		// 1ターン終了時の初期化処理
-		battleService.turnEnd(battleElements);
+		battleService.endProcessing(battleElements);
 	}
 
 	public void EndTurn() {
