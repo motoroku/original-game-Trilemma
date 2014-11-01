@@ -9,9 +9,9 @@ import entity.skill.Skill;
 
 public class Enemy extends CharacterEntity {
 	public iEnemyAI enemyAi;
-	public int attackRate;
-	public int defenseRate;
-	public int chargeRate;
+	public int attackRate = 50;
+	public int defenseRate = 30;
+	public int chargeRate = 20;
 
 	public Enemy(String name) {
 		super(name);
