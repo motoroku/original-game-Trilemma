@@ -2,7 +2,7 @@ package activities.fragment;
 
 import java.util.EventListener;
 
-import com.example.games005_duelwizard.R;
+import com.games.Trilemma.R;
 
 import android.content.Context;
 import android.os.Bundle;

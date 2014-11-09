@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
 
-import com.example.games005_duelwizard.R;
+import com.games.Trilemma.R;
 
 import Trilemma.DUNGEON;
 import Trilemma.DUNGEONDao;

@@ -4,6 +4,13 @@ import java.util.Random;
 
 public class Utility {
 
+	/**
+	 * 最も大きい数字を返します
+	 * @param a 数値
+	 * @param b 数値
+	 * @param c 数値
+	 * @return 引数の数値の中で最も大きい数値
+	 */
 	public static int getHighestNum(int a, int b, int c) {
 		int result = 0;
 

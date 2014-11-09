@@ -85,6 +85,8 @@ public class BattleService {
 		elements.actor = null;
 		elements.target = null;
 
+		((Enemy) elements.getEnemy()).setAttackRate();
+
 		elements.turnCount++;
 		return true;
 	}

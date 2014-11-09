@@ -3,6 +3,7 @@ package system.battle;
 import entity.BattleStatus;
 import entity.CharacterEntity;
 import entity.BattleStatus.SelectedActionList;
+import entity.Enemy;
 
 public class BattleSystem {
 	BattleService battleService;
@@ -12,12 +13,14 @@ public class BattleSystem {
 	// 画面出力用
 	public String playerAction;
 	public String enemyAction;
+	public String enemyActionRate;
 
 	// -------------------------------------------------------------------------------------------
 
 	public BattleSystem() {
 		battleService = new BattleService();
 		battleElements = new BattleElements();
+		setEnemyActionRate();
 	}
 
 	/**
@@ -34,15 +37,16 @@ public class BattleSystem {
 		// スキルの処理を行う
 		battleService.processBattleAction(battleElements, BattleStatus.PLAYER);
 		battleService.processBattleAction(battleElements, BattleStatus.ENEMY);
+		// 1ターン終了時の初期化処理
+		battleService.endProcessing(battleElements);
 
 		// -------------------------------------------------------------------------------------------
 		// 画面出力用
-		playerAction = battleElements.getPlayer().usingSkill.actionStatus.getActionStatusName();
-		enemyAction = battleElements.getEnemy().usingSkill.actionStatus.getActionStatusName();
+		playerAction = battleElements.playerTrunHistoryList.get(battleElements.playerTrunHistoryList.size() - 1).action.getActionStatusName();
+		enemyAction = battleElements.enemyTurnHistoryList.get(battleElements.enemyTurnHistoryList.size() - 1).action.getActionStatusName();
+		setEnemyActionRate();
 		// -------------------------------------------------------------------------------------------
 
-		// 1ターン終了時の初期化処理
-		battleService.endProcessing(battleElements);
 	}
 
 	public void EndTurn() {
@@ -55,5 +59,12 @@ public class BattleSystem {
 
 	public boolean isHaveNecessaryPoint(SelectedActionList skill, CharacterEntity character) {
 		return battleService.isHaveNecessaryPoint(skill.getActionNo(), character);
+	}
+
+	private void setEnemyActionRate() {
+		String attackRate = String.valueOf(((Enemy) battleElements.getEnemy()).attackRate);
+		String defenseRate = String.valueOf(((Enemy) battleElements.getEnemy()).defenseRate);
+		String chargerate = String.valueOf(((Enemy) battleElements.getEnemy()).chargeRate);
+		enemyActionRate = "攻撃確率：" + attackRate + " 防御確率：" + defenseRate + " チャージ確率：" + chargerate;
 	}
 }

@@ -19,9 +19,9 @@ public class Enemy extends CharacterEntity {
 		this.characterType = BattleStatus.ENEMY;
 		enemyAi = new EnemyAI();
 
-		skillList[0] = new Skill(name, 10, 1, ActionStatus.UŒ‚, SkillType.NormalAttack);
-		skillList[1] = new Skill(name, 15, 2, ActionStatus.UŒ‚, SkillType.NormalAttack);
-		skillList[2] = new Skill(name, 25, 3, ActionStatus.UŒ‚, SkillType.NormalAttack);
+		skillList[0] = new Skill(name, 10, 1, ActionStatus.UŒ‚, SkillType.NormalAttack, "ƒ‚ƒ“ƒXƒ^[‚Ì’ÊíUŒ‚1");
+		skillList[1] = new Skill(name, 15, 2, ActionStatus.UŒ‚, SkillType.NormalAttack, "ƒ‚ƒ“ƒXƒ^[‚Ì’ÊíUŒ‚2");
+		skillList[2] = new Skill(name, 25, 3, ActionStatus.UŒ‚, SkillType.NormalAttack, "ƒ‚ƒ“ƒXƒ^[‚Ì’ÊíUŒ‚3");
 
 		sp = 2;
 	}
@@ -30,4 +30,11 @@ public class Enemy extends CharacterEntity {
 		return enemyAi.getEnemyAction(attackRate, defenseRate, chargeRate);
 	}
 
+	public void setAttackRate() {
+		if (sp == 0) {
+			attackRate = 0;
+		} else {
+			attackRate = 50;
+		}
+	}
 }

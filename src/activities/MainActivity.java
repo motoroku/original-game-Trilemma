@@ -1,6 +1,6 @@
 package activities;
 
-import com.example.games005_duelwizard.R;
+import com.games.Trilemma.R;
 
 import activities.fragment.BattleFragment;
 import activities.fragment.DungeonFragment;

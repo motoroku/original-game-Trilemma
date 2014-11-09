@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
 
-import system.battle.BattleSystem;
+import com.games.Trilemma.R;
 
-import com.example.games005_duelwizard.R;
+import system.battle.BattleSystem;
 
 import entity.BattleStatus;
 import entity.CharacterEntity;
@@ -79,6 +79,8 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).sp);
 
 		mAdapterA.add("ìGÇ™åªÇÍÇΩÅI");
+
+		mAdapterA.add(battleSystem.enemyActionRate);
 
 		return v;
 	}
@@ -164,6 +166,7 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		mAdapterA.add("Turn:" + battleSystem.battleElements.turnCount);
 		mAdapterA.add("PlayerAction:" + system.playerAction);
 		mAdapterA.add("EnemyAction:" + system.enemyAction);
+		mAdapterA.add(system.enemyActionRate);
 	}
 
 	private void setViews(View v, Context context) {

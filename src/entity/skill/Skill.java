@@ -11,11 +11,12 @@ public class Skill {
 	public int necessarySkillPoint;
 	public int point;
 	public SkillType type;
+	public String skillName;
 
 	public Skill() {
 	}
 
-	public Skill(String actor, int point, int skillPoint, ActionStatus status, SkillType type) {
+	public Skill(String actor, int point, int skillPoint, ActionStatus status, SkillType type, String skillName) {
 		actionStatus = status;
 		this.point = point;
 		necessarySkillPoint = skillPoint;
@@ -25,6 +26,7 @@ public class Skill {
 			target = BattleStatus.ENEMY;
 		}
 		this.type = type;
+		this.skillName = skillName;
 	}
 
 }

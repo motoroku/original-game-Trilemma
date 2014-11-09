@@ -7,8 +7,8 @@ package entity;
  */
 public class BattleStatus {
 
-	public static String PLAYER = "player";
-	public static String ENEMY = "enemy";
+	public static final String PLAYER = "player";
+	public static final String ENEMY = "enemy";
 
 	// ---------------------------------------------------
 	// Enum
@@ -49,6 +49,22 @@ public class BattleStatus {
 	// ---------------------------------------------------
 
 	public enum SkillType {
+		Defense {
+			public int no = -1;
+
+			@Override
+			public int getNo() {
+				return no;
+			}
+		},
+		Charge {
+			public int no = 0;
+
+			@Override
+			public int getNo() {
+				return no;
+			}
+		},
 		NormalAttack {
 			public int no = 1;
 
@@ -135,5 +151,39 @@ public class BattleStatus {
 		},
 		;
 		public abstract int getActionNo();
+	}
+
+	public static SelectedActionList getSelectedAction(int num) {
+		SelectedActionList result = null;
+
+		SelectedActionList.skill1.getActionNo();
+
+		switch (num) {
+			case 0:
+				result = SelectedActionList.skill1;
+				break;
+			case 1:
+				result = SelectedActionList.skill2;
+				break;
+			case 2:
+				result = SelectedActionList.skill3;
+				break;
+			case 3:
+				result = SelectedActionList.skill4;
+				break;
+			case 4:
+				result = SelectedActionList.skill5;
+				break;
+			case 5:
+				result = SelectedActionList.defense;
+				break;
+			case 6:
+				result = SelectedActionList.charge;
+				break;
+			default:
+				break;
+		}
+
+		return result;
 	}
 }
