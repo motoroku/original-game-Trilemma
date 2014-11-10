@@ -4,25 +4,12 @@ import utility.Utility;
 
 import entity.BattleStatus;
 import entity.BattleStatus.SelectedActionList;
+import entity.Enemy;
 
 public class EnemyAI implements iEnemyAI {
 
 	@Override
-	public int getEnemyAction() {
-		int num = Utility.getRandomNum(3, false);
-		if (num == 1) {
-			num = BattleStatus.getSelectedAction(Utility.getRandomNum(2, true)).getActionNo();
-		} else if (num == 2) {
-			num = SelectedActionList.defense.getActionNo();
-		} else if (num == 3) {
-			num = SelectedActionList.charge.getActionNo();
-		}
-
-		return num;
-	}
-
-	@Override
-	public int getEnemyAction(int attackRate, int defenseRate, int chargeRate) {
+	public int getEnemyAction(int attackRate, int defenseRate, int chargeRate, BattleElements elements) {
 		int result = SelectedActionList.charge.getActionNo();
 
 		int temp = 0;
@@ -38,5 +25,15 @@ public class EnemyAI implements iEnemyAI {
 			result = SelectedActionList.charge.getActionNo();
 		}
 		return result;
+	}
+
+	@Override
+	public Enemy resetRate(Enemy enemy, BattleElements elements) {
+		if (enemy.sp == 0) {
+			enemy.attackRate = 0;
+		} else {
+			enemy.attackRate = enemy.baseAttackRate;
+		}
+		return enemy;
 	}
 }

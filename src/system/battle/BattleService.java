@@ -5,6 +5,7 @@ import entity.CharacterEntity;
 import entity.Enemy;
 import entity.BattleStatus.ActionStatus;
 import entity.BattleStatus.BattleResult;
+import entity.BattleStatus.TargetStatus;
 import entity.skill.Skill;
 
 public class BattleService {
@@ -20,9 +21,9 @@ public class BattleService {
 		if (actor == BattleStatus.PLAYER) {
 			elements.getPlayer().usingSkill = elements.getPlayer().skillList[elements.inputButton];
 		} else if (actor == BattleStatus.ENEMY) {
-			int num = ((Enemy) elements.getEnemy()).getEnemyAction();
+			int num = ((Enemy) elements.getEnemy()).getEnemyAction(elements);
 			elements.getEnemy().usingSkill = elements.getEnemy().skillList[num];
-			if (!isHaveNecessaryPoint(num, elements.getEnemy())) {
+			if (!isEnoughSkillPoint(elements.getEnemy().usingSkill, elements.getEnemy())) {
 				getAction(elements, BattleStatus.ENEMY);
 			}
 		}
@@ -34,12 +35,8 @@ public class BattleService {
 	 * @param character
 	 * @return
 	 */
-	public boolean isHaveNecessaryPoint(int buttonNum, CharacterEntity character) {
-		Skill selectedSkill = character.skillList[buttonNum];
-		if (character.sp >= selectedSkill.necessarySkillPoint) {
-			return true;
-		}
-		return false;
+	public boolean isEnoughSkillPoint(Skill skill, CharacterEntity character) {
+		return character.sp >= skill.necessarySkillPoint;
 	}
 
 	/**
@@ -60,7 +57,8 @@ public class BattleService {
 			receiverAction = elements.getPlayer().usingSkill.actionStatus;
 		}
 
-		elements.result = decideActionResult(actorAction, receiverAction);
+		// 使用スキルの勝敗判定を行う
+		elements.result = getActionResult(actorAction, receiverAction);
 		// スキル使用者とその対象を設定する
 		setSkillActor(elements, actor);
 		// スキルを発動する処理を行う
@@ -85,7 +83,7 @@ public class BattleService {
 		elements.actor = null;
 		elements.target = null;
 
-		((Enemy) elements.getEnemy()).setAttackRate();
+		((Enemy) elements.getEnemy()).resetRate(elements);
 
 		elements.turnCount++;
 		return true;
@@ -100,7 +98,7 @@ public class BattleService {
 	 * @param npcAction
 	 * @return
 	 */
-	private BattleResult decideActionResult(ActionStatus playerAction, ActionStatus npcAction) {
+	private BattleResult getActionResult(ActionStatus playerAction, ActionStatus npcAction) {
 		BattleResult result;
 
 		if (playerAction == ActionStatus.攻撃 && npcAction == ActionStatus.防御) {
@@ -136,7 +134,7 @@ public class BattleService {
 		} else if (actor == BattleStatus.ENEMY) {
 			elements.setEnemyTurn();
 		}
-		elements.target = setTarget(elements);
+		setTarget(elements);
 	}
 
 	/**
@@ -144,14 +142,23 @@ public class BattleService {
 	 * @param elements
 	 * @return
 	 */
-	private CharacterEntity setTarget(BattleElements elements) {
+	private void setTarget(BattleElements elements) {
 		Skill usingSkill = elements.actor.usingSkill;
-		if (usingSkill.target == BattleStatus.PLAYER) {
-			elements.setTargetPlayer();
-		} else if (usingSkill.target == BattleStatus.ENEMY) {
-			elements.setTargetEnemy();
+		String actor = elements.actor.characterType;
+
+		if (actor == BattleStatus.PLAYER) {
+			if (usingSkill.target == TargetStatus.self) {
+				elements.setTargetPlayer();
+			} else if (usingSkill.target == TargetStatus.enemy) {
+				elements.setTargetEnemy();
+			}
+		} else if (actor == BattleStatus.ENEMY) {
+			if (usingSkill.target == TargetStatus.self) {
+				elements.setTargetEnemy();
+			} else if (usingSkill.target == TargetStatus.enemy) {
+				elements.setTargetPlayer();
+			}
 		}
-		return elements.target;
 	}
 
 	// ------------------------------------------------------------------------------------------------------

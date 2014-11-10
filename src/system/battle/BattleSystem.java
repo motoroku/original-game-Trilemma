@@ -57,8 +57,8 @@ public class BattleSystem {
 		return isEnd;
 	}
 
-	public boolean isHaveNecessaryPoint(SelectedActionList skill, CharacterEntity character) {
-		return battleService.isHaveNecessaryPoint(skill.getActionNo(), character);
+	public boolean isHaveNecessaryPoint(SelectedActionList selectedSkill, CharacterEntity character) {
+		return battleService.isEnoughSkillPoint(character.skillList[selectedSkill.getActionNo()], character);
 	}
 
 	private void setEnemyActionRate() {

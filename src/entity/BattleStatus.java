@@ -186,4 +186,8 @@ public class BattleStatus {
 
 		return result;
 	}
+
+	public enum TargetStatus {
+		self, enemy
+	}
 }

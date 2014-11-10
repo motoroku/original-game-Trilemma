@@ -2,6 +2,7 @@ package entity;
 
 import entity.BattleStatus.ActionStatus;
 import entity.BattleStatus.SkillType;
+import entity.BattleStatus.TargetStatus;
 import entity.skill.Skill;
 
 public class CharacterEntity {
@@ -29,8 +30,8 @@ public class CharacterEntity {
 			skillList[i] = new Skill();
 		}
 
-		skillList[5] = new Skill(name, 0, 0, ActionStatus.防御, SkillType.Defense, "通常防御");
-		skillList[6] = new Skill(name, 0, 0, ActionStatus.チャージ, SkillType.Charge, "通常チャージ");
+		skillList[5] = new Skill(TargetStatus.self, 0, 0, ActionStatus.防御, SkillType.Defense, "通常防御");
+		skillList[6] = new Skill(TargetStatus.self, 0, 0, ActionStatus.チャージ, SkillType.Charge, "通常チャージ");
 
 		hp = 100;
 		sp = 0;

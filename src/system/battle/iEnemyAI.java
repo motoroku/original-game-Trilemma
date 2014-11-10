@@ -1,8 +1,10 @@
 package system.battle;
 
+import entity.Enemy;
+
 public interface iEnemyAI {
 
-	public int getEnemyAction();
+	public int getEnemyAction(int attackRate, int defenseRate, int chargeRate, BattleElements elements);
 
-	public int getEnemyAction(int attackRate, int defenseRate, int chargeRate);
+	public Enemy resetRate(Enemy enemy, BattleElements elements);
 }
