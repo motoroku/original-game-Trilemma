@@ -16,6 +16,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 public class MainActivity extends FragmentActivity implements OnGameStartListener, OnQuestStartListener, OnBattleStartListener, OnBattleEndListener {
 
@@ -29,7 +31,7 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 
 		StartFragment mStartFragment = new StartFragment();
 		mStartFragment.setOnGameStartListener(this);
-		ft.add(R.id.MainActivity_LinearLayout, mStartFragment);
+		ft.add(R.id.MainActivity_frame, mStartFragment);
 		ft.commit();
 	}
 
@@ -39,7 +41,7 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 		FragmentTransaction ft = fm.beginTransaction();
 		HomeFragment mHomeFragment = new HomeFragment();
 		mHomeFragment.setOnQuestStartListener(this);
-		ft.replace(R.id.MainActivity_LinearLayout, mHomeFragment);
+		ft.replace(R.id.MainActivity_frame, mHomeFragment);
 		ft.commit();
 	}
 
@@ -49,7 +51,10 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 		FragmentTransaction ft = fm.beginTransaction();
 		DungeonFragment mDungeonFragment = new DungeonFragment();
 		mDungeonFragment.setOnBattleStartListener(this);
-		ft.replace(R.id.MainActivity_LinearLayout, mDungeonFragment);
+		LinearLayout main = (LinearLayout) this.findViewById(R.id.HomeFragment_main);
+		LinearLayout content = (LinearLayout) this.findViewById(R.id.HomeFragment_content);
+		main.removeView(content);
+		ft.add(R.id.HomeFragment_main, mDungeonFragment);
 		ft.commit();
 	}
 
@@ -59,7 +64,7 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 		FragmentTransaction ft = fm.beginTransaction();
 		BattleFragment mBattleFragment = new BattleFragment();
 		mBattleFragment.setOnBattleEndListener(this);
-		ft.replace(R.id.MainActivity_LinearLayout, mBattleFragment);
+		ft.replace(R.id.MainActivity_frame, mBattleFragment);
 		ft.commit();
 	}
 
@@ -69,7 +74,7 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 		FragmentTransaction ft = fm.beginTransaction();
 		HomeFragment mHomeFragment = new HomeFragment();
 		mHomeFragment.setOnQuestStartListener(this);
-		ft.replace(R.id.MainActivity_LinearLayout, mHomeFragment);
+		ft.replace(R.id.MainActivity_frame, mHomeFragment);
 		ft.commit();
 	}
 
