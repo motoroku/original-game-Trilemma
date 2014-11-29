@@ -1,15 +1,20 @@
 package activities;
 
+import listener.OnSelectedHomeMenuListener;
+
 import com.games.Trilemma.R;
 
 import activities.fragment.BattleFragment;
-import activities.fragment.DungeonFragment;
+import activities.fragment.AdventureFragment;
+import activities.fragment.CustomizeFragment;
 import activities.fragment.HomeFragment;
+import activities.fragment.SettingFragment;
+import activities.fragment.ShopFragment;
 import activities.fragment.StartFragment;
 import activities.fragment.BattleFragment.OnBattleEndListener;
-import activities.fragment.DungeonFragment.OnBattleStartListener;
-import activities.fragment.HomeFragment.OnQuestStartListener;
+import activities.fragment.AdventureFragment.OnBattleStartListener;
 import activities.fragment.StartFragment.OnGameStartListener;
+import activities.fragment.StoryFragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -19,7 +24,7 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-public class MainActivity extends FragmentActivity implements OnGameStartListener, OnQuestStartListener, OnBattleStartListener, OnBattleEndListener {
+public class MainActivity extends FragmentActivity implements OnGameStartListener, OnSelectedHomeMenuListener, OnBattleStartListener, OnBattleEndListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +33,10 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
-
 		StartFragment mStartFragment = new StartFragment();
+		// set listener
 		mStartFragment.setOnGameStartListener(this);
+		// set fragment
 		ft.add(R.id.MainActivity_frame, mStartFragment);
 		ft.commit();
 	}
@@ -40,21 +46,77 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		HomeFragment mHomeFragment = new HomeFragment();
-		mHomeFragment.setOnQuestStartListener(this);
+		// set listener
+		mHomeFragment.setOnHomeMenuListener(this);
+		// set fragment
 		ft.replace(R.id.MainActivity_frame, mHomeFragment);
 		ft.commit();
 	}
 
 	@Override
-	public void onQuestStart() {
+	public void onSelectedStory() {
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
-		DungeonFragment mDungeonFragment = new DungeonFragment();
-		mDungeonFragment.setOnBattleStartListener(this);
+		StoryFragment mStoryFragment = new StoryFragment();
+		// remove view
 		LinearLayout main = (LinearLayout) this.findViewById(R.id.HomeFragment_main);
-		LinearLayout content = (LinearLayout) this.findViewById(R.id.HomeFragment_content);
-		main.removeView(content);
+		main.removeAllViews();
+		// set fragment
+		ft.add(R.id.HomeFragment_main, mStoryFragment);
+		ft.commit();
+	}
+
+	@Override
+	public void onSelectedAdventure() {
+		FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+		AdventureFragment mDungeonFragment = new AdventureFragment();
+		// set listener
+		mDungeonFragment.setOnBattleStartListener(this);
+		// remove view
+		LinearLayout main = (LinearLayout) this.findViewById(R.id.HomeFragment_main);
+		main.removeAllViews();
+		// set fragment
 		ft.add(R.id.HomeFragment_main, mDungeonFragment);
+		ft.commit();
+	}
+
+	@Override
+	public void onSelectedCustomize() {
+		FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+		CustomizeFragment mCustomizeFragment = new CustomizeFragment();
+		// remove view
+		LinearLayout main = (LinearLayout) this.findViewById(R.id.HomeFragment_main);
+		main.removeAllViews();
+		// set fragment
+		ft.add(R.id.HomeFragment_main, mCustomizeFragment);
+		ft.commit();
+	}
+
+	@Override
+	public void onSelectedShop() {
+		FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+		ShopFragment mShopFragment = new ShopFragment();
+		// remove view
+		LinearLayout main = (LinearLayout) this.findViewById(R.id.HomeFragment_main);
+		main.removeAllViews();
+		// set fragment
+		ft.add(R.id.HomeFragment_main, mShopFragment);
+		ft.commit();
+	}
+
+	@Override
+	public void onSelectedSetting() {
+		FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+		SettingFragment mSettingFragment = new SettingFragment();
+		// remove view
+		LinearLayout main = (LinearLayout) this.findViewById(R.id.HomeFragment_main);
+		main.removeAllViews();
+		// set fragment
+		ft.add(R.id.HomeFragment_main, mSettingFragment);
 		ft.commit();
 	}
 
@@ -73,7 +135,7 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		HomeFragment mHomeFragment = new HomeFragment();
-		mHomeFragment.setOnQuestStartListener(this);
+		mHomeFragment.setOnHomeMenuListener(this);
 		ft.replace(R.id.MainActivity_frame, mHomeFragment);
 		ft.commit();
 	}

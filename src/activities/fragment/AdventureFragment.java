@@ -2,6 +2,8 @@ package activities.fragment;
 
 import java.util.EventListener;
 
+import listener.OnSelectedHomeMenuListener;
+
 import com.games.Trilemma.R;
 
 import android.os.Bundle;
@@ -12,9 +14,9 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class DungeonFragment extends Fragment implements OnClickListener {
+public class AdventureFragment extends Fragment implements OnClickListener {
 
-	OnBattleStartListener mListener;
+	OnBattleStartListener mBattleStartListener;
 
 	Button mButtonEnemyA;
 	Button mButtonEnemyB;
@@ -22,7 +24,7 @@ public class DungeonFragment extends Fragment implements OnClickListener {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_dungeon, container, false);
+		View v = inflater.inflate(R.layout.fragment_home_adventure, container, false);
 
 		setViews(v);
 
@@ -35,7 +37,7 @@ public class DungeonFragment extends Fragment implements OnClickListener {
 		switch (v.getId()) {
 			case R.id.DungeonFragment_button1:
 				// “GAƒ{ƒ^ƒ“
-				mListener.onBattleStart();
+				mBattleStartListener.onBattleStart();
 				break;
 			case R.id.DungeonFragment_button2:
 				// “GBƒ{ƒ^ƒ“
@@ -59,11 +61,10 @@ public class DungeonFragment extends Fragment implements OnClickListener {
 	}
 
 	public void setOnBattleStartListener(OnBattleStartListener listener) {
-		this.mListener = listener;
+		this.mBattleStartListener = listener;
 	}
 
 	public interface OnBattleStartListener extends EventListener {
 		void onBattleStart();
 	}
-
 }

@@ -20,7 +20,7 @@ public class StartFragment extends Fragment implements OnClickListener {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_start, container, false);
+		View v = inflater.inflate(R.layout.fragment_home_start, container, false);
 		Context context = getActivity();
 
 		setViews(v);

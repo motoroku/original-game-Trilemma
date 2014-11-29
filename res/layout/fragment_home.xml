@@ -65,6 +65,7 @@
         android:id="@+id/HomeFragment_LinearLayout_menu"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:background="#000000"
         android:orientation="horizontal" >
 
         <RadioGroup
