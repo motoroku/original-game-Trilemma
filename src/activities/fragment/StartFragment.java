@@ -33,7 +33,7 @@ public class StartFragment extends Fragment implements OnClickListener {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 			case R.id.StartFragment_button_start:
-				mListener.onGameStart();
+				mListener.onStartGame();
 				break;
 
 			default:
@@ -53,6 +53,6 @@ public class StartFragment extends Fragment implements OnClickListener {
 	}
 
 	public interface OnGameStartListener extends EventListener {
-		void onGameStart();
+		void onStartGame();
 	}
 }

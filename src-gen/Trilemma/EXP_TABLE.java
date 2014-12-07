@@ -9,7 +9,6 @@ public class EXP_TABLE {
     private Long id;
     private Integer level;
     private Integer necessary_exp;
-    private java.util.Date last_updatetime;
 
     public EXP_TABLE() {
     }
@@ -18,11 +17,10 @@ public class EXP_TABLE {
         this.id = id;
     }
 
-    public EXP_TABLE(Long id, Integer level, Integer necessary_exp, java.util.Date last_updatetime) {
+    public EXP_TABLE(Long id, Integer level, Integer necessary_exp) {
         this.id = id;
         this.level = level;
         this.necessary_exp = necessary_exp;
-        this.last_updatetime = last_updatetime;
     }
 
     public Long getId() {
@@ -47,14 +45,6 @@ public class EXP_TABLE {
 
     public void setNecessary_exp(Integer necessary_exp) {
         this.necessary_exp = necessary_exp;
-    }
-
-    public java.util.Date getLast_updatetime() {
-        return last_updatetime;
-    }
-
-    public void setLast_updatetime(java.util.Date last_updatetime) {
-        this.last_updatetime = last_updatetime;
     }
 
 }

@@ -16,11 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-public class HomeFragment extends Fragment implements OnClickListener {
+public class HomeFragment extends Fragment implements OnClickListener, OnItemClickListener {
 
 	OnSelectedHomeMenuListener mSelectedHomeMenuListener;
 
@@ -33,6 +35,8 @@ public class HomeFragment extends Fragment implements OnClickListener {
 	private ArrayAdapter<String> mAdapter;
 
 	private List<String> list = new ArrayList<String>();
+
+	private int count = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,7 +55,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.HomeFragment_radio0_story:
-				mSelectedHomeMenuListener.onSelectedStory();
+				mSelectedHomeMenuListener.onSelectedStoryList();
 				break;
 			case R.id.HomeFragment_radio1_adventure:
 				mSelectedHomeMenuListener.onSelectedAdventure();
@@ -85,9 +89,20 @@ public class HomeFragment extends Fragment implements OnClickListener {
 		mMessageWindow = (ListView) v.findViewById(R.id.HomeFragment_listView1);
 		mAdapter = new ArrayAdapter<String>(v.getContext(), R.layout.list_row, list);
 		mMessageWindow.setAdapter(mAdapter);
+		mMessageWindow.setOnItemClickListener(this);
+
 	}
 
 	public void setOnHomeMenuListener(OnSelectedHomeMenuListener listener) {
 		this.mSelectedHomeMenuListener = listener;
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		ListView list = (ListView) parent;
+
+		String selectedItem = (String) list.getItemAtPosition(position);
+		count++;
+		mAdapter.add(selectedItem + Integer.toString(count));
 	}
 }

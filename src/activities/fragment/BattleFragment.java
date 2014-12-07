@@ -71,12 +71,12 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		battleSystem = new BattleSystem();
 
 		mTextViewA1.setText("PLAYER");
-		mTextViewB1.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).hp);
-		mTextViewC1.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).sp);
+		mTextViewB1.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).maxHp);
+		mTextViewC1.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).maxSp);
 
 		mTextViewA2.setText("NPC");
-		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).hp);
-		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).sp);
+		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).maxHp);
+		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).maxSp);
 
 		mAdapterA.add("ìGÇ™åªÇÍÇΩÅI");
 
@@ -110,7 +110,7 @@ public class BattleFragment extends Fragment implements OnClickListener {
 				startAction(SelectedActionList.charge);
 				break;
 			case R.id.BattleFragment_button_xxx:
-				mListener.onBattleEnd();
+				mListener.onEndBattle();
 				break;
 			case R.id.BattleFragment_button_yyy:
 				resetBattleSystem();
@@ -126,10 +126,10 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		}
 
 		mListViewA.setSelection(mAdapterA.getCount());
-		mTextViewB1.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).hp);
-		mTextViewC1.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).sp);
-		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).hp);
-		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).sp);
+		mTextViewB1.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).maxHp);
+		mTextViewC1.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).maxSp);
+		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).maxHp);
+		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).maxSp);
 	}
 
 	private void startAction(SelectedActionList selectedAction) {
@@ -150,7 +150,7 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	}
 
 	private boolean isBattleEnd() {
-		return battleSystem.battleElements.getEnemy().hp <= 0;
+		return battleSystem.battleElements.getEnemy().maxHp <= 0;
 	}
 
 	private void resetBattleSystem() {
@@ -213,7 +213,7 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	}
 
 	public interface OnBattleEndListener extends EventListener {
-		void onBattleEnd();
+		void onEndBattle();
 	}
 
 }

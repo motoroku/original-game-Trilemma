@@ -15,7 +15,7 @@
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/magician" />
+        android:src="@drawable/ch_magician_01" />
 
     <Button
         android:id="@+id/StartFragment_button_start"

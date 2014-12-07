@@ -20,7 +20,7 @@ public class SkillManager {
 			else if (elements.result == BattleResult.clash) {
 				Skill targetSkill = elements.getTargetSkill();
 				// スキル使用者が勝利してる場合
-				if (actorSkill.point > targetSkill.point) {
+				if (actorSkill.effetPoint > targetSkill.effetPoint) {
 					skillCollection.actAttackSkillOnClash(elements);
 				}
 			}

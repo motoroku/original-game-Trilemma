@@ -42,8 +42,8 @@ public class BattleSystem {
 
 		// -------------------------------------------------------------------------------------------
 		// âÊñ èoóÕóp
-		playerAction = battleElements.playerTrunHistoryList.get(battleElements.playerTrunHistoryList.size() - 1).action.getActionStatusName();
-		enemyAction = battleElements.enemyTurnHistoryList.get(battleElements.enemyTurnHistoryList.size() - 1).action.getActionStatusName();
+		playerAction = battleElements.playerTrunHistoryList.get(battleElements.playerTrunHistoryList.size() - 1).action.getValue();
+		enemyAction = battleElements.enemyTurnHistoryList.get(battleElements.enemyTurnHistoryList.size() - 1).action.getValue();
 		setEnemyActionRate();
 		// -------------------------------------------------------------------------------------------
 

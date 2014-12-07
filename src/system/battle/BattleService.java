@@ -21,6 +21,7 @@ public class BattleService {
 		if (actor == BattleStatus.PLAYER) {
 			elements.getPlayer().usingSkill = elements.getPlayer().skillList[elements.inputButton];
 		} else if (actor == BattleStatus.ENEMY) {
+			// TODO:
 			int num = ((Enemy) elements.getEnemy()).getEnemyAction(elements);
 			elements.getEnemy().usingSkill = elements.getEnemy().skillList[num];
 			if (!isEnoughSkillPoint(elements.getEnemy().usingSkill, elements.getEnemy())) {
@@ -36,7 +37,7 @@ public class BattleService {
 	 * @return
 	 */
 	public boolean isEnoughSkillPoint(Skill skill, CharacterEntity character) {
-		return character.sp >= skill.necessarySkillPoint;
+		return character.maxSp >= skill.skillPoint;
 	}
 
 	/**
@@ -83,7 +84,7 @@ public class BattleService {
 		elements.actor = null;
 		elements.target = null;
 
-		((Enemy) elements.getEnemy()).resetRate(elements);
+		((Enemy) elements.getEnemy()).resetRate();
 
 		elements.turnCount++;
 		return true;

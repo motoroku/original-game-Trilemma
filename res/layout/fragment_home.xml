@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/HomeFragment_main"
+        android:background="#FFFFFF"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -50,7 +52,7 @@
                 android:id="@+id/HomeFragment_imageView1"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:src="@drawable/octpas" />
+                android:src="@drawable/mo_octpas_01" />
 
             <ListView
                 android:id="@+id/HomeFragment_listView1"
@@ -58,6 +60,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1.5" >
             </ListView>
+
         </LinearLayout>
     </LinearLayout>
 
@@ -67,12 +70,6 @@
         android:layout_height="48dp"
         android:background="#000000"
         android:orientation="horizontal" >
-
-        <RadioGroup
-            android:id="@+id/HomeFragment_radioGroup1_menuButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" >
 
             <RadioButton
                 android:id="@+id/HomeFragment_radio0_story"
@@ -114,7 +111,6 @@
                 android:layout_weight="1"
                 android:background="@drawable/button_setting"
                 android:button="@null" />
-        </RadioGroup>
     </LinearLayout>
 
 </LinearLayout>

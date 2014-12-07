@@ -26,14 +26,4 @@ public class EnemyAI implements iEnemyAI {
 		}
 		return result;
 	}
-
-	@Override
-	public Enemy resetRate(Enemy enemy, BattleElements elements) {
-		if (enemy.sp == 0) {
-			enemy.attackRate = 0;
-		} else {
-			enemy.attackRate = enemy.baseAttackRate;
-		}
-		return enemy;
-	}
 }

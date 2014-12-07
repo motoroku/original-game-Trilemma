@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_weight="0.16"
-        android:src="@drawable/ailian" />
+        android:src="@drawable/mo_ailian_01" />
 
     <ListView
         android:id="@+id/BattleFragment_listViewA"

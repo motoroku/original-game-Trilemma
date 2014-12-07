@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/PeopleFragment_peopleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="名無しさん"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ImageView
+        android:id="@+id/PeopleFragment_peopleImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ch_message_03_noimage" />
+
+    <TextView
+        android:id="@+id/PeopleFragment_peopleSerif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="見なかったことにしてください。。。" />
+
+</LinearLayout>

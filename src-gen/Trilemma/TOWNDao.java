@@ -40,7 +40,7 @@ public class TOWNDao extends AbstractDao<TOWN, Long> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "'TOWN' (" + //
-                "'_id' INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE ," + // 0: id
+                "'_id' INTEGER PRIMARY KEY ," + // 0: id
                 "'TOWN_NAME' TEXT);"); // 1: town_name
     }
 

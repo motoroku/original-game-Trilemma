@@ -1,29 +1,27 @@
 package entity.skill;
 
-import entity.BattleStatus;
+import Trilemma.M_SKILLTYPE;
+import Trilemma.SKILL;
 import entity.BattleStatus.ActionStatus;
-import entity.BattleStatus.SkillType;
 import entity.BattleStatus.TargetStatus;
 
 public class Skill {
 
 	public ActionStatus actionStatus;
 	public TargetStatus target;
-	public int necessarySkillPoint;
-	public int point;
-	public SkillType type;
+	public int skillPoint;
+	public int effetPoint;
 	public String skillName;
+	public M_SKILLTYPE type;
 
 	public Skill() {
 	}
 
-	public Skill(TargetStatus target, int point, int skillPoint, ActionStatus status, SkillType type, String skillName) {
-		this.actionStatus = status;
-		this.point = point;
-		this.necessarySkillPoint = skillPoint;
-		this.target = target;
-		this.type = type;
-		this.skillName = skillName;
+	public Skill(SKILL skill) {
+		this.actionStatus = ActionStatus.fromValue(skill.getM_SKILLTYPE().getM_ACTIONSTATUS().getAction_status());
+		this.effetPoint = skill.getEffect_point();
+		this.skillPoint = skill.getSkill_point();
+		this.skillName = skill.getSkill_name();
+		this.type = skill.getM_SKILLTYPE();
 	}
-
 }

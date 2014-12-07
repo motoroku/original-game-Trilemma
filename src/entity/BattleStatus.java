@@ -13,31 +13,33 @@ public class BattleStatus {
 	// ---------------------------------------------------
 	// Enum
 	public enum ActionStatus {
-		UŒ‚ {
-			public String value = "Attack";
+		UŒ‚("UŒ‚"), –hŒä("–hŒä"), ƒ`ƒƒ[ƒW("ƒ`ƒƒ[ƒW");
 
-			@Override
-			public String getActionStatusName() {
-				return value;
-			}
-		},
-		–hŒä {
-			public String value = "Deffence";
+		public String getValue() {
+			return type;
+		}
 
-			@Override
-			public String getActionStatusName() {
-				return value;
-			}
-		},
-		ƒ`ƒƒ[ƒW {
-			public String value = "Charge";
+		private String type;
 
-			@Override
-			public String getActionStatusName() {
-				return value;
+		private ActionStatus(String type) {
+			this.type = type;
+		}
+
+		private String toValue() {
+			return type;
+		}
+
+		public static ActionStatus fromValue(String type) {
+			ActionStatus result = ActionStatus.UŒ‚;
+
+			for (ActionStatus status : values()) {
+				if (status.toValue() == type) {
+					result = status;
+				}
 			}
-		};
-		public abstract String getActionStatusName();
+
+			return result;
+		}
 	}
 
 	// ---------------------------------------------------

@@ -24,11 +24,11 @@ public class BattleElements {
 	public List<TurnAction> enemyTurnHistoryList = new ArrayList<TurnAction>();
 
 	public BattleElements() {
-		CharacterEntity player = new Player(BattleStatus.PLAYER);
-		CharacterEntity npc = new Enemy(BattleStatus.ENEMY);
+		// CharacterEntity player = new Player(BattleStatus.PLAYER);
+		// CharacterEntity npc = new Enemy(BattleStatus.ENEMY);
 
-		characterMap.put(BattleStatus.PLAYER, player);
-		characterMap.put(BattleStatus.ENEMY, npc);
+		// characterMap.put(BattleStatus.PLAYER, player);
+		// characterMap.put(BattleStatus.ENEMY, npc);
 	}
 
 	public void setPlayerTurn() {

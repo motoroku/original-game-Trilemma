@@ -26,7 +26,6 @@ public class EXP_TABLEDao extends AbstractDao<EXP_TABLE, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Level = new Property(1, Integer.class, "level", false, "LEVEL");
         public final static Property Necessary_exp = new Property(2, Integer.class, "necessary_exp", false, "NECESSARY_EXP");
-        public final static Property Last_updatetime = new Property(3, java.util.Date.class, "last_updatetime", false, "LAST_UPDATETIME");
     };
 
 
@@ -44,8 +43,7 @@ public class EXP_TABLEDao extends AbstractDao<EXP_TABLE, Long> {
         db.execSQL("CREATE TABLE " + constraint + "'EXP__TABLE' (" + //
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
                 "'LEVEL' INTEGER," + // 1: level
-                "'NECESSARY_EXP' INTEGER," + // 2: necessary_exp
-                "'LAST_UPDATETIME' INTEGER);"); // 3: last_updatetime
+                "'NECESSARY_EXP' INTEGER);"); // 2: necessary_exp
     }
 
     /** Drops the underlying database table. */
@@ -73,11 +71,6 @@ public class EXP_TABLEDao extends AbstractDao<EXP_TABLE, Long> {
         if (necessary_exp != null) {
             stmt.bindLong(3, necessary_exp);
         }
- 
-        java.util.Date last_updatetime = entity.getLast_updatetime();
-        if (last_updatetime != null) {
-            stmt.bindLong(4, last_updatetime.getTime());
-        }
     }
 
     /** @inheritdoc */
@@ -92,8 +85,7 @@ public class EXP_TABLEDao extends AbstractDao<EXP_TABLE, Long> {
         EXP_TABLE entity = new EXP_TABLE( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // level
-            cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2), // necessary_exp
-            cursor.isNull(offset + 3) ? null : new java.util.Date(cursor.getLong(offset + 3)) // last_updatetime
+            cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2) // necessary_exp
         );
         return entity;
     }
@@ -104,7 +96,6 @@ public class EXP_TABLEDao extends AbstractDao<EXP_TABLE, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setLevel(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
         entity.setNecessary_exp(cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2));
-        entity.setLast_updatetime(cursor.isNull(offset + 3) ? null : new java.util.Date(cursor.getLong(offset + 3)));
      }
     
     /** @inheritdoc */

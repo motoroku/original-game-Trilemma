@@ -37,7 +37,7 @@ public class AdventureFragment extends Fragment implements OnClickListener {
 		switch (v.getId()) {
 			case R.id.DungeonFragment_button1:
 				// “GAƒ{ƒ^ƒ“
-				mBattleStartListener.onBattleStart();
+				mBattleStartListener.onStartBattle();
 				break;
 			case R.id.DungeonFragment_button2:
 				// “GBƒ{ƒ^ƒ“
@@ -65,6 +65,6 @@ public class AdventureFragment extends Fragment implements OnClickListener {
 	}
 
 	public interface OnBattleStartListener extends EventListener {
-		void onBattleStart();
+		void onStartBattle();
 	}
 }

@@ -1,20 +1,28 @@
 package activities;
 
 import listener.OnSelectedHomeMenuListener;
+import listener.OnSelectedPeopleListener;
+import listener.OnSelectedStoryListener;
 
 import com.games.Trilemma.R;
 
+import dao.DaoManager;
+
+import Trilemma.PEOPLE;
+import Trilemma.TOWN;
 import activities.fragment.BattleFragment;
 import activities.fragment.AdventureFragment;
 import activities.fragment.CustomizeFragment;
 import activities.fragment.HomeFragment;
+import activities.fragment.PeopleListFragment;
 import activities.fragment.SettingFragment;
 import activities.fragment.ShopFragment;
 import activities.fragment.StartFragment;
+import activities.fragment.PeopleFragment;
 import activities.fragment.BattleFragment.OnBattleEndListener;
 import activities.fragment.AdventureFragment.OnBattleStartListener;
 import activities.fragment.StartFragment.OnGameStartListener;
-import activities.fragment.StoryFragment;
+import activities.fragment.StoryListFragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -24,12 +32,15 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-public class MainActivity extends FragmentActivity implements OnGameStartListener, OnSelectedHomeMenuListener, OnBattleStartListener, OnBattleEndListener {
+public class MainActivity extends FragmentActivity implements OnGameStartListener, OnSelectedHomeMenuListener, OnBattleStartListener,
+		OnBattleEndListener, OnSelectedStoryListener, OnSelectedPeopleListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		DaoManager daoManager = new DaoManager(this);
 
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
@@ -42,7 +53,7 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 	}
 
 	@Override
-	public void onGameStart() {
+	public void onStartGame() {
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		HomeFragment mHomeFragment = new HomeFragment();
@@ -54,15 +65,17 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 	}
 
 	@Override
-	public void onSelectedStory() {
+	public void onSelectedStoryList() {
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
-		StoryFragment mStoryFragment = new StoryFragment();
+		StoryListFragment mStoryListFragment = new StoryListFragment();
+		// set listener
+		mStoryListFragment.setOnStoryListener(this);
 		// remove view
 		LinearLayout main = (LinearLayout) this.findViewById(R.id.HomeFragment_main);
 		main.removeAllViews();
 		// set fragment
-		ft.add(R.id.HomeFragment_main, mStoryFragment);
+		ft.add(R.id.HomeFragment_main, mStoryListFragment);
 		ft.commit();
 	}
 
@@ -121,22 +134,62 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 	}
 
 	@Override
-	public void onBattleStart() {
+	public void onStartBattle() {
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		BattleFragment mBattleFragment = new BattleFragment();
 		mBattleFragment.setOnBattleEndListener(this);
-		ft.replace(R.id.MainActivity_frame, mBattleFragment);
+		ft.replace(R.id.HomeFragment_main, mBattleFragment);
 		ft.commit();
 	}
 
 	@Override
-	public void onBattleEnd() {
+	public void onEndBattle() {
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		HomeFragment mHomeFragment = new HomeFragment();
 		mHomeFragment.setOnHomeMenuListener(this);
 		ft.replace(R.id.MainActivity_frame, mHomeFragment);
+		ft.commit();
+	}
+
+	@Override
+	public void OnSelectedTown(TOWN town) {
+		FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+		PeopleListFragment mPeopleListFragment = new PeopleListFragment();
+		// set bundles
+		Bundle bundle = new Bundle();
+		bundle.putLong("id", town.getId());
+		bundle.putString("name", town.getTown_name());
+		mPeopleListFragment.setArguments(bundle);
+		// set listener
+		mPeopleListFragment.setOnSelectedPeopleListener(this);
+		// remove view
+		LinearLayout main = (LinearLayout) this.findViewById(R.id.HomeFragment_main);
+		main.removeAllViews();
+		// set fragment
+		ft.add(R.id.HomeFragment_main, mPeopleListFragment);
+		ft.commit();
+	}
+
+	@Override
+	public void OnSelectedPeople(PEOPLE people) {
+		FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+		PeopleFragment mPeopleFragment = new PeopleFragment();
+		// set bundles
+		Bundle bundle = new Bundle();
+		bundle.putLong("id", people.getId());
+		bundle.putInt("image_no", people.getImgae_no());
+		bundle.putString("name", people.getPeople_name());
+		bundle.putString("serif", people.getSerif());
+		mPeopleFragment.setArguments(bundle);
+		// remove view
+		LinearLayout main = (LinearLayout) this.findViewById(R.id.HomeFragment_main);
+		main.removeAllViews();
+		// set fragment
+		ft.add(R.id.HomeFragment_main, mPeopleFragment);
 		ft.commit();
 	}
 

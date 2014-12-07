@@ -1,8 +1,6 @@
 package entity;
 
 import entity.BattleStatus.ActionStatus;
-import entity.BattleStatus.SkillType;
-import entity.BattleStatus.TargetStatus;
 import entity.skill.Skill;
 
 public class CharacterEntity {
@@ -15,26 +13,21 @@ public class CharacterEntity {
 
 	public Skill usingSkill;
 
-	public int hp;
-	public int sp;
+	public int level;
+	public int maxHp;
+	public int maxSp;
+	public int currentHp;
+	public int currentSp;
+
+	public static final int SKILL_SIZE = 7;
 
 	public CharacterEntity() {
 	}
 
 	public CharacterEntity(String name) {
 		this.name = name;
-		skillList = new Skill[7];
+		skillList = new Skill[SKILL_SIZE];
 		itemList = new Item[4];
-
-		for (int i = 0; i < skillList.length - 2; i++) {
-			skillList[i] = new Skill();
-		}
-
-		skillList[5] = new Skill(TargetStatus.self, 0, 0, ActionStatus.防御, SkillType.Defense, "通常防御");
-		skillList[6] = new Skill(TargetStatus.self, 0, 0, ActionStatus.チャージ, SkillType.Charge, "通常チャージ");
-
-		hp = 100;
-		sp = 0;
 	}
 
 	public ActionStatus getActionStatus() {
@@ -42,6 +35,30 @@ public class CharacterEntity {
 	}
 
 	public boolean isEmptySkillPoint() {
-		return sp == 0;
+		return maxSp == 0;
+	}
+
+	public Skill getDefenseSkill() {
+		Skill defense = null;
+
+		for (int i = 0; i < skillList.length; i++) {
+			if (skillList[i].type.getId() == 2) {
+				defense = skillList[i];
+			}
+		}
+
+		return defense;
+	}
+
+	public Skill getChargeSkill() {
+		Skill charge = null;
+
+		for (int i = 0; i < skillList.length; i++) {
+			if (skillList[i].type.getId() == 3) {
+				charge = skillList[i];
+			}
+		}
+
+		return charge;
 	}
 }
