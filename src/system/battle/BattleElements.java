@@ -10,6 +10,7 @@ import entity.CharacterEntity;
 import entity.Enemy;
 import entity.Player;
 import entity.BattleStatus.BattleResult;
+import entity.BattleStatus.SelectedActionList;
 import entity.TurnAction;
 import entity.skill.Skill;
 
@@ -29,6 +30,11 @@ public class BattleElements {
 
 		// characterMap.put(BattleStatus.PLAYER, player);
 		// characterMap.put(BattleStatus.ENEMY, npc);
+	}
+
+	public BattleElements(Player player, Enemy enemy) {
+		characterMap.put(BattleStatus.PLAYER, player);
+		characterMap.put(BattleStatus.ENEMY, enemy);
 	}
 
 	public void setPlayerTurn() {
@@ -92,5 +98,18 @@ public class BattleElements {
 
 	public Skill getTargetSkill() {
 		return target.usingSkill;
+	}
+
+	public int getInputButton(SelectedActionList selectedAction) {
+		int result = SelectedActionList.defense.getActionNo();
+		if (selectedAction == SelectedActionList.defense) {
+			result = SelectedActionList.defense.getActionNo();
+		} else if (selectedAction == SelectedActionList.charge) {
+			result = SelectedActionList.charge.getActionNo();
+		} else {
+			result = selectedAction.getActionNo();
+		}
+		return result;
+
 	}
 }

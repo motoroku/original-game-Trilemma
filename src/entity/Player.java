@@ -3,13 +3,14 @@ package entity;
 import java.util.List;
 
 import Trilemma.LEARNED_SKILL;
+import Trilemma.SKILL;
 import entity.skill.Skill;
 
 public class Player extends CharacterEntity {
 
 	private static final int SKILL_SIZE_CUSTAMIZE = 5;
 
-	public Player(String name, List<LEARNED_SKILL> skillList) {
+	public Player(String name, List<LEARNED_SKILL> learnedSkillList, List<SKILL> skillList, SKILL defense, SKILL charge) {
 		super(name);
 
 		level = 1;
@@ -20,14 +21,22 @@ public class Player extends CharacterEntity {
 
 		this.characterType = BattleStatus.PLAYER;
 
-		for (int i = 0; i < SKILL_SIZE_CUSTAMIZE; i++) {
-			for (int j = 0; j < skillList.size(); j++) {
-				if (skillList.get(i).getIs_set_flg() && skillList.get(i).getPosition_no() == i) {
-					this.skillList[i] = new Skill(skillList.get(i).getSKILL());
+		this.skillList[0] = new Skill(defense);
+		this.skillList[1] = new Skill(charge);
+
+		// TODO:イマイチ保証になってない
+		if (skillList.size() == learnedSkillList.size()) {
+			for (int i = 0; i < skillList.size(); i++) {
+				if (!learnedSkillList.get(i).getIs_set_flg()) {
+					skillList.remove(i);
+					learnedSkillList.remove(i);
 				}
 			}
 		}
-		this.skillList[CharacterEntity.SKILL_SIZE - SKILL_SIZE_CUSTAMIZE - 1] = getDefenseSkill();
-		this.skillList[CharacterEntity.SKILL_SIZE - SKILL_SIZE_CUSTAMIZE] = getChargeSkill();
+
+		for (int i = 0; i < this.skillList.length - 2; i++) {
+			this.skillList[i + 2] = new Skill(skillList.get(i));
+		}
+
 	}
 }

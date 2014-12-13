@@ -1,28 +1,28 @@
 package activities;
 
-import listener.OnSelectedHomeMenuListener;
-import listener.OnSelectedPeopleListener;
-import listener.OnSelectedStoryListener;
-
 import com.games.Trilemma.R;
 
 import dao.DaoManager;
 
+import Trilemma.DUNGEON;
 import Trilemma.PEOPLE;
 import Trilemma.TOWN;
 import activities.fragment.BattleFragment;
-import activities.fragment.AdventureFragment;
+import activities.fragment.DungeonFragment;
 import activities.fragment.CustomizeFragment;
 import activities.fragment.HomeFragment;
+import activities.fragment.HomeFragment.OnSelectedHomeMenuListener;
 import activities.fragment.PeopleListFragment;
+import activities.fragment.PeopleListFragment.OnSelectedPeopleListener;
 import activities.fragment.SettingFragment;
 import activities.fragment.ShopFragment;
 import activities.fragment.StartFragment;
 import activities.fragment.PeopleFragment;
 import activities.fragment.BattleFragment.OnBattleEndListener;
-import activities.fragment.AdventureFragment.OnBattleStartListener;
+import activities.fragment.DungeonFragment.OnBattleStartListener;
 import activities.fragment.StartFragment.OnGameStartListener;
 import activities.fragment.StoryListFragment;
+import activities.fragment.StoryListFragment.OnSelectedStoryListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -83,7 +83,7 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 	public void onSelectedAdventure() {
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
-		AdventureFragment mDungeonFragment = new AdventureFragment();
+		DungeonFragment mDungeonFragment = new DungeonFragment();
 		// set listener
 		mDungeonFragment.setOnBattleStartListener(this);
 		// remove view
@@ -134,10 +134,17 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 	}
 
 	@Override
-	public void onStartBattle() {
+	public void onStartBattle(DUNGEON dungeon) {
+		// TODO Auto-generated method stub
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		BattleFragment mBattleFragment = new BattleFragment();
+		// set bundles
+		Bundle bundle = new Bundle();
+		bundle.putLong("id", dungeon.getId());
+		bundle.putString("name", dungeon.getDungeon_name());
+		mBattleFragment.setArguments(bundle);
+		// set listener
 		mBattleFragment.setOnBattleEndListener(this);
 		ft.replace(R.id.HomeFragment_main, mBattleFragment);
 		ft.commit();

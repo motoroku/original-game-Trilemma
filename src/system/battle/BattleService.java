@@ -1,6 +1,7 @@
 package system.battle;
 
 import entity.BattleStatus;
+import entity.BattleStatus.SelectedActionList;
 import entity.CharacterEntity;
 import entity.Enemy;
 import entity.BattleStatus.ActionStatus;
@@ -31,13 +32,31 @@ public class BattleService {
 	}
 
 	/**
+	 * 選択したスキルが設定されているかどうかを判定する
+	 * @param selectedAction
+	 * @param elements
+	 * @return 設定されているとtrue.設定されていないとfalse.
+	 */
+	public boolean isSetSkill(SelectedActionList selectedAction, BattleElements elements) {
+		int num = elements.getInputButton(selectedAction);
+
+		Skill skill = elements.getPlayer().skillList[num];
+
+		if (skill != null) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * 使用スキルの必要スキルポイントを持っているかどうかを判定する
 	 * @param buttonNum
 	 * @param character
 	 * @return
 	 */
 	public boolean isEnoughSkillPoint(Skill skill, CharacterEntity character) {
-		return character.maxSp >= skill.skillPoint;
+		return character.currentSp >= skill.skillPoint;
 	}
 
 	/**

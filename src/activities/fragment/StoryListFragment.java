@@ -3,9 +3,6 @@ package activities.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import listener.OnSelectedHomeMenuListener;
-import listener.OnSelectedStoryListener;
-
 import com.games.Trilemma.R;
 
 import dao.DaoManager;
@@ -70,5 +67,9 @@ public class StoryListFragment extends Fragment implements OnClickListener, OnIt
 
 	public void setOnStoryListener(OnSelectedStoryListener listener) {
 		this.mSelectedStorylistener = listener;
+	}
+
+	public interface OnSelectedStoryListener {
+		void OnSelectedTown(TOWN town);
 	}
 }

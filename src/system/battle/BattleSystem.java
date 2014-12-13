@@ -1,25 +1,39 @@
 package system.battle;
 
+import Trilemma.CHARACTER;
 import entity.BattleStatus;
 import entity.CharacterEntity;
 import entity.BattleStatus.SelectedActionList;
 import entity.Enemy;
+import entity.Player;
+import entity.skill.Skill;
 
 public class BattleSystem {
-	BattleService battleService;
+	BattleService battleService = new BattleService();
 	public BattleElements battleElements;
 
 	// -------------------------------------------------------------------------------------------
 	// 画面出力用
 	public String playerAction;
+	public String playerSkill;
 	public String enemyAction;
+	public String enemySkill;
 	public String enemyActionRate;
 
 	// -------------------------------------------------------------------------------------------
 
 	public BattleSystem() {
-		battleService = new BattleService();
 		battleElements = new BattleElements();
+		setEnemyActionRate();
+	}
+
+	/**
+	 * 敵キャラクターのみ選択
+	 * @param enemy 選択された敵キャラクター
+	 */
+	public BattleSystem(Player player, Enemy enemy) {
+		// TODO Auto-generated constructor stub
+		battleElements = new BattleElements(player, enemy);
 		setEnemyActionRate();
 	}
 
@@ -29,7 +43,7 @@ public class BattleSystem {
 	 */
 	public void StartBattle(SelectedActionList selectedAction) {
 		// 画面から入力されたボタンを設定する
-		battleElements.inputButton = selectedAction.getActionNo();
+		battleElements.inputButton = battleElements.getInputButton(selectedAction);
 		// NPCの行動を決定する
 		battleService.getAction(battleElements, BattleStatus.ENEMY);
 		// プレイヤーの行動を設定する
@@ -43,7 +57,9 @@ public class BattleSystem {
 		// -------------------------------------------------------------------------------------------
 		// 画面出力用
 		playerAction = battleElements.playerTrunHistoryList.get(battleElements.playerTrunHistoryList.size() - 1).action.getValue();
+		playerSkill = battleElements.playerTrunHistoryList.get(battleElements.playerTrunHistoryList.size() - 1).skill.skillName;
 		enemyAction = battleElements.enemyTurnHistoryList.get(battleElements.enemyTurnHistoryList.size() - 1).action.getValue();
+		enemySkill = battleElements.enemyTurnHistoryList.get(battleElements.enemyTurnHistoryList.size() - 1).skill.skillName;
 		setEnemyActionRate();
 		// -------------------------------------------------------------------------------------------
 
@@ -57,8 +73,12 @@ public class BattleSystem {
 		return isEnd;
 	}
 
-	public boolean isHaveNecessaryPoint(SelectedActionList selectedSkill, CharacterEntity character) {
-		return battleService.isEnoughSkillPoint(character.skillList[selectedSkill.getActionNo()], character);
+	public boolean isHaveNecessaryPoint(SelectedActionList selectedAction, CharacterEntity character) {
+		return battleService.isEnoughSkillPoint(character.skillList[selectedAction.getActionNo()], character);
+	}
+
+	public boolean isSetSkill(SelectedActionList selectedAction, BattleElements elements) {
+		return battleService.isSetSkill(selectedAction, elements);
 	}
 
 	private void setEnemyActionRate() {

@@ -33,7 +33,7 @@ public class BattleStatus {
 			ActionStatus result = ActionStatus.çUåÇ;
 
 			for (ActionStatus status : values()) {
-				if (status.toValue() == type) {
+				if (status.toValue().equals(type)) {
 					result = status;
 				}
 			}
@@ -90,7 +90,7 @@ public class BattleStatus {
 
 	public enum SelectedActionList {
 		skill1 {
-			public int no = 0;
+			public int no = 2;
 
 			@Override
 			public int getActionNo() {
@@ -98,24 +98,6 @@ public class BattleStatus {
 			}
 		},
 		skill2 {
-			public int no = 1;
-
-			@Override
-			public int getActionNo() {
-				return no;
-			}
-
-		},
-		skill3 {
-			public int no = 2;
-
-			@Override
-			public int getActionNo() {
-				return no;
-			}
-
-		},
-		skill4 {
 			public int no = 3;
 
 			@Override
@@ -124,7 +106,7 @@ public class BattleStatus {
 			}
 
 		},
-		skill5 {
+		skill3 {
 			public int no = 4;
 
 			@Override
@@ -133,7 +115,7 @@ public class BattleStatus {
 			}
 
 		},
-		defense {
+		skill4 {
 			public int no = 5;
 
 			@Override
@@ -142,8 +124,26 @@ public class BattleStatus {
 			}
 
 		},
-		charge {
+		skill5 {
 			public int no = 6;
+
+			@Override
+			public int getActionNo() {
+				return no;
+			}
+
+		},
+		defense {
+			public int no = 0;
+
+			@Override
+			public int getActionNo() {
+				return no;
+			}
+
+		},
+		charge {
+			public int no = 1;
 
 			@Override
 			public int getActionNo() {

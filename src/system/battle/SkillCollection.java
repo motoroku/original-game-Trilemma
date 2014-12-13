@@ -53,7 +53,7 @@ public class SkillCollection {
 		CharacterEntity target = elements.target;
 		CharacterEntity actor = elements.actor;
 
-		target.maxHp = target.maxHp - skill.effetPoint;
+		target.currentHp = target.currentHp - skill.effetPoint;
 
 		elements.target = target;
 		elements.actor = actor;
@@ -71,7 +71,7 @@ public class SkillCollection {
 		CharacterEntity actor = elements.actor;
 
 		Skill targetSkill = target.usingSkill;
-		target.maxHp = target.maxHp - (skill.effetPoint - targetSkill.effetPoint);
+		target.currentHp = target.currentHp - (skill.effetPoint - targetSkill.effetPoint);
 
 		elements.target = target;
 		elements.actor = actor;
@@ -86,7 +86,9 @@ public class SkillCollection {
 	public void chargeSkillPoint(BattleElements elements) {
 		CharacterEntity actor = elements.actor;
 
-		actor.maxSp++;
+		if (actor.maxSp > actor.currentSp) {
+			actor.currentSp++;
+		}
 
 		elements.actor = actor;
 	}
@@ -100,7 +102,7 @@ public class SkillCollection {
 		CharacterEntity actor = elements.actor;
 
 		Skill skill = elements.getActorSkill();
-		actor.maxSp = actor.maxSp - skill.skillPoint;
+		actor.currentSp = actor.currentSp - skill.skillPoint;
 
 		elements.actor = actor;
 	}

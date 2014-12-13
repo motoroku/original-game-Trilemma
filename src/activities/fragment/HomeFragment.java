@@ -1,9 +1,8 @@
 package activities.fragment;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.List;
-
-import listener.OnSelectedHomeMenuListener;
 
 import com.games.Trilemma.R;
 
@@ -104,5 +103,17 @@ public class HomeFragment extends Fragment implements OnClickListener, OnItemCli
 		String selectedItem = (String) list.getItemAtPosition(position);
 		count++;
 		mAdapter.add(selectedItem + Integer.toString(count));
+	}
+
+	public interface OnSelectedHomeMenuListener extends EventListener {
+		void onSelectedStoryList();
+
+		void onSelectedAdventure();
+
+		void onSelectedCustomize();
+
+		void onSelectedShop();
+
+		void onSelectedSetting();
 	}
 }

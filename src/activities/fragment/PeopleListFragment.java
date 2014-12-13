@@ -3,8 +3,6 @@ package activities.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import listener.OnSelectedPeopleListener;
-
 import com.games.Trilemma.R;
 
 import dao.DaoManager;
@@ -68,4 +66,9 @@ public class PeopleListFragment extends Fragment implements OnItemClickListener 
 	public void setOnSelectedPeopleListener(OnSelectedPeopleListener listener) {
 		this.mSelectedPeopleListener = listener;
 	}
+
+	public interface OnSelectedPeopleListener {
+		void OnSelectedPeople(PEOPLE people);
+	}
+
 }
