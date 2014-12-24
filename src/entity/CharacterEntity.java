@@ -14,7 +14,7 @@ public class CharacterEntity {
 	public Skill usingSkill;
 
 	public int level;
-	public int maxHp;
+	public int hp;
 	public int maxSp;
 	public int currentHp;
 	public int currentSp;

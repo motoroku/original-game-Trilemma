@@ -35,10 +35,10 @@ public class Enemy extends CharacterEntity {
 
 		level = characterEntity.getLevel();
 
-		maxHp = characterEntity.getMax_hp();
+		hp = characterEntity.getMax_hp();
 		maxSp = characterEntity.getMax_sp();
 
-		currentHp = maxHp;
+		currentHp = hp;
 		currentSp = characterEntity.getBase_sp();
 
 		baseAttackRate = characterEntity.getBase_attack_rate();

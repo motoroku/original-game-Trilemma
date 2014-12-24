@@ -15,13 +15,13 @@ public class BattleService {
 	/**
 	 * 使用スキルを設定する
 	 * @param elements
-	 * @param actor
+	 * @param actorType
 	 * @return
 	 */
-	public void getAction(BattleElements elements, String actor) {
-		if (actor == BattleStatus.PLAYER) {
+	public void getAction(BattleElements elements, String actorType) {
+		if (actorType == BattleStatus.PLAYER) {
 			elements.getPlayer().usingSkill = elements.getPlayer().skillList[elements.inputButton];
-		} else if (actor == BattleStatus.ENEMY) {
+		} else if (actorType == BattleStatus.ENEMY) {
 			// TODO:
 			int num = ((Enemy) elements.getEnemy()).getEnemyAction(elements);
 			elements.getEnemy().usingSkill = elements.getEnemy().skillList[num];
@@ -62,14 +62,14 @@ public class BattleService {
 	/**
 	 * 戦闘処理を行う。
 	 * @param elements
-	 * @param actor 行動を行うキャラクター
+	 * @param actorType 行動を行うキャラクター
 	 * @return
 	 */
-	public boolean processBattleAction(BattleElements elements, String actor) {
+	public boolean processBattleAction(BattleElements elements, String actorType) {
 		ActionStatus actorAction;
 		ActionStatus receiverAction;
 
-		if (actor == BattleStatus.PLAYER) {
+		if (actorType == BattleStatus.PLAYER) {
 			actorAction = elements.getPlayer().usingSkill.actionStatus;
 			receiverAction = elements.getEnemy().usingSkill.actionStatus;
 		} else {
@@ -80,7 +80,7 @@ public class BattleService {
 		// 使用スキルの勝敗判定を行う
 		elements.result = getActionResult(actorAction, receiverAction);
 		// スキル使用者とその対象を設定する
-		setSkillActor(elements, actor);
+		setSkillActor(elements, actorType);
 		// スキルを発動する処理を行う
 		elements = mSkillManager.transactSkill(elements);
 		// スキルの効果を適用した結果をエレメントのキャラクターに反映させる
@@ -145,13 +145,13 @@ public class BattleService {
 	/**
 	 * 行動するキャラクターとスキルの対象を設定する
 	 * @param elements
-	 * @param actor
+	 * @param actorType
 	 * @return
 	 */
-	private void setSkillActor(BattleElements elements, String actor) {
-		if (actor == BattleStatus.PLAYER) {
+	private void setSkillActor(BattleElements elements, String actorType) {
+		if (actorType == BattleStatus.PLAYER) {
 			elements.setPlayerTurn();
-		} else if (actor == BattleStatus.ENEMY) {
+		} else if (actorType == BattleStatus.ENEMY) {
 			elements.setEnemyTurn();
 		}
 		setTarget(elements);
@@ -164,15 +164,15 @@ public class BattleService {
 	 */
 	private void setTarget(BattleElements elements) {
 		Skill usingSkill = elements.actor.usingSkill;
-		String actor = elements.actor.characterType;
+		String actorType = elements.actor.characterType;
 
-		if (actor == BattleStatus.PLAYER) {
+		if (actorType == BattleStatus.PLAYER) {
 			if (usingSkill.target == TargetStatus.self) {
 				elements.setTargetPlayer();
 			} else if (usingSkill.target == TargetStatus.enemy) {
 				elements.setTargetEnemy();
 			}
-		} else if (actor == BattleStatus.ENEMY) {
+		} else if (actorType == BattleStatus.ENEMY) {
 			if (usingSkill.target == TargetStatus.self) {
 				elements.setTargetEnemy();
 			} else if (usingSkill.target == TargetStatus.enemy) {

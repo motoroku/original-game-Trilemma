@@ -7,6 +7,7 @@ import java.util.List;
 import com.games.Trilemma.R;
 
 import dao.DaoManager;
+import dao.PlayerDto;
 
 import system.battle.BattleSystem;
 import utility.Utility;
@@ -18,10 +19,8 @@ import entity.Enemy;
 import entity.Player;
 
 import Trilemma.CHARACTER;
-import Trilemma.CHARACTERDao.Properties;
 import Trilemma.LEARNED_SKILL;
 import Trilemma.SKILL;
-import Trilemma.SKILLDao;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -102,7 +101,14 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	private void setBattleSetting(View v, Bundle bundle) {
 		DaoManager dao = new DaoManager(v.getContext());
 
-		characterList = dao.session.getCHARACTERDao().queryBuilder().where(Properties.Dungeon_id.eq(bundle.getLong("id"))).list();
+		Enemy enemy = createEnemy(dao, bundle);
+		Player player = createPlayer(dao);
+
+		battleSystem = new BattleSystem(player, enemy);
+	}
+
+	public Enemy createEnemy(DaoManager dao, Bundle bundle) {
+		characterList = dao.getCharacterList(bundle.getLong("id"));
 		int num = Utility.getRandomNum(characterList.size() - 1, true);
 		CHARACTER chara = characterList.get(num);
 
@@ -112,23 +118,24 @@ public class BattleFragment extends Fragment implements OnClickListener {
 			enemySkillList.add(learnedSkillList.get(i).getSKILL());
 		}
 
-		// TODO: マジックナンバーになってるので修正するように！
-		SKILL defense = dao.session.getSKILLDao().queryBuilder().where(Trilemma.SKILLDao.Properties.Skill_type_id.eq((long) 2)).list().get(0);
-		SKILL charge = dao.session.getSKILLDao().queryBuilder().where(Trilemma.SKILLDao.Properties.Skill_type_id.eq((long) 3)).list().get(0);
+		SKILL defense = dao.getDefaultDefenseSkill();
+		SKILL charge = dao.getDefaultChargeSkill();
 		Enemy enemy = new Enemy(chara, enemySkillList, defense, charge);
+		return enemy;
+	}
 
-		// TODO: マジックナンバーになってるので修正するように！
-		playerLearnedSkillList = dao.session.getLEARNED_SKILLDao().queryBuilder()
-				.where(Trilemma.LEARNED_SKILLDao.Properties.Character_id.eq((long) 0)).list();
+	public Player createPlayer(DaoManager dao) {
+		SKILL defense = dao.getDefaultDefenseSkill();
+		SKILL charge = dao.getDefaultChargeSkill();
 
-		for (int i = 0; i < playerLearnedSkillList.size(); i++) {
-			playerSkillList.add(dao.session.getSKILLDao().queryBuilder()
-					.where(Trilemma.SKILLDao.Properties.Id.eq(playerLearnedSkillList.get(i).getSkill_id())).list().get(0));
-		}
+		playerLearnedSkillList = dao.getPlayerLearnedSkill();
+		playerSkillList = dao.getPlayerSkillList(playerLearnedSkillList);
 
-		Player player = new Player(BattleStatus.PLAYER, playerLearnedSkillList, playerSkillList, defense, charge);
+		PlayerDto playerDto = dao.getPlayerDto();
 
-		battleSystem = new BattleSystem(player, enemy);
+		Player player = new Player(playerDto, playerLearnedSkillList, playerSkillList, defense, charge);
+
+		return player;
 	}
 
 	@Override
