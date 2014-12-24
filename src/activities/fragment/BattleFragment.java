@@ -10,6 +10,7 @@ import dao.DaoManager;
 import dao.PlayerDto;
 
 import system.battle.BattleSystem;
+import utility.ImageSelector;
 import utility.Utility;
 
 import entity.BattleStatus;
@@ -30,6 +31,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -54,7 +57,11 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	private TextView mTextViewC1;
 	private TextView mTextViewC2;
 
+	private ImageView mImageView1;
+
 	private ListView mListViewA;
+
+	private LinearLayout mLinearLayout1;
 
 	// ---------------------------------------------------
 	// Adapter
@@ -104,13 +111,18 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		Enemy enemy = createEnemy(dao, bundle);
 		Player player = createPlayer(dao);
 
+		mLinearLayout1.setBackgroundResource(ImageSelector.getBackGround((int) bundle.getLong("id")));
+
 		battleSystem = new BattleSystem(player, enemy);
 	}
 
 	public Enemy createEnemy(DaoManager dao, Bundle bundle) {
+
 		characterList = dao.getCharacterList(bundle.getLong("id"));
 		int num = Utility.getRandomNum(characterList.size() - 1, true);
 		CHARACTER chara = characterList.get(num);
+
+		mImageView1.setBackgroundResource(ImageSelector.getEnemyImage(chara.getImage_no()));
 
 		learnedSkillList = chara.getSkillList();
 
@@ -256,6 +268,10 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		mTextViewB2 = (TextView) v.findViewById(R.id.BattleFragment_textViewB_2);
 		mTextViewC1 = (TextView) v.findViewById(R.id.BattleFragment_textViewC_1);
 		mTextViewC2 = (TextView) v.findViewById(R.id.BattleFragment_textViewC_2);
+
+		mImageView1 = (ImageView) v.findViewById(R.id.BattleFragment_imageView_Enemy);
+
+		mLinearLayout1 = (LinearLayout) v.findViewById(R.id.BattleFragment_EnemybackGround);
 
 		/*
 		 * 画面に表示されるListViewに セットするAdapterとList<String>を紐付けする

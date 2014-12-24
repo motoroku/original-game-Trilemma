@@ -41,7 +41,7 @@ public class PeopleFragment extends Fragment {
 		mName = (TextView) v.findViewById(R.id.PeopleFragment_peopleName);
 		mSerif = (TextView) v.findViewById(R.id.PeopleFragment_peopleSerif);
 
-		mImage.setImageResource(ImageSelector.getImage(image_no));
+		mImage.setImageResource(ImageSelector.getPeopleImage(image_no));
 		mName.setText(name);
 		mSerif.setText(serif);
 	}

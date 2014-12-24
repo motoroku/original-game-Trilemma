@@ -4,7 +4,7 @@ import com.games.Trilemma.R;
 
 public class ImageSelector {
 
-	public static int getImage(int imageId) {
+	public static int getPeopleImage(int imageId) {
 		int result = R.drawable.ch_message_03_noimage;
 
 		switch (imageId) {
@@ -42,4 +42,53 @@ public class ImageSelector {
 
 		return result;
 	}
+
+	public static int getEnemyImage(int imageId) {
+		int result = R.drawable.ch_message_03_noimage;
+
+		switch (imageId) {
+			case 1:
+				result = R.drawable.mo_suraimu_01;
+				break;
+			case 2:
+				result = R.drawable.mo_tori_01;
+				break;
+			case 3:
+				result = R.drawable.mo_boar_01;
+				break;
+			case 4:
+				result = R.drawable.mo_panda_01;
+				break;
+			case 5:
+				result = R.drawable.mo_kinoko_01;
+				break;
+			case 6:
+				result = R.drawable.mo_tokage_01;
+				break;
+		}
+
+		return result;
+	}
+
+	public static int getBackGround(int imageId) {
+		int result = R.drawable.bk_forest_01;
+
+		switch (imageId) {
+			case 1:
+				result = R.drawable.bk_underground_01;
+				break;
+			case 2:
+				result = R.drawable.bk_field_01;
+				break;
+			case 3:
+				result = R.drawable.bk_dungeon_01;
+				break;
+			case 4:
+				result = R.drawable.bk_mountain_01;
+				break;
+		}
+
+		return result;
+	}
+
 }
