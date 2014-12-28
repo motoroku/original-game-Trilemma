@@ -22,11 +22,19 @@ import entity.Player;
 import Trilemma.CHARACTER;
 import Trilemma.LEARNED_SKILL;
 import Trilemma.SKILL;
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup.MarginLayoutParams;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -57,7 +65,8 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	private TextView mTextViewC1;
 	private TextView mTextViewC2;
 
-	private ImageView mImageView1;
+	private ImageView mImageViewEnemy;
+	private ImageView mImageViewPlayer;
 
 	private ListView mListViewA;
 
@@ -81,14 +90,19 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	OnBattleEndListener mListener;
 
 	// ---------------------------------------------------
+	int x;
+	int y;
+
+	// ---------------------------------------------------
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_battle, container, false);
 		Context context = getActivity();
 
+		setDisplaySize(context);
 		setViews(v, context);
-		setBattleSetting(v, getArguments());
+		setBattleSetting(v, context, getArguments());
 
 		mTextViewA1.setText("PLAYER");
 		mTextViewB1.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).currentHp);
@@ -98,31 +112,41 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).currentHp);
 		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).currentSp);
 
-		mAdapterA.add("敵が現れた！");
+		mAdapterA.add(battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).name + "が現れた！");
 
 		mAdapterA.add(battleSystem.enemyActionRate);
 
 		return v;
 	}
 
-	private void setBattleSetting(View v, Bundle bundle) {
+	private void setBattleSetting(View v, Context context, Bundle bundle) {
 		DaoManager dao = new DaoManager(v.getContext());
 
-		Enemy enemy = createEnemy(dao, bundle);
-		Player player = createPlayer(dao);
+		Enemy enemy = createEnemy(dao, bundle, context);
+		Player player = createPlayer(dao, context);
 
 		mLinearLayout1.setBackgroundResource(ImageSelector.getBackGround((int) bundle.getLong("id")));
 
 		battleSystem = new BattleSystem(player, enemy);
 	}
 
-	public Enemy createEnemy(DaoManager dao, Bundle bundle) {
-
+	private Enemy createEnemy(DaoManager dao, Bundle bundle, Context context) {
 		characterList = dao.getCharacterList(bundle.getLong("id"));
 		int num = Utility.getRandomNum(characterList.size() - 1, true);
 		CHARACTER chara = characterList.get(num);
 
-		mImageView1.setBackgroundResource(ImageSelector.getEnemyImage(chara.getImage_no()));
+		int width;
+		int height;
+
+		Bitmap image = BitmapFactory.decodeResource(context.getResources(),
+				ImageSelector.getEnemyImage(chara.getImage_no()));
+
+		width = image.getWidth();
+		height = image.getHeight();
+
+		mImageViewEnemy.setBackgroundResource(ImageSelector.getEnemyImage(chara.getImage_no()));
+		mImageViewEnemy.getLayoutParams().width = width * 3;
+		mImageViewEnemy.getLayoutParams().height = height * 3;
 
 		learnedSkillList = chara.getSkillList();
 
@@ -136,7 +160,18 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		return enemy;
 	}
 
-	public Player createPlayer(DaoManager dao) {
+	private Player createPlayer(DaoManager dao, Context context) {
+		int width;
+		int height;
+
+		Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.player_01);
+
+		width = image.getWidth();
+		height = image.getHeight();
+
+		mImageViewPlayer.getLayoutParams().width = width * 2;
+		mImageViewPlayer.getLayoutParams().height = height * 2;
+
 		SKILL defense = dao.getDefaultDefenseSkill();
 		SKILL charge = dao.getDefaultChargeSkill();
 
@@ -178,8 +213,18 @@ public class BattleFragment extends Fragment implements OnClickListener {
 				mListener.onEndBattle();
 				break;
 			case R.id.BattleFragment_button_yyy:
-				setBattleSetting(v, getArguments());
+				setBattleSetting(v, v.getContext(), getArguments());
 				mAdapterA.clear();
+				mTextViewA1.setText("PLAYER");
+				mTextViewB1
+						.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).currentHp);
+				mTextViewC1
+						.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).currentSp);
+				mTextViewA2.setText("NPC");
+				mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).currentHp);
+				mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).currentSp);
+				mAdapterA.add(battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).name + "が現れた！");
+				mAdapterA.add(battleSystem.enemyActionRate);
 				break;
 			default:
 				break;
@@ -269,9 +314,14 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		mTextViewC1 = (TextView) v.findViewById(R.id.BattleFragment_textViewC_1);
 		mTextViewC2 = (TextView) v.findViewById(R.id.BattleFragment_textViewC_2);
 
-		mImageView1 = (ImageView) v.findViewById(R.id.BattleFragment_imageView_Enemy);
+		mImageViewEnemy = (ImageView) v.findViewById(R.id.BattleFragment_imageView_Enemy);
+		((MarginLayoutParams) mImageViewEnemy.getLayoutParams()).leftMargin = x / 20;
+
+		mImageViewPlayer = (ImageView) v.findViewById(R.id.BattleFragment_imageView_Player);
+		((MarginLayoutParams) mImageViewPlayer.getLayoutParams()).rightMargin = x / 15;
 
 		mLinearLayout1 = (LinearLayout) v.findViewById(R.id.BattleFragment_EnemybackGround);
+		mLinearLayout1.getLayoutParams().height = y / 3;
 
 		/*
 		 * 画面に表示されるListViewに セットするAdapterとList<String>を紐付けする
@@ -289,4 +339,19 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		void onEndBattle();
 	}
 
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+	private void setDisplaySize(Context context) {
+		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+		Point point = new Point();
+
+		if (Build.VERSION.SDK_INT >= 13) {
+			display.getSize(point);
+			x = point.x;
+			y = point.y;
+		} else {
+			x = display.getWidth();
+			y = display.getHeight();
+		}
+	}
 }

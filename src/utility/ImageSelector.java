@@ -48,22 +48,22 @@ public class ImageSelector {
 
 		switch (imageId) {
 			case 1:
-				result = R.drawable.mo_suraimu_01;
+				result = R.drawable.mon_001;
 				break;
 			case 2:
-				result = R.drawable.mo_tori_01;
+				result = R.drawable.mon_050;
 				break;
 			case 3:
-				result = R.drawable.mo_boar_01;
+				result = R.drawable.mon_022;
 				break;
 			case 4:
-				result = R.drawable.mo_panda_01;
+				result = R.drawable.mon_275;
 				break;
 			case 5:
-				result = R.drawable.mo_kinoko_01;
+				result = R.drawable.mon_046;
 				break;
 			case 6:
-				result = R.drawable.mo_tokage_01;
+				result = R.drawable.mon_013;
 				break;
 		}
 

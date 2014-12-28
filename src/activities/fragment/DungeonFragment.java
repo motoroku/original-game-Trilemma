@@ -26,9 +26,6 @@ public class DungeonFragment extends Fragment implements OnClickListener, OnItem
 
 	OnBattleStartListener mBattleStartListener;
 
-	Button mButtonEnemyA;
-	Button mButtonEnemyB;
-	Button mButtonExit;
 	ListView mDungeonList;
 	ArrayAdapter<String> dungeonAdapter;
 	List<DUNGEON> dungeonList = new ArrayList<DUNGEON>();
@@ -55,25 +52,12 @@ public class DungeonFragment extends Fragment implements OnClickListener, OnItem
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-			case R.id.DungeonFragment_button1:
-				// “GAƒ{ƒ^ƒ“
-				mBattleStartListener.onStartBattle(new DUNGEON((long) 1, "test"));
-				break;
-			case R.id.DungeonFragment_button2:
-				// “GBƒ{ƒ^ƒ“
-				break;
 			default:
 				break;
 		}
 	}
 
 	private void setViews(View v) {
-		mButtonEnemyA = (Button) v.findViewById(R.id.DungeonFragment_button1);
-		mButtonEnemyB = (Button) v.findViewById(R.id.DungeonFragment_button2);
-
-		mButtonEnemyA.setOnClickListener(this);
-		mButtonEnemyB.setOnClickListener(this);
-
 		mDungeonList = (ListView) v.findViewById(R.id.DungeonFragment_dungeonList);
 		dungeonAdapter = new ArrayAdapter<>(v.getContext(), R.layout.list_row);
 		mDungeonList.setAdapter(dungeonAdapter);
