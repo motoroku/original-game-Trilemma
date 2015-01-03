@@ -8,8 +8,10 @@ import android.content.Context;
 import Trilemma.CHARACTER;
 import Trilemma.DaoSession;
 import Trilemma.LEARNED_SKILL;
+import Trilemma.PEOPLE;
 import Trilemma.SKILL;
 import Trilemma.CHARACTERDao.Properties;
+import Trilemma.TOWN;
 
 public class DaoManager {
 
@@ -75,5 +77,14 @@ public class DaoManager {
 				.list();
 
 		return list;
+	}
+
+	public TOWN getTownFromPeople(PEOPLE people) {
+		Long peopleId = people.getId();
+		people = session.getPEOPLEDao().queryBuilder().where(Trilemma.PEOPLEDao.Properties.Id.eq(peopleId)).list()
+				.get(0);
+		TOWN town = session.getTOWNDao().queryBuilder().where(Trilemma.TOWNDao.Properties.Id.eq(people.getTown_id()))
+				.list().get(0);
+		return town;
 	}
 }

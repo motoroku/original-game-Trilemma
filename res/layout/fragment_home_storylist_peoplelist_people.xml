@@ -23,4 +23,31 @@
         android:layout_height="wrap_content"
         android:text="見なかったことにしてください。。。" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/PeopleFragment_actionList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/PeopleFragment_actionButton_talk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="話を聞く" />
+
+            <Button
+                android:id="@+id/PeopleFragment__actionButton_leave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="立ち去る" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

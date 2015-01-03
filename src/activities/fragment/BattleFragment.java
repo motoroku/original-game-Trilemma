@@ -70,7 +70,8 @@ public class BattleFragment extends Fragment implements OnClickListener {
 
 	private ListView mListViewA;
 
-	private LinearLayout mLinearLayout1;
+	private LinearLayout mLinearLayoutEnemyBackGround;
+	private LinearLayout mLinearLayoutAllBackGround;
 
 	// ---------------------------------------------------
 	// Adapter
@@ -122,10 +123,12 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	private void setBattleSetting(View v, Context context, Bundle bundle) {
 		DaoManager dao = new DaoManager(v.getContext());
 
+		// SetEnemy
 		Enemy enemy = createEnemy(dao, bundle, context);
+		// SetPlayer
 		Player player = createPlayer(dao, context);
-
-		mLinearLayout1.setBackgroundResource(ImageSelector.getBackGround((int) bundle.getLong("id")));
+		// SetField
+		mLinearLayoutEnemyBackGround.setBackgroundResource(ImageSelector.getBackGround((int) bundle.getLong("id")));
 
 		battleSystem = new BattleSystem(player, enemy);
 	}
@@ -320,8 +323,10 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		mImageViewPlayer = (ImageView) v.findViewById(R.id.BattleFragment_imageView_Player);
 		((MarginLayoutParams) mImageViewPlayer.getLayoutParams()).rightMargin = x / 15;
 
-		mLinearLayout1 = (LinearLayout) v.findViewById(R.id.BattleFragment_EnemybackGround);
-		mLinearLayout1.getLayoutParams().height = y / 3;
+		mLinearLayoutEnemyBackGround = (LinearLayout) v.findViewById(R.id.BattleFragment_EnemybackGround);
+		mLinearLayoutEnemyBackGround.getLayoutParams().height = y / 3;
+
+		mLinearLayoutAllBackGround = (LinearLayout) v.findViewById(R.id.BattleFragment_LinearLayout);
 
 		/*
 		 * 画面に表示されるListViewに セットするAdapterとList<String>を紐付けする

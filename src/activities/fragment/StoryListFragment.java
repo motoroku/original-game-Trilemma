@@ -20,7 +20,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class StoryListFragment extends Fragment implements OnClickListener, OnItemClickListener {
+public class StoryListFragment extends Fragment implements OnItemClickListener {
 	OnSelectedStoryListener mSelectedStorylistener;
 
 	ListView mStoryList;
@@ -51,12 +51,6 @@ public class StoryListFragment extends Fragment implements OnClickListener, OnIt
 		storyAdapter = new ArrayAdapter<>(v.getContext(), R.layout.list_row);
 		mStoryList.setAdapter(storyAdapter);
 		mStoryList.setOnItemClickListener(this);
-	}
-
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

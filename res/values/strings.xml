@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">DuelWizard</string>
+    <string name="app_name">Trilemma</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="Game_Title">世界一の魔法使いを目指して頑張る</string>

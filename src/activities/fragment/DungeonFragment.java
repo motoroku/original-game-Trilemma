@@ -22,7 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-public class DungeonFragment extends Fragment implements OnClickListener, OnItemClickListener {
+public class DungeonFragment extends Fragment implements OnItemClickListener {
 
 	OnBattleStartListener mBattleStartListener;
 
@@ -45,15 +45,6 @@ public class DungeonFragment extends Fragment implements OnClickListener, OnItem
 		dungeonList = dao.session.getDUNGEONDao().getSession().loadAll(DUNGEON.class);
 		for (int i = 0; i < dungeonList.size(); i++) {
 			dungeonAdapter.add(dungeonList.get(i).getDungeon_name());
-		}
-	}
-
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		switch (v.getId()) {
-			default:
-				break;
 		}
 	}
 

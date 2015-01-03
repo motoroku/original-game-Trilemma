@@ -13,6 +13,7 @@ import activities.fragment.CustomizeFragment;
 import activities.fragment.HomeFragment;
 import activities.fragment.HomeFragment.OnSelectedHomeMenuListener;
 import activities.fragment.PeopleListFragment;
+import activities.fragment.PeopleFragment.OnMeetPeopleListener;
 import activities.fragment.PeopleListFragment.OnSelectedPeopleListener;
 import activities.fragment.SettingFragment;
 import activities.fragment.ShopFragment;
@@ -32,8 +33,9 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-public class MainActivity extends FragmentActivity implements OnGameStartListener, OnSelectedHomeMenuListener, OnBattleStartListener,
-		OnBattleEndListener, OnSelectedStoryListener, OnSelectedPeopleListener {
+public class MainActivity extends FragmentActivity implements OnGameStartListener, OnSelectedHomeMenuListener,
+		OnBattleStartListener, OnBattleEndListener, OnSelectedStoryListener, OnSelectedPeopleListener,
+		OnMeetPeopleListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 		// set listener
 		mStartFragment.setOnGameStartListener(this);
 		// set fragment
-		ft.add(R.id.MainActivity_frame, mStartFragment);
+		ft.add(R.id.MainActivity_content, mStartFragment);
 		ft.commit();
 	}
 
@@ -59,8 +61,11 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 		HomeFragment mHomeFragment = new HomeFragment();
 		// set listener
 		mHomeFragment.setOnHomeMenuListener(this);
+		// remove view
+		FrameLayout frame = (FrameLayout) this.findViewById(R.id.MainActivity_content);
+		frame.removeAllViews();
 		// set fragment
-		ft.replace(R.id.MainActivity_frame, mHomeFragment);
+		ft.add(R.id.MainActivity_content, mHomeFragment);
 		ft.commit();
 	}
 
@@ -135,7 +140,6 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 
 	@Override
 	public void onStartBattle(DUNGEON dungeon) {
-		// TODO Auto-generated method stub
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		BattleFragment mBattleFragment = new BattleFragment();
@@ -144,9 +148,12 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 		bundle.putLong("id", dungeon.getId());
 		bundle.putString("name", dungeon.getDungeon_name());
 		mBattleFragment.setArguments(bundle);
+		// remove view
+		FrameLayout frame = (FrameLayout) this.findViewById(R.id.MainActivity_content);
+		frame.removeAllViews();
 		// set listener
 		mBattleFragment.setOnBattleEndListener(this);
-		ft.replace(R.id.HomeFragment_main, mBattleFragment);
+		ft.add(R.id.MainActivity_content, mBattleFragment);
 		ft.commit();
 	}
 
@@ -155,8 +162,13 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		HomeFragment mHomeFragment = new HomeFragment();
+		// set listener
 		mHomeFragment.setOnHomeMenuListener(this);
-		ft.replace(R.id.MainActivity_frame, mHomeFragment);
+		// remove view
+		FrameLayout frame = (FrameLayout) this.findViewById(R.id.MainActivity_content);
+		frame.removeAllViews();
+		// set fragment
+		ft.add(R.id.MainActivity_content, mHomeFragment);
 		ft.commit();
 	}
 
@@ -192,11 +204,33 @@ public class MainActivity extends FragmentActivity implements OnGameStartListene
 		bundle.putString("name", people.getPeople_name());
 		bundle.putString("serif", people.getSerif());
 		mPeopleFragment.setArguments(bundle);
+		// set listener
+		mPeopleFragment.setOnMeetPeopleListener(this);
 		// remove view
 		LinearLayout main = (LinearLayout) this.findViewById(R.id.HomeFragment_main);
 		main.removeAllViews();
 		// set fragment
 		ft.add(R.id.HomeFragment_main, mPeopleFragment);
+		ft.commit();
+	}
+
+	@Override
+	public void onLeave(TOWN town) {
+		FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+		PeopleListFragment mPeopleListFragment = new PeopleListFragment();
+		// set bundles
+		Bundle bundle = new Bundle();
+		bundle.putLong("id", town.getId());
+		bundle.putString("name", town.getTown_name());
+		mPeopleListFragment.setArguments(bundle);
+		// set listener
+		mPeopleListFragment.setOnSelectedPeopleListener(this);
+		// remove view
+		LinearLayout main = (LinearLayout) this.findViewById(R.id.HomeFragment_main);
+		main.removeAllViews();
+		// set fragment
+		ft.add(R.id.HomeFragment_main, mPeopleListFragment);
 		ft.commit();
 	}
 
