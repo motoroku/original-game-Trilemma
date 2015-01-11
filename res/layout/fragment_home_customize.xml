@@ -10,4 +10,71 @@
         android:layout_height="wrap_content"
         android:text="装備画面" />
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/player_01" />
+
+    <TextView
+        android:id="@+id/CustomizeFragment_textView_PlayerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PLAYER-NAME"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/CustomizeFragment_textView_Level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Level" />
+
+    <TextView
+        android:id="@+id/CustomizeFragment_textView_Hp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HP" />
+
+    <TextView
+        android:id="@+id/CustomizeFragment_textView_Sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SP" />
+
+    <TextView
+        android:id="@+id/CustomizeFragment_textView_Attack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Attack" />
+
+    <TextView
+        android:id="@+id/CustomizeFragment_textView_Defense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Defense" />
+
+    <TextView
+        android:id="@+id/CustomizeFragment_textView_Weapon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weapon" />
+
+    <TextView
+        android:id="@+id/CustomizeFragment_textView_Armor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Armor" />
+
+    <Button
+        android:id="@+id/CustomizeFragment_button_weaponChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="武器切り替え" />
+
+    <Button
+        android:id="@+id/CustomizeFragment_button_armorChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="防具切り替え" />
+
 </LinearLayout>

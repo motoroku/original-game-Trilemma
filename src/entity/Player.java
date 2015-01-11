@@ -7,11 +7,12 @@ import dao.PlayerDto;
 import Trilemma.LEARNED_SKILL;
 import Trilemma.PLAYER_STATUS;
 import Trilemma.SKILL;
-import entity.skill.Skill;
 
 public class Player extends CharacterEntity {
 
 	private static final int SKILL_SIZE_CUSTAMIZE = 5;
+	public Weapon weapon;
+	public Armor armor;
 
 	public Player(String name, List<LEARNED_SKILL> learnedSkillList, List<SKILL> skillList, SKILL defense, SKILL charge) {
 		super(name);
@@ -43,8 +44,8 @@ public class Player extends CharacterEntity {
 
 	}
 
-	public Player(PlayerDto playerDto, List<LEARNED_SKILL> learnedSkillList, List<SKILL> skillList, SKILL defense,
-			SKILL charge) {
+	public Player(PlayerDto playerDto, List<LEARNED_SKILL> learnedSkillList, List<SKILL> skillList, SKILL defenseSkill,
+			SKILL chargeSkill) {
 		super(playerDto.name);
 
 		level = playerDto.level;
@@ -52,11 +53,15 @@ public class Player extends CharacterEntity {
 		maxSp = playerDto.maxSp;
 		currentHp = hp;
 		currentSp = playerDto.baseSp;
+		weapon = playerDto.weapon;
+		armor = playerDto.armor;
+		attack = playerDto.attack + weapon.attackPower;
+		defense = playerDto.defense + armor.defensePower;
 
 		this.characterType = BattleStatus.PLAYER;
 
-		this.skillList[0] = new Skill(defense);
-		this.skillList[1] = new Skill(charge);
+		this.skillList[0] = new Skill(defenseSkill);
+		this.skillList[1] = new Skill(chargeSkill);
 
 		// TODO:イマイチ保証になってない
 		if (skillList.size() == learnedSkillList.size()) {

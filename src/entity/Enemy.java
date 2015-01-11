@@ -9,8 +9,6 @@ import system.battle.BattleElements;
 import system.battle.EnemyAI;
 import system.battle.iEnemyAI;
 
-import entity.skill.Skill;
-
 public class Enemy extends CharacterEntity {
 	public iEnemyAI enemyAi;
 	public int baseAttackRate;
@@ -40,6 +38,9 @@ public class Enemy extends CharacterEntity {
 
 		currentHp = hp;
 		currentSp = characterEntity.getBase_sp();
+
+		attack = characterEntity.getAttack_power();
+		defense = characterEntity.getDefense_power();
 
 		baseAttackRate = characterEntity.getBase_attack_rate();
 		baseDefenseRate = characterEntity.getBase_defense_rate();

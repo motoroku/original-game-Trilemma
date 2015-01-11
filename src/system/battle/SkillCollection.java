@@ -1,7 +1,8 @@
 package system.battle;
 
+import utility.Cal;
 import entity.CharacterEntity;
-import entity.skill.Skill;
+import entity.Skill;
 
 /**
  * Skillの処理メソッドを持つクラス
@@ -53,7 +54,9 @@ public class SkillCollection {
 		CharacterEntity target = elements.target;
 		CharacterEntity actor = elements.actor;
 
-		target.currentHp = target.currentHp - skill.effetPoint;
+		int attackPoint = Cal.calSkillMight(actor, skill);
+		int effect = Cal.calEffectPoint(attackPoint, target.defense);
+		target.currentHp = target.currentHp - effect;
 
 		elements.target = target;
 		elements.actor = actor;
@@ -71,7 +74,11 @@ public class SkillCollection {
 		CharacterEntity actor = elements.actor;
 
 		Skill targetSkill = target.usingSkill;
-		target.currentHp = target.currentHp - (skill.effetPoint - targetSkill.effetPoint);
+
+		int attackPoint1 = Cal.calSkillMight(actor, skill);
+		int attackPoint2 = Cal.calSkillMight(target, targetSkill);
+		int effect = Cal.calEffectPoint(attackPoint1, attackPoint2);
+		target.currentHp = target.currentHp - effect;
 
 		elements.target = target;
 		elements.actor = actor;

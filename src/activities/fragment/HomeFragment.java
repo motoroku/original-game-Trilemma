@@ -43,7 +43,6 @@ public class HomeFragment extends Fragment implements OnClickListener, OnItemCli
 		Context context = v.getContext();
 
 		setViews(v);
-		DaoManager daoManager = new DaoManager(context);
 
 		mAdapter.add("ŠC‚ğ‰j‚¢‚Å‚¢‚½‚çƒ^ƒR‚ÉP‚í‚ê‚½I\n");
 

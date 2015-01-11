@@ -3,10 +3,10 @@ package system.battle;
 import Trilemma.CHARACTER;
 import entity.BattleStatus;
 import entity.CharacterEntity;
+import entity.Skill;
 import entity.BattleStatus.SelectedActionList;
 import entity.Enemy;
 import entity.Player;
-import entity.skill.Skill;
 
 public class BattleSystem {
 	BattleService battleService = new BattleService();
@@ -32,7 +32,6 @@ public class BattleSystem {
 	 * @param enemy 選択された敵キャラクター
 	 */
 	public BattleSystem(Player player, Enemy enemy) {
-		// TODO Auto-generated constructor stub
 		battleElements = new BattleElements(player, enemy);
 		setEnemyActionRate();
 	}
@@ -56,9 +55,11 @@ public class BattleSystem {
 
 		// -------------------------------------------------------------------------------------------
 		// 画面出力用
-		playerAction = battleElements.playerTrunHistoryList.get(battleElements.playerTrunHistoryList.size() - 1).action.getValue();
+		playerAction = battleElements.playerTrunHistoryList.get(battleElements.playerTrunHistoryList.size() - 1).action
+				.getValue();
 		playerSkill = battleElements.playerTrunHistoryList.get(battleElements.playerTrunHistoryList.size() - 1).skill.skillName;
-		enemyAction = battleElements.enemyTurnHistoryList.get(battleElements.enemyTurnHistoryList.size() - 1).action.getValue();
+		enemyAction = battleElements.enemyTurnHistoryList.get(battleElements.enemyTurnHistoryList.size() - 1).action
+				.getValue();
 		enemySkill = battleElements.enemyTurnHistoryList.get(battleElements.enemyTurnHistoryList.size() - 1).skill.skillName;
 		setEnemyActionRate();
 		// -------------------------------------------------------------------------------------------

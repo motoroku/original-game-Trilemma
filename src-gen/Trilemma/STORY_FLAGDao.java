@@ -42,7 +42,7 @@ public class STORY_FLAGDao extends AbstractDao<STORY_FLAG, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "'STORY__FLAG' (" + //
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
-                "'FLAG_NAME' TEXT," + // 1: flag_name
+                "'FLAG_NAME' TEXT UNIQUE ," + // 1: flag_name
                 "'STORY_FLAG' INTEGER);"); // 2: story_flag
     }
 

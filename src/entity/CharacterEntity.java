@@ -1,7 +1,6 @@
 package entity;
 
 import entity.BattleStatus.ActionStatus;
-import entity.skill.Skill;
 
 public class CharacterEntity {
 
@@ -9,7 +8,7 @@ public class CharacterEntity {
 	public String characterType;
 
 	public Skill[] skillList;
-	public Item[] itemList;
+	public Weapon[] itemList;
 
 	public Skill usingSkill;
 
@@ -19,6 +18,9 @@ public class CharacterEntity {
 	public int currentHp;
 	public int currentSp;
 
+	public int attack;
+	public int defense;
+
 	public static final int SKILL_SIZE = 7;
 
 	public CharacterEntity() {
@@ -27,7 +29,7 @@ public class CharacterEntity {
 	public CharacterEntity(String name) {
 		this.name = name;
 		skillList = new Skill[SKILL_SIZE];
-		itemList = new Item[4];
+		itemList = new Weapon[4];
 	}
 
 	public ActionStatus getActionStatus() {

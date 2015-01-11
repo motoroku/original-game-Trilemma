@@ -3,15 +3,24 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.dao.query.QueryBuilder;
+
+import entity.Armor;
+import entity.Weapon;
+
 import android.R.integer;
 import android.content.Context;
+import android.hardware.TriggerEvent;
+import Trilemma.ARMOR;
 import Trilemma.CHARACTER;
 import Trilemma.DaoSession;
 import Trilemma.LEARNED_SKILL;
 import Trilemma.PEOPLE;
+import Trilemma.PLAYER_STATUS;
 import Trilemma.SKILL;
 import Trilemma.CHARACTERDao.Properties;
 import Trilemma.TOWN;
+import Trilemma.WEAPON;
 
 public class DaoManager {
 
@@ -37,7 +46,51 @@ public class DaoManager {
 				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq("base_sp")).list().get(0).getStatus_value());
 		player.level = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
 				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq("level")).list().get(0).getStatus_value());
+		try {
+			player.attack = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
+					.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq("attack")).list().get(0)
+					.getStatus_value());
+		} catch (Exception e) {
+			player.attack = 1;
+		}
+		try {
+			player.defense = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
+					.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq("defense")).list().get(0)
+					.getStatus_value());
+		} catch (Exception e) {
+			player.defense = 1;
+		}
+		int weaponId = Integer
+				.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
+						.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq("weaponId")).list().get(0)
+						.getStatus_value());
+		int armorId = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq("armorId")).list().get(0).getStatus_value());
+		player.weapon = new Weapon(getWeapon(weaponId));
+		player.armor = new Armor(getArmor(armorId));
+
 		return player;
+	}
+
+	public WEAPON getWeapon(long weaponId) {
+		QueryBuilder<WEAPON> weapons = session.getWEAPONDao().queryBuilder()
+				.where(Trilemma.WEAPONDao.Properties.Id.eq(weaponId));
+		WEAPON weapon;
+		if (weapons == null) {
+			weapon = new WEAPON((long) 0, "ëféË", 1);
+		} else {
+			weapon = weapons.list().get(0);
+		}
+		return weapon;
+	}
+
+	public ARMOR getArmor(long armorId) {
+		ARMOR armor = session.getARMORDao().queryBuilder().where(Trilemma.ARMORDao.Properties.Id.eq(armorId)).list()
+				.get(0);
+		if (armor == null) {
+			armor = new ARMOR((long) 0, "êQä‘íÖ", 1);
+		}
+		return armor;
 	}
 
 	public List<SKILL> getPlayerSkillList(List<LEARNED_SKILL> learnedSkillList) {
@@ -86,5 +139,54 @@ public class DaoManager {
 		TOWN town = session.getTOWNDao().queryBuilder().where(Trilemma.TOWNDao.Properties.Id.eq(people.getTown_id()))
 				.list().get(0);
 		return town;
+	}
+
+	/**
+	 * Ç®ééÇµóp
+	 */
+	public void changeNextWeapon() {
+		List<WEAPON> weaponList = session.getWEAPONDao().loadAll();
+		PLAYER_STATUS playerStatus = session.getPLAYER_STATUSDao().queryBuilder()
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq("weaponId")).list().get(0);
+		int weaponId = Integer.parseInt(playerStatus.getStatus_value());
+		WEAPON nextWeapon = null;
+		for (int i = 0; i < weaponList.size(); i++) {
+			if (weaponList.get(i).getId() == (long) weaponId) {
+				if (i != weaponList.size() - 1) {
+					nextWeapon = weaponList.get(i + 1);
+				} else {
+					nextWeapon = weaponList.get(0);
+				}
+			}
+		}
+		if (nextWeapon != null) {
+			playerStatus.setStatus_value(String.valueOf(nextWeapon.getId()));
+		}
+		session.getPLAYER_STATUSDao().update(playerStatus);
+	}
+
+	/**
+	 * Ç®ééÇµóp
+	 */
+	public void changeNextArmor() {
+		List<ARMOR> armorList = session.getARMORDao().loadAll();
+		PLAYER_STATUS playerStatus = session.getPLAYER_STATUSDao().queryBuilder()
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq("armorId")).list().get(0);
+		int armorId = Integer.parseInt(playerStatus.getStatus_value());
+		ARMOR nextArmor = null;
+		for (int i = 0; i < armorList.size(); i++) {
+			if (armorList.get(i).getId() == (long) armorId) {
+				if (i != armorList.size() - 1) {
+					nextArmor = armorList.get(i + 1);
+				} else {
+					nextArmor = armorList.get(0);
+				}
+			}
+		}
+		if (nextArmor != null) {
+			playerStatus.setStatus_value(String.valueOf(nextArmor.getId()));
+		}
+		session.getPLAYER_STATUSDao().update(playerStatus);
+
 	}
 }

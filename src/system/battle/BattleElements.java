@@ -9,10 +9,10 @@ import entity.BattleStatus;
 import entity.CharacterEntity;
 import entity.Enemy;
 import entity.Player;
+import entity.Skill;
 import entity.BattleStatus.BattleResult;
 import entity.BattleStatus.SelectedActionList;
 import entity.TurnAction;
-import entity.skill.Skill;
 
 public class BattleElements {
 	public BattleResult result;

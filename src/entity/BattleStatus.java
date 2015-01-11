@@ -192,4 +192,8 @@ public class BattleStatus {
 	public enum TargetStatus {
 		self, enemy
 	}
+
+	public enum AbilityType {
+		statusUp, skillBoost, battleAssist
+	}
 }

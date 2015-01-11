@@ -1,7 +1,6 @@
 package entity;
 
 import entity.BattleStatus.ActionStatus;
-import entity.skill.Skill;
 
 public class TurnAction {
 	public ActionStatus action;

@@ -1,8 +1,8 @@
 package system.battle;
 
+import utility.Cal;
 import entity.BattleStatus.ActionStatus;
 import entity.BattleStatus.BattleResult;
-import entity.skill.Skill;
 
 public class SkillManager {
 	public SkillCollection skillCollection = new SkillCollection();
@@ -11,16 +11,14 @@ public class SkillManager {
 		// スキル使用者のスキルの種類で分岐
 		// 攻撃スキルの場合
 		if (elements.getActorSkill().actionStatus == ActionStatus.攻撃) {
-			Skill actorSkill = elements.getActorSkill();
 			// スキル使用者の行動が成功している場合
 			if (elements.result == BattleResult.win) {
 				skillCollection.actAttackSkill(elements);
 			}
 			// 行動結果が相打ちだった場合
 			else if (elements.result == BattleResult.clash) {
-				Skill targetSkill = elements.getTargetSkill();
 				// スキル使用者が勝利してる場合
-				if (actorSkill.effetPoint > targetSkill.effetPoint) {
+				if (getClashResult(elements)) {
 					skillCollection.actAttackSkillOnClash(elements);
 				}
 			}
@@ -38,5 +36,15 @@ public class SkillManager {
 		}
 
 		return elements;
+	}
+
+	private boolean getClashResult(BattleElements elements) {
+		boolean result = false;
+
+		// TODO: アクターとターゲットのスキルタイプによって判定方法が変わる予定
+		result = Cal.calSkillMight(elements.actor, elements.getActorSkill()) > Cal.calSkillMight(elements.target,
+				elements.getTargetSkill());
+
+		return result;
 	}
 }

@@ -4,10 +4,10 @@ import entity.BattleStatus;
 import entity.BattleStatus.SelectedActionList;
 import entity.CharacterEntity;
 import entity.Enemy;
+import entity.Skill;
 import entity.BattleStatus.ActionStatus;
 import entity.BattleStatus.BattleResult;
 import entity.BattleStatus.TargetStatus;
-import entity.skill.Skill;
 
 public class BattleService {
 	SkillManager mSkillManager = new SkillManager();
@@ -152,6 +152,9 @@ public class BattleService {
 		if (actorType == BattleStatus.PLAYER) {
 			elements.setPlayerTurn();
 		} else if (actorType == BattleStatus.ENEMY) {
+			elements.setEnemyTurn();
+		} else {
+			// アクターが上手く設定されてなかったらエネミーのターン
 			elements.setEnemyTurn();
 		}
 		setTarget(elements);
