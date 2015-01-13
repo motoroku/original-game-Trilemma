@@ -50,7 +50,7 @@ public class DungeonFragment extends Fragment implements OnItemClickListener {
 
 	private void setViews(View v) {
 		mDungeonList = (ListView) v.findViewById(R.id.DungeonFragment_dungeonList);
-		dungeonAdapter = new ArrayAdapter<>(v.getContext(), R.layout.list_row);
+		dungeonAdapter = new ArrayAdapter<>(v.getContext(), R.layout.list_row_chara_black);
 		mDungeonList.setAdapter(dungeonAdapter);
 		mDungeonList.setOnItemClickListener(this);
 	}

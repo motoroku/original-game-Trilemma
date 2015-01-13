@@ -48,7 +48,7 @@ public class StoryListFragment extends Fragment implements OnItemClickListener {
 
 	private void setViews(View v) {
 		mStoryList = (ListView) v.findViewById(R.id.StoryListFragment_List);
-		storyAdapter = new ArrayAdapter<>(v.getContext(), R.layout.list_row);
+		storyAdapter = new ArrayAdapter<>(v.getContext(), R.layout.list_row_chara_black);
 		mStoryList.setAdapter(storyAdapter);
 		mStoryList.setOnItemClickListener(this);
 	}

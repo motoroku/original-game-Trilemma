@@ -233,7 +233,7 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		 * 画面に表示されるListViewに セットするAdapterとList<String>を紐付けする
 		 */
 		mListViewA = (ListView) v.findViewById(R.id.BattleFragment_listViewA);
-		mAdapterA = new ArrayAdapter<String>(context, R.layout.list_row);
+		mAdapterA = new ArrayAdapter<String>(context, R.layout.list_row_chara_white);
 		mListViewA.setAdapter(mAdapterA);
 	}
 

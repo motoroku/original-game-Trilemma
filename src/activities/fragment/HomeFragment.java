@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment implements OnClickListener, OnItemCli
 		mButtonSetting.setOnClickListener(this);
 
 		mMessageWindow = (ListView) v.findViewById(R.id.HomeFragment_listView1);
-		mAdapter = new ArrayAdapter<String>(v.getContext(), R.layout.list_row, list);
+		mAdapter = new ArrayAdapter<String>(v.getContext(), R.layout.list_row_chara_white, list);
 		mMessageWindow.setAdapter(mAdapter);
 		mMessageWindow.setOnItemClickListener(this);
 

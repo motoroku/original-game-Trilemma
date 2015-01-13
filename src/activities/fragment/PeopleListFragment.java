@@ -43,7 +43,7 @@ public class PeopleListFragment extends Fragment implements OnItemClickListener 
 
 	private void setViews(View v) {
 		mPeopleList = (ListView) v.findViewById(R.id.PeopleListFragment_list);
-		peopleAdapter = new ArrayAdapter<String>(v.getContext(), R.layout.list_row);
+		peopleAdapter = new ArrayAdapter<String>(v.getContext(), R.layout.list_row_chara_black);
 		mPeopleList.setAdapter(peopleAdapter);
 		mPeopleList.setOnItemClickListener(this);
 	}
