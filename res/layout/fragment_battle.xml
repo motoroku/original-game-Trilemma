@@ -6,52 +6,6 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/BattleFragment_textViewA_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="A-1" />
-
-        <TextView
-            android:id="@+id/BattleFragment_textViewB_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="B-1" />
-
-        <TextView
-            android:id="@+id/BattleFragment_textViewC_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="C-1" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/BattleFragment_textViewA_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="A-2" />
-
-        <TextView
-            android:id="@+id/BattleFragment_textViewB_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="B-2" />
-
-        <TextView
-            android:id="@+id/BattleFragment_textViewC_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="C-2" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/BattleFragment_EnemybackGround"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -100,6 +54,61 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/menu_bk06_short"
+        android:padding="20dp" >
+
+        <TextView
+            android:id="@+id/BattleFragment_textViewA_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="A-1" />
+
+        <TextView
+            android:id="@+id/BattleFragment_textViewB_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="B-1" />
+
+        <TextView
+            android:id="@+id/BattleFragment_textViewC_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="C-1" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="　　　" />
+
+        <TextView
+            android:id="@+id/BattleFragment_textViewA_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="A-2" />
+
+        <TextView
+            android:id="@+id/BattleFragment_textViewB_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="B-2" />
+
+        <TextView
+            android:id="@+id/BattleFragment_textViewC_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="C-2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="right"
         android:orientation="horizontal" >
 
@@ -113,37 +122,47 @@
 
             <Button
                 android:id="@+id/BattleFragment_button_Skill1"
-                android:layout_width="60dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:text="Skill1"
+                android:textColor="@color/white"
                 android:textSize="10sp" />
 
             <Button
                 android:id="@+id/BattleFragment_button_Skill2"
-                android:layout_width="60dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:text="Skill2"
+                android:textColor="@color/white"
                 android:textSize="10sp" />
 
             <Button
                 android:id="@+id/BattleFragment_button_Skill3"
-                android:layout_width="60dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:text="Skill3"
+                android:textColor="@color/white"
                 android:textSize="10sp" />
 
             <Button
                 android:id="@+id/BattleFragment_button_Skill4"
-                android:layout_width="60dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:text="Skill4"
+                android:textColor="@color/white"
                 android:textSize="10sp" />
 
             <Button
                 android:id="@+id/BattleFragment_button_Skill5"
-                android:layout_width="60dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:text="Skill5"
+                android:textColor="@color/white"
                 android:textSize="10sp" />
         </LinearLayout>
 
@@ -153,34 +172,43 @@
             android:layout_weight="1"
             android:background="@drawable/menu_bk06"
             android:gravity="center_vertical"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:padding="20dp" >
 
             <Button
                 android:id="@+id/BattleFragment_button_Defense"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:text="Defense"
+                android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/BattleFragment_button_Charge"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:text="Charge"
+                android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/BattleFragment_button_xxx"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:text="Escape"
+                android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/BattleFragment_button_yyy"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:text="Reset"
+                android:textColor="@color/white"
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>

@@ -95,15 +95,21 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	int y;
 
 	// ---------------------------------------------------
+	Player player;
+	Enemy enemy;
 
+	// ---------------------------------------------------
+
+	// ------------------------------------------------------------------------------------------------------
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_battle, container, false);
 		Context context = getActivity();
 
 		setDisplaySize(context);
-		setViews(v, context);
+		findViews(v, context);
 		setBattleSetting(v, context, getArguments());
+		setViewValues(getArguments());
 
 		mTextViewA1.setText("PLAYER");
 		mTextViewB1.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).currentHp);
@@ -124,11 +130,9 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		DaoManager dao = new DaoManager(v.getContext());
 
 		// SetEnemy
-		Enemy enemy = createEnemy(dao, bundle, context);
+		enemy = createEnemy(dao, bundle, context);
 		// SetPlayer
-		Player player = createPlayer(dao, context);
-		// SetField
-		mLinearLayoutEnemyBackGround.setBackgroundResource(ImageSelector.getBackGround((int) bundle.getLong("id")));
+		player = createPlayer(dao, context);
 
 		battleSystem = new BattleSystem(player, enemy);
 	}
@@ -188,6 +192,132 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		return player;
 	}
 
+	private void findViews(View v, Context context) {
+		/*
+		 * 画面に表示されるViewをバインドする
+		 */
+		mButtonSkill1 = (Button) v.findViewById(R.id.BattleFragment_button_Skill1);
+		mButtonSkill2 = (Button) v.findViewById(R.id.BattleFragment_button_Skill2);
+		mButtonSkill3 = (Button) v.findViewById(R.id.BattleFragment_button_Skill3);
+		mButtonSkill4 = (Button) v.findViewById(R.id.BattleFragment_button_Skill4);
+		mButtonSkill5 = (Button) v.findViewById(R.id.BattleFragment_button_Skill5);
+		mButtonDefense = (Button) v.findViewById(R.id.BattleFragment_button_Defense);
+		mButtonCharge = (Button) v.findViewById(R.id.BattleFragment_button_Charge);
+		mButtonxxx = (Button) v.findViewById(R.id.BattleFragment_button_xxx);
+		mButtonyyy = (Button) v.findViewById(R.id.BattleFragment_button_yyy);
+
+		mButtonSkill1.setOnClickListener(this);
+		mButtonSkill2.setOnClickListener(this);
+		mButtonSkill3.setOnClickListener(this);
+		mButtonSkill4.setOnClickListener(this);
+		mButtonSkill5.setOnClickListener(this);
+		mButtonDefense.setOnClickListener(this);
+		mButtonCharge.setOnClickListener(this);
+		mButtonxxx.setOnClickListener(this);
+		mButtonyyy.setOnClickListener(this);
+
+		mTextViewA1 = (TextView) v.findViewById(R.id.BattleFragment_textViewA_1);
+		mTextViewA2 = (TextView) v.findViewById(R.id.BattleFragment_textViewA_2);
+		mTextViewB1 = (TextView) v.findViewById(R.id.BattleFragment_textViewB_1);
+		mTextViewB2 = (TextView) v.findViewById(R.id.BattleFragment_textViewB_2);
+		mTextViewC1 = (TextView) v.findViewById(R.id.BattleFragment_textViewC_1);
+		mTextViewC2 = (TextView) v.findViewById(R.id.BattleFragment_textViewC_2);
+
+		mImageViewEnemy = (ImageView) v.findViewById(R.id.BattleFragment_imageView_Enemy);
+		mImageViewPlayer = (ImageView) v.findViewById(R.id.BattleFragment_imageView_Player);
+
+		mLinearLayoutEnemyBackGround = (LinearLayout) v.findViewById(R.id.BattleFragment_EnemybackGround);
+		mLinearLayoutAllBackGround = (LinearLayout) v.findViewById(R.id.BattleFragment_LinearLayout);
+
+		/*
+		 * 画面に表示されるListViewに セットするAdapterとList<String>を紐付けする
+		 */
+		mListViewA = (ListView) v.findViewById(R.id.BattleFragment_listViewA);
+		mAdapterA = new ArrayAdapter<String>(context, R.layout.list_row);
+		mListViewA.setAdapter(mAdapterA);
+	}
+
+	private void setViewValues(Bundle bundle) {
+		// SetField
+		mLinearLayoutEnemyBackGround.setBackgroundResource(ImageSelector.getBackGround((int) bundle.getLong("id")));
+		((MarginLayoutParams) mImageViewEnemy.getLayoutParams()).leftMargin = x / 20;
+		((MarginLayoutParams) mImageViewPlayer.getLayoutParams()).rightMargin = x / 15;
+		mLinearLayoutEnemyBackGround.getLayoutParams().height = y / 3;
+
+		if (player.skillList.length > 2) {
+			mButtonSkill1.setText(player.skillList[2].skillName);
+		}
+		if (player.skillList.length > 3) {
+			mButtonSkill2.setText(player.skillList[3].skillName);
+		}
+		if (player.skillList.length > 4) {
+			mButtonSkill3.setText(player.skillList[4].skillName);
+		}
+		if (player.skillList.length > 5) {
+			mButtonSkill4.setText(player.skillList[5].skillName);
+		}
+		if (player.skillList.length > 6) {
+			mButtonSkill5.setText(player.skillList[6].skillName);
+		}
+	}
+
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+	private void setDisplaySize(Context context) {
+		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+		Point point = new Point();
+
+		if (Build.VERSION.SDK_INT >= 13) {
+			display.getSize(point);
+			x = point.x;
+			y = point.y;
+		} else {
+			x = display.getWidth();
+			y = display.getHeight();
+		}
+	}
+
+	// ------------------------------------------------------------------------------------------------------
+
+	private void startAction(SelectedActionList selectedAction) {
+		CharacterEntity player = battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER);
+		if (battleSystem.isSetSkill(selectedAction, battleSystem.battleElements)) {
+			if (battleSystem.isHaveNecessaryPoint(selectedAction, player)) {
+				startBattle(selectedAction);
+				outputActionResult(battleSystem);
+			} else {
+				outPutInfoToA("SPが足りません");
+			}
+		} else {
+			outPutInfoToA("スキルが設定されていません");
+		}
+	}
+
+	private void startBattle(SelectedActionList selectedAction) {
+		battleSystem.StartBattle(selectedAction);
+		if (battleSystem.isBattleEnd(true)) {
+			battleSystem.EndTurn();
+		}
+	}
+
+	private boolean isBattleEnd() {
+		return battleSystem.battleElements.getEnemy().currentHp <= 0;
+	}
+
+	private void outPutInfoToA(String message) {
+		mAdapterA.add("Message:" + message);
+	}
+
+	private void outputActionResult(BattleSystem system) {
+		mAdapterA.add("----------------------------");
+		mAdapterA.add("Turn:" + battleSystem.battleElements.turnCount);
+		mAdapterA.add("PlayerAction:" + system.playerAction + " Skill:" + system.playerSkill);
+		mAdapterA.add("EnemyAction:" + system.enemyAction + " Skill:" + system.enemySkill);
+		mAdapterA.add(system.enemyActionRate);
+	}
+
+	// ------------------------------------------------------------------------------------------------------
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -245,96 +375,7 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).currentSp);
 	}
 
-	private void startAction(SelectedActionList selectedAction) {
-		CharacterEntity player = battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER);
-		if (battleSystem.isSetSkill(selectedAction, battleSystem.battleElements)) {
-			if (battleSystem.isHaveNecessaryPoint(selectedAction, player)) {
-				startBattle(selectedAction);
-				outputActionResult(battleSystem);
-			} else {
-				outPutInfoToA("SPが足りません");
-			}
-		} else {
-			outPutInfoToA("スキルが設定されていません");
-		}
-	}
-
-	private void startBattle(SelectedActionList selectedAction) {
-		battleSystem.StartBattle(selectedAction);
-		if (battleSystem.isBattleEnd(true)) {
-			battleSystem.EndTurn();
-		}
-	}
-
-	private boolean isBattleEnd() {
-		return battleSystem.battleElements.getEnemy().currentHp <= 0;
-	}
-
-	private void resetBattleSystem() {
-		battleSystem = new BattleSystem();
-	}
-
-	private void outPutInfoToA(String message) {
-		mAdapterA.add("Message:" + message);
-	}
-
-	private void outputActionResult(BattleSystem system) {
-		mAdapterA.add("----------------------------");
-		mAdapterA.add("Turn:" + battleSystem.battleElements.turnCount);
-		mAdapterA.add("PlayerAction:" + system.playerAction + " Skill:" + system.playerSkill);
-		mAdapterA.add("EnemyAction:" + system.enemyAction + " Skill:" + system.enemySkill);
-		mAdapterA.add(system.enemyActionRate);
-	}
-
-	private void setViews(View v, Context context) {
-		/*
-		 * 画面に表示されるViewをバインドする
-		 */
-		mButtonSkill1 = (Button) v.findViewById(R.id.BattleFragment_button_Skill1);
-		mButtonSkill2 = (Button) v.findViewById(R.id.BattleFragment_button_Skill2);
-		mButtonSkill3 = (Button) v.findViewById(R.id.BattleFragment_button_Skill3);
-		mButtonSkill4 = (Button) v.findViewById(R.id.BattleFragment_button_Skill4);
-		mButtonSkill5 = (Button) v.findViewById(R.id.BattleFragment_button_Skill5);
-		mButtonDefense = (Button) v.findViewById(R.id.BattleFragment_button_Defense);
-		mButtonCharge = (Button) v.findViewById(R.id.BattleFragment_button_Charge);
-		mButtonxxx = (Button) v.findViewById(R.id.BattleFragment_button_xxx);
-		mButtonyyy = (Button) v.findViewById(R.id.BattleFragment_button_yyy);
-
-		mButtonSkill1.setOnClickListener(this);
-		mButtonSkill2.setOnClickListener(this);
-		mButtonSkill3.setOnClickListener(this);
-		mButtonSkill4.setOnClickListener(this);
-		mButtonSkill5.setOnClickListener(this);
-		mButtonDefense.setOnClickListener(this);
-		mButtonCharge.setOnClickListener(this);
-		mButtonxxx.setOnClickListener(this);
-		mButtonyyy.setOnClickListener(this);
-
-		mTextViewA1 = (TextView) v.findViewById(R.id.BattleFragment_textViewA_1);
-		mTextViewA2 = (TextView) v.findViewById(R.id.BattleFragment_textViewA_2);
-		mTextViewB1 = (TextView) v.findViewById(R.id.BattleFragment_textViewB_1);
-		mTextViewB2 = (TextView) v.findViewById(R.id.BattleFragment_textViewB_2);
-		mTextViewC1 = (TextView) v.findViewById(R.id.BattleFragment_textViewC_1);
-		mTextViewC2 = (TextView) v.findViewById(R.id.BattleFragment_textViewC_2);
-
-		mImageViewEnemy = (ImageView) v.findViewById(R.id.BattleFragment_imageView_Enemy);
-		((MarginLayoutParams) mImageViewEnemy.getLayoutParams()).leftMargin = x / 20;
-
-		mImageViewPlayer = (ImageView) v.findViewById(R.id.BattleFragment_imageView_Player);
-		((MarginLayoutParams) mImageViewPlayer.getLayoutParams()).rightMargin = x / 15;
-
-		mLinearLayoutEnemyBackGround = (LinearLayout) v.findViewById(R.id.BattleFragment_EnemybackGround);
-		mLinearLayoutEnemyBackGround.getLayoutParams().height = y / 3;
-
-		mLinearLayoutAllBackGround = (LinearLayout) v.findViewById(R.id.BattleFragment_LinearLayout);
-
-		/*
-		 * 画面に表示されるListViewに セットするAdapterとList<String>を紐付けする
-		 */
-		mListViewA = (ListView) v.findViewById(R.id.BattleFragment_listViewA);
-		mAdapterA = new ArrayAdapter<String>(context, R.layout.list_row);
-		mListViewA.setAdapter(mAdapterA);
-	}
+	// ------------------------------------------------------------------------------------------------------
 
 	public void setOnBattleEndListener(OnBattleEndListener listener) {
 		this.mListener = listener;
@@ -344,19 +385,4 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		void onEndBattle();
 	}
 
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-	private void setDisplaySize(Context context) {
-		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-		Display display = wm.getDefaultDisplay();
-		Point point = new Point();
-
-		if (Build.VERSION.SDK_INT >= 13) {
-			display.getSize(point);
-			x = point.x;
-			y = point.y;
-		} else {
-			x = display.getWidth();
-			y = display.getHeight();
-		}
-	}
 }
