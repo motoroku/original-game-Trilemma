@@ -1,4 +1,4 @@
-package system.battle;
+ï»¿package system.battle;
 
 import utility.Cal;
 import entity.BattleStatus.ActionStatus;
@@ -8,29 +8,29 @@ public class SkillManager {
 	public SkillCollection skillCollection = new SkillCollection();
 
 	public BattleElements transactSkill(BattleElements elements) {
-		// ƒXƒLƒ‹Žg—pŽÒ‚ÌƒXƒLƒ‹‚ÌŽí—Þ‚Å•ªŠò
-		// UŒ‚ƒXƒLƒ‹‚Ìê‡
-		if (elements.getActorSkill().actionStatus == ActionStatus.UŒ‚) {
-			// ƒXƒLƒ‹Žg—pŽÒ‚Ìs“®‚ª¬Œ÷‚µ‚Ä‚¢‚éê‡
+		// ã‚¹ã‚­ãƒ«ä½¿ç”¨è€…ã®ã‚¹ã‚­ãƒ«ã®ç¨®é¡žã§åˆ†å²
+		// æ”»æ’ƒã‚¹ã‚­ãƒ«ã®å ´åˆ
+		if (elements.getActorSkill().actionStatus == ActionStatus.æ”»æ’ƒ) {
+			// ã‚¹ã‚­ãƒ«ä½¿ç”¨è€…ã®è¡Œå‹•ãŒæˆåŠŸã—ã¦ã„ã‚‹å ´åˆ
 			if (elements.result == BattleResult.win) {
 				skillCollection.actAttackSkill(elements);
 			}
-			// s“®Œ‹‰Ê‚ª‘Š‘Å‚¿‚¾‚Á‚½ê‡
+			// è¡Œå‹•çµæžœãŒç›¸æ‰“ã¡ã ã£ãŸå ´åˆ
 			else if (elements.result == BattleResult.clash) {
-				// ƒXƒLƒ‹Žg—pŽÒ‚ªŸ—˜‚µ‚Ä‚éê‡
+				// ã‚¹ã‚­ãƒ«ä½¿ç”¨è€…ãŒå‹åˆ©ã—ã¦ã‚‹å ´åˆ
 				if (getClashResult(elements)) {
 					skillCollection.actAttackSkillOnClash(elements);
 				}
 			}
-			// ƒXƒLƒ‹‚ÉÝ’è‚³‚ê‚Ä‚¢‚éƒ|ƒCƒ“ƒg‚ðÁ”ï‚·‚é
+			// ã‚¹ã‚­ãƒ«ã«è¨­å®šã•ã‚Œã¦ã„ã‚‹ãƒã‚¤ãƒ³ãƒˆã‚’æ¶ˆè²»ã™ã‚‹
 			skillCollection.consumeSkillPoint(elements);
 		}
-		// –hŒä‚ÌƒXƒLƒ‹‚Ìê‡
-		else if (elements.getActorSkill().actionStatus == ActionStatus.–hŒä) {
+		// é˜²å¾¡ã®ã‚¹ã‚­ãƒ«ã®å ´åˆ
+		else if (elements.getActorSkill().actionStatus == ActionStatus.é˜²å¾¡) {
 			// Skill skill = elements.getActorSkill();
 		}
-		// ƒ`ƒƒ[ƒWƒXƒLƒ‹‚Ìê‡
-		else if (elements.getActorSkill().actionStatus == ActionStatus.ƒ`ƒƒ[ƒW) {
+		// ãƒãƒ£ãƒ¼ã‚¸ã‚¹ã‚­ãƒ«ã®å ´åˆ
+		else if (elements.getActorSkill().actionStatus == ActionStatus.ãƒãƒ£ãƒ¼ã‚¸) {
 			// Skill skill = elements.getActorSkill();
 			skillCollection.chargeSkillPoint(elements);
 		}
@@ -41,7 +41,7 @@ public class SkillManager {
 	private boolean getClashResult(BattleElements elements) {
 		boolean result = false;
 
-		// TODO: ƒAƒNƒ^[‚Æƒ^[ƒQƒbƒg‚ÌƒXƒLƒ‹ƒ^ƒCƒv‚É‚æ‚Á‚Ä”»’è•û–@‚ª•Ï‚í‚é—\’è
+		// TODO: ã‚¢ã‚¯ã‚¿ãƒ¼ã¨ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ã‚¹ã‚­ãƒ«ã‚¿ã‚¤ãƒ—ã«ã‚ˆã£ã¦åˆ¤å®šæ–¹æ³•ãŒå¤‰ã‚ã‚‹äºˆå®š
 		result = Cal.calSkillMight(elements.actor, elements.getActorSkill()) > Cal.calSkillMight(elements.target,
 				elements.getTargetSkill());
 

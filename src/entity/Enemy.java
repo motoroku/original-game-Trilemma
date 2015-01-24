@@ -1,4 +1,4 @@
-package entity;
+ï»¿package entity;
 
 import java.util.List;
 
@@ -17,10 +17,8 @@ public class Enemy extends CharacterEntity {
 	public int attackRate;
 	public int defenseRate;
 	public int chargeRate;
-	public int profitGold;
-	public int profitExp;
 
-	// TODO: ƒfƒtƒFƒ“ƒX‚Æƒ`ƒƒ[ƒWˆø”‚Ì‡”ÔŠÔˆá‚¦‚½‚çƒAƒEƒg‚È‚Ì‚ÅA‘Îô‚·‚é‚×‚µ
+	// TODO: ãƒ‡ãƒ•ã‚§ãƒ³ã‚¹ã¨ãƒãƒ£ãƒ¼ã‚¸å¼•æ•°ã®é †ç•ªé–“é•ãˆãŸã‚‰ã‚¢ã‚¦ãƒˆãªã®ã§ã€å¯¾ç­–ã™ã‚‹ã¹ã—
 	/**
 	 * 
 	 * @param characterEntity
@@ -50,8 +48,8 @@ public class Enemy extends CharacterEntity {
 		defenseRate = baseDefenseRate;
 		chargeRate = baseChargeRate;
 
-		profitGold = characterEntity.getProfit_gold();
-		profitExp = characterEntity.getProfit_exp();
+		gold = characterEntity.getProfit_gold();
+		exp = characterEntity.getProfit_exp();
 
 		this.characterType = BattleStatus.ENEMY;
 		enemyAi = new EnemyAI();

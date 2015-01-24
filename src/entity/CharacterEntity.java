@@ -21,6 +21,9 @@ public class CharacterEntity {
 	public int attack;
 	public int defense;
 
+	public int gold;
+	public int exp;
+
 	public static final int SKILL_SIZE = 7;
 
 	public CharacterEntity() {

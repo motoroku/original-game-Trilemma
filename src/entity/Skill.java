@@ -1,4 +1,4 @@
-package entity;
+ï»¿package entity;
 
 import entity.BattleStatus.ActionStatus;
 import entity.BattleStatus.TargetStatus;
@@ -23,7 +23,7 @@ public class Skill {
 		this.skillPoint = skill.getSkill_point();
 		this.skillName = skill.getSkill_name();
 		this.type = skill.getM_SKILLTYPE();
-		if (this.actionStatus.getValue().equals(ActionStatus.UŒ‚.getValue())) {
+		if (this.actionStatus.getValue().equals(ActionStatus.æ”»æ’ƒ.getValue())) {
 			this.target = TargetStatus.enemy;
 		} else {
 			this.target = TargetStatus.self;

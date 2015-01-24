@@ -1,4 +1,4 @@
-package activities.fragment;
+Ôªøpackage activities.fragment;
 
 import java.util.ArrayList;
 import java.util.EventListener;
@@ -119,13 +119,100 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).currentHp);
 		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).currentSp);
 
-		mAdapterA.add(battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).name + "Ç™åªÇÍÇΩÅI");
+		mAdapterA.add(battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).name + "„ÅåÁèæ„Çå„ÅüÔºÅ");
 
-		mAdapterA.add(battleSystem.enemyActionRate);
+		setEnemyActionRate();
+		mAdapterA.add(setEnemyActionRate());
 
 		return v;
 	}
 
+	private void findViews(View v, Context context) {
+		/*
+		 * ÁîªÈù¢„Å´Ë°®Á§∫„Åï„Çå„ÇãView„Çí„Éê„Ç§„É≥„Éâ„Åô„Çã
+		 */
+		mButtonSkill1 = (Button) v.findViewById(R.id.BattleFragment_button_Skill1);
+		mButtonSkill2 = (Button) v.findViewById(R.id.BattleFragment_button_Skill2);
+		mButtonSkill3 = (Button) v.findViewById(R.id.BattleFragment_button_Skill3);
+		mButtonSkill4 = (Button) v.findViewById(R.id.BattleFragment_button_Skill4);
+		mButtonSkill5 = (Button) v.findViewById(R.id.BattleFragment_button_Skill5);
+		mButtonDefense = (Button) v.findViewById(R.id.BattleFragment_button_Defense);
+		mButtonCharge = (Button) v.findViewById(R.id.BattleFragment_button_Charge);
+		mButtonxxx = (Button) v.findViewById(R.id.BattleFragment_button_xxx);
+		mButtonyyy = (Button) v.findViewById(R.id.BattleFragment_button_yyy);
+
+		mButtonSkill1.setOnClickListener(this);
+		mButtonSkill2.setOnClickListener(this);
+		mButtonSkill3.setOnClickListener(this);
+		mButtonSkill4.setOnClickListener(this);
+		mButtonSkill5.setOnClickListener(this);
+		mButtonDefense.setOnClickListener(this);
+		mButtonCharge.setOnClickListener(this);
+		mButtonxxx.setOnClickListener(this);
+		mButtonyyy.setOnClickListener(this);
+
+		mTextViewA1 = (TextView) v.findViewById(R.id.BattleFragment_textViewA_1);
+		mTextViewA2 = (TextView) v.findViewById(R.id.BattleFragment_textViewA_2);
+		mTextViewB1 = (TextView) v.findViewById(R.id.BattleFragment_textViewB_1);
+		mTextViewB2 = (TextView) v.findViewById(R.id.BattleFragment_textViewB_2);
+		mTextViewC1 = (TextView) v.findViewById(R.id.BattleFragment_textViewC_1);
+		mTextViewC2 = (TextView) v.findViewById(R.id.BattleFragment_textViewC_2);
+
+		mImageViewEnemy = (ImageView) v.findViewById(R.id.BattleFragment_imageView_Enemy);
+		mImageViewPlayer = (ImageView) v.findViewById(R.id.BattleFragment_imageView_Player);
+
+		mLinearLayoutEnemyBackGround = (LinearLayout) v.findViewById(R.id.BattleFragment_EnemybackGround);
+		mLinearLayoutAllBackGround = (LinearLayout) v.findViewById(R.id.BattleFragment_LinearLayout);
+
+		/*
+		 * ÁîªÈù¢„Å´Ë°®Á§∫„Åï„Çå„ÇãListView„Å´ „Çª„ÉÉ„Éà„Åô„ÇãAdapter„Å®List<String>„ÇíÁ¥ê‰ªò„Åë„Åô„Çã
+		 */
+		mListViewA = (ListView) v.findViewById(R.id.BattleFragment_listViewA);
+		mAdapterA = new ArrayAdapter<String>(context, R.layout.list_row_chara_white);
+		mListViewA.setAdapter(mAdapterA);
+	}
+
+	private void setViewValues(Bundle bundle) {
+		// SetField
+		mLinearLayoutEnemyBackGround.setBackgroundResource(ImageSelector.getBackGround((int) bundle.getLong("id")));
+		((MarginLayoutParams) mImageViewEnemy.getLayoutParams()).leftMargin = x / 20;
+		((MarginLayoutParams) mImageViewPlayer.getLayoutParams()).rightMargin = x / 15;
+		mLinearLayoutEnemyBackGround.getLayoutParams().height = y / 3;
+
+		if (player.skillList.length > 2) {
+			mButtonSkill1.setText(player.skillList[2].skillName);
+		}
+		if (player.skillList.length > 3) {
+			mButtonSkill2.setText(player.skillList[3].skillName);
+		}
+		if (player.skillList.length > 4) {
+			mButtonSkill3.setText(player.skillList[4].skillName);
+		}
+		if (player.skillList.length > 5) {
+			mButtonSkill4.setText(player.skillList[5].skillName);
+		}
+		if (player.skillList.length > 6) {
+			mButtonSkill5.setText(player.skillList[6].skillName);
+		}
+	}
+
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+	private void setDisplaySize(Context context) {
+		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+		Point point = new Point();
+
+		if (Build.VERSION.SDK_INT >= 13) {
+			display.getSize(point);
+			x = point.x;
+			y = point.y;
+		} else {
+			x = display.getWidth();
+			y = display.getHeight();
+		}
+	}
+
+	// ------------------------------------------------------------------------------------------------------
 	private void setBattleSetting(View v, Context context, Bundle bundle) {
 		DaoManager dao = new DaoManager(v.getContext());
 
@@ -134,7 +221,7 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		// SetPlayer
 		player = createPlayer(dao, context);
 
-		battleSystem = new BattleSystem(player, enemy);
+		battleSystem = new BattleSystem(player, enemy, context);
 	}
 
 	private Enemy createEnemy(DaoManager dao, Bundle bundle, Context context) {
@@ -192,116 +279,20 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		return player;
 	}
 
-	private void findViews(View v, Context context) {
-		/*
-		 * âÊñ Ç…ï\é¶Ç≥ÇÍÇÈViewÇÉoÉCÉìÉhÇ∑ÇÈ
-		 */
-		mButtonSkill1 = (Button) v.findViewById(R.id.BattleFragment_button_Skill1);
-		mButtonSkill2 = (Button) v.findViewById(R.id.BattleFragment_button_Skill2);
-		mButtonSkill3 = (Button) v.findViewById(R.id.BattleFragment_button_Skill3);
-		mButtonSkill4 = (Button) v.findViewById(R.id.BattleFragment_button_Skill4);
-		mButtonSkill5 = (Button) v.findViewById(R.id.BattleFragment_button_Skill5);
-		mButtonDefense = (Button) v.findViewById(R.id.BattleFragment_button_Defense);
-		mButtonCharge = (Button) v.findViewById(R.id.BattleFragment_button_Charge);
-		mButtonxxx = (Button) v.findViewById(R.id.BattleFragment_button_xxx);
-		mButtonyyy = (Button) v.findViewById(R.id.BattleFragment_button_yyy);
-
-		mButtonSkill1.setOnClickListener(this);
-		mButtonSkill2.setOnClickListener(this);
-		mButtonSkill3.setOnClickListener(this);
-		mButtonSkill4.setOnClickListener(this);
-		mButtonSkill5.setOnClickListener(this);
-		mButtonDefense.setOnClickListener(this);
-		mButtonCharge.setOnClickListener(this);
-		mButtonxxx.setOnClickListener(this);
-		mButtonyyy.setOnClickListener(this);
-
-		mTextViewA1 = (TextView) v.findViewById(R.id.BattleFragment_textViewA_1);
-		mTextViewA2 = (TextView) v.findViewById(R.id.BattleFragment_textViewA_2);
-		mTextViewB1 = (TextView) v.findViewById(R.id.BattleFragment_textViewB_1);
-		mTextViewB2 = (TextView) v.findViewById(R.id.BattleFragment_textViewB_2);
-		mTextViewC1 = (TextView) v.findViewById(R.id.BattleFragment_textViewC_1);
-		mTextViewC2 = (TextView) v.findViewById(R.id.BattleFragment_textViewC_2);
-
-		mImageViewEnemy = (ImageView) v.findViewById(R.id.BattleFragment_imageView_Enemy);
-		mImageViewPlayer = (ImageView) v.findViewById(R.id.BattleFragment_imageView_Player);
-
-		mLinearLayoutEnemyBackGround = (LinearLayout) v.findViewById(R.id.BattleFragment_EnemybackGround);
-		mLinearLayoutAllBackGround = (LinearLayout) v.findViewById(R.id.BattleFragment_LinearLayout);
-
-		/*
-		 * âÊñ Ç…ï\é¶Ç≥ÇÍÇÈListViewÇ… ÉZÉbÉgÇ∑ÇÈAdapterÇ∆List<String>ÇïRïtÇØÇ∑ÇÈ
-		 */
-		mListViewA = (ListView) v.findViewById(R.id.BattleFragment_listViewA);
-		mAdapterA = new ArrayAdapter<String>(context, R.layout.list_row_chara_white);
-		mListViewA.setAdapter(mAdapterA);
-	}
-
-	private void setViewValues(Bundle bundle) {
-		// SetField
-		mLinearLayoutEnemyBackGround.setBackgroundResource(ImageSelector.getBackGround((int) bundle.getLong("id")));
-		((MarginLayoutParams) mImageViewEnemy.getLayoutParams()).leftMargin = x / 20;
-		((MarginLayoutParams) mImageViewPlayer.getLayoutParams()).rightMargin = x / 15;
-		mLinearLayoutEnemyBackGround.getLayoutParams().height = y / 3;
-
-		if (player.skillList.length > 2) {
-			mButtonSkill1.setText(player.skillList[2].skillName);
-		}
-		if (player.skillList.length > 3) {
-			mButtonSkill2.setText(player.skillList[3].skillName);
-		}
-		if (player.skillList.length > 4) {
-			mButtonSkill3.setText(player.skillList[4].skillName);
-		}
-		if (player.skillList.length > 5) {
-			mButtonSkill4.setText(player.skillList[5].skillName);
-		}
-		if (player.skillList.length > 6) {
-			mButtonSkill5.setText(player.skillList[6].skillName);
-		}
-	}
-
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-	private void setDisplaySize(Context context) {
-		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-		Display display = wm.getDefaultDisplay();
-		Point point = new Point();
-
-		if (Build.VERSION.SDK_INT >= 13) {
-			display.getSize(point);
-			x = point.x;
-			y = point.y;
-		} else {
-			x = display.getWidth();
-			y = display.getHeight();
-		}
-	}
-
 	// ------------------------------------------------------------------------------------------------------
 
 	private void startAction(SelectedActionList selectedAction) {
 		CharacterEntity player = battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER);
 		if (battleSystem.isSetSkill(selectedAction, battleSystem.battleElements)) {
 			if (battleSystem.isHaveNecessaryPoint(selectedAction, player)) {
-				startBattle(selectedAction);
+				battleSystem.StartBattle(selectedAction);
 				outputActionResult(battleSystem);
 			} else {
-				outPutInfoToA("SPÇ™ë´ÇËÇ‹ÇπÇÒ");
+				outPutInfoToA("SP„ÅåË∂≥„Çä„Åæ„Åõ„Çì");
 			}
 		} else {
-			outPutInfoToA("ÉXÉLÉãÇ™ê›íËÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒ");
+			outPutInfoToA("„Çπ„Ç≠„É´„ÅåË®≠ÂÆö„Åï„Çå„Å¶„ÅÑ„Åæ„Åõ„Çì");
 		}
-	}
-
-	private void startBattle(SelectedActionList selectedAction) {
-		battleSystem.StartBattle(selectedAction);
-		if (battleSystem.isBattleEnd(true)) {
-			battleSystem.EndTurn();
-		}
-	}
-
-	private boolean isBattleEnd() {
-		return battleSystem.battleElements.getEnemy().currentHp <= 0;
 	}
 
 	private void outPutInfoToA(String message) {
@@ -309,11 +300,28 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	}
 
 	private void outputActionResult(BattleSystem system) {
+		// ÁîªÈù¢Âá∫ÂäõÁî®
+		String playerAction = battleSystem.battleElements.playerTrunHistoryList
+				.get(battleSystem.battleElements.playerTrunHistoryList.size() - 1).action.getValue();
+		String playerSkill = battleSystem.battleElements.playerTrunHistoryList
+				.get(battleSystem.battleElements.playerTrunHistoryList.size() - 1).skill.skillName;
+		String enemyAction = battleSystem.battleElements.enemyTurnHistoryList
+				.get(battleSystem.battleElements.enemyTurnHistoryList.size() - 1).action.getValue();
+		String enemySkill = battleSystem.battleElements.enemyTurnHistoryList
+				.get(battleSystem.battleElements.enemyTurnHistoryList.size() - 1).skill.skillName;
+
 		mAdapterA.add("----------------------------");
 		mAdapterA.add("Turn:" + battleSystem.battleElements.turnCount);
-		mAdapterA.add("PlayerAction:" + system.playerAction + " Skill:" + system.playerSkill);
-		mAdapterA.add("EnemyAction:" + system.enemyAction + " Skill:" + system.enemySkill);
-		mAdapterA.add(system.enemyActionRate);
+		mAdapterA.add("PlayerAction:" + playerAction + " Skill:" + playerSkill);
+		mAdapterA.add("EnemyAction:" + enemyAction + " Skill:" + enemySkill);
+		mAdapterA.add(setEnemyActionRate());
+	}
+
+	private String setEnemyActionRate() {
+		String attackRate = String.valueOf(((Enemy) battleSystem.battleElements.getEnemy()).attackRate);
+		String defenseRate = String.valueOf(((Enemy) battleSystem.battleElements.getEnemy()).defenseRate);
+		String chargerate = String.valueOf(((Enemy) battleSystem.battleElements.getEnemy()).chargeRate);
+		return "ÊîªÊíÉÁ¢∫ÁéáÔºö" + attackRate + " Èò≤Âæ°Á¢∫ÁéáÔºö" + defenseRate + " „ÉÅ„É£„Éº„Ç∏Á¢∫ÁéáÔºö" + chargerate;
 	}
 
 	// ------------------------------------------------------------------------------------------------------
@@ -356,16 +364,17 @@ public class BattleFragment extends Fragment implements OnClickListener {
 				mTextViewA2.setText("NPC");
 				mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).currentHp);
 				mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).currentSp);
-				mAdapterA.add(battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).name + "Ç™åªÇÍÇΩÅI");
-				mAdapterA.add(battleSystem.enemyActionRate);
+				mAdapterA.add(battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).name + "„ÅåÁèæ„Çå„ÅüÔºÅ");
+				mAdapterA.add(setEnemyActionRate());
 				break;
 			default:
 				break;
 		}
 
-		if (isBattleEnd()) {
+		if (battleSystem.isBattleEnd()) {
 			outPutInfoToA("WIN");
-			// resetBattleSystem();
+			battleSystem.endBattle();
+			// TODO Êà¶ÈóòÁîªÈù¢„ÇíÊäú„Åë„ÇãÊñπÊ≥ï„ÇíËÄÉ„Åà„Çã
 		}
 
 		mListViewA.setSelection(mAdapterA.getCount());

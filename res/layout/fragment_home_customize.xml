@@ -66,6 +66,18 @@
         android:layout_height="wrap_content"
         android:text="Armor" />
 
+    <TextView
+        android:id="@+id/CustomizeFragment_textView_Gold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gold" />
+
+    <TextView
+        android:id="@+id/CustomizeFragment_textView_Exp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Exp" />
+
     <Button
         android:id="@+id/CustomizeFragment_button_weaponChange"
         android:layout_width="wrap_content"

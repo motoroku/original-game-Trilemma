@@ -1,5 +1,7 @@
-package system.battle;
+ï»¿package system.battle;
 
+import android.content.Context;
+import dao.DaoManager;
 import Trilemma.CHARACTER;
 import entity.BattleStatus;
 import entity.CharacterEntity;
@@ -11,81 +13,88 @@ import entity.Player;
 public class BattleSystem {
 	BattleService battleService = new BattleService();
 	public BattleElements battleElements;
+	Context context;
+	DaoManager dao;
 
 	// -------------------------------------------------------------------------------------------
-	// ‰æ–Êo—Í—p
+	// ç”»é¢å‡ºåŠ›ç”¨
 	public String playerAction;
 	public String playerSkill;
 	public String enemyAction;
 	public String enemySkill;
-	public String enemyActionRate;
 
 	// -------------------------------------------------------------------------------------------
 
 	public BattleSystem() {
 		battleElements = new BattleElements();
-		setEnemyActionRate();
 	}
 
 	/**
-	 * “GƒLƒƒƒ‰ƒNƒ^[‚Ì‚İ‘I‘ğ
-	 * @param enemy ‘I‘ğ‚³‚ê‚½“GƒLƒƒƒ‰ƒNƒ^[
+	 * æ•µã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ã¿é¸æŠ
+	 * @param enemy é¸æŠã•ã‚ŒãŸæ•µã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼
 	 */
-	public BattleSystem(Player player, Enemy enemy) {
+	public BattleSystem(Player player, Enemy enemy, Context context) {
 		battleElements = new BattleElements(player, enemy);
-		setEnemyActionRate();
+		this.context = context;
+		dao = new DaoManager(context);
 	}
 
 	/**
-	 * ‰æ–Ê‚ÅŒˆ’è‚³‚ê‚½s“®‚ÉŠî‚¢‚Ä 1ƒ^[ƒ“‚Ìˆê˜A‚Ìˆ—‚ğŠJn‚·‚é
-	 * @param buttonNum ƒ^ƒbƒv‚³‚ê‚½ƒ{ƒ^ƒ“
+	 * ç”»é¢ã§æ±ºå®šã•ã‚ŒãŸè¡Œå‹•ã«åŸºã„ã¦ 1ã‚¿ãƒ¼ãƒ³ã®ä¸€é€£ã®å‡¦ç†ã‚’é–‹å§‹ã™ã‚‹
+	 * @param buttonNum ã‚¿ãƒƒãƒ—ã•ã‚ŒãŸãƒœã‚¿ãƒ³
 	 */
 	public void StartBattle(SelectedActionList selectedAction) {
-		// ‰æ–Ê‚©‚ç“ü—Í‚³‚ê‚½ƒ{ƒ^ƒ“‚ğİ’è‚·‚é
+		// ç”»é¢ã‹ã‚‰å…¥åŠ›ã•ã‚ŒãŸãƒœã‚¿ãƒ³ã‚’è¨­å®šã™ã‚‹
 		battleElements.inputButton = battleElements.getInputButton(selectedAction);
-		// NPC‚Ìs“®‚ğŒˆ’è‚·‚é
+		// NPCã®è¡Œå‹•ã‚’æ±ºå®šã™ã‚‹
 		battleService.getAction(battleElements, BattleStatus.ENEMY);
-		// ƒvƒŒƒCƒ„[‚Ìs“®‚ğİ’è‚·‚é
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¡Œå‹•ã‚’è¨­å®šã™ã‚‹
 		battleService.getAction(battleElements, BattleStatus.PLAYER);
-		// ƒXƒLƒ‹‚Ìˆ—‚ğs‚¤
+		// ã‚¹ã‚­ãƒ«ã®å‡¦ç†ã‚’è¡Œã†
 		battleService.processBattleAction(battleElements, BattleStatus.PLAYER);
 		battleService.processBattleAction(battleElements, BattleStatus.ENEMY);
-		// 1ƒ^[ƒ“I—¹‚Ì‰Šú‰»ˆ—
+		// 1ã‚¿ãƒ¼ãƒ³çµ‚äº†æ™‚ã®åˆæœŸåŒ–å‡¦ç†
 		battleService.endProcessing(battleElements);
 
-		// -------------------------------------------------------------------------------------------
-		// ‰æ–Êo—Í—p
-		playerAction = battleElements.playerTrunHistoryList.get(battleElements.playerTrunHistoryList.size() - 1).action
-				.getValue();
-		playerSkill = battleElements.playerTrunHistoryList.get(battleElements.playerTrunHistoryList.size() - 1).skill.skillName;
-		enemyAction = battleElements.enemyTurnHistoryList.get(battleElements.enemyTurnHistoryList.size() - 1).action
-				.getValue();
-		enemySkill = battleElements.enemyTurnHistoryList.get(battleElements.enemyTurnHistoryList.size() - 1).skill.skillName;
-		setEnemyActionRate();
-		// -------------------------------------------------------------------------------------------
+	}
+
+	public void endBattle() {
+		Enemy enemy = (Enemy) battleElements.getEnemy();
+		int profitGold = enemy.gold;
+		int profitExp = enemy.exp;
+
+		// TODO ãŠé‡‘ãŒæ‰‹ã«å…¥ã‚‹å‡¦ç†ã‚’è¿½åŠ ã™ã‚‹
+		dao.addGold(profitGold);
+		// TODO çµŒé¨“å€¤ã‚’å–å¾—ã™ã‚‹å‡¦ç†ã‚’å®Ÿè£…ã™ã‚‹
+		dao.addExp(profitExp);
+		// TODO ã‚¢ã‚¤ãƒ†ãƒ ã®å–å¾—å‡¦ç†ã‚’å®Ÿè£…ã™ã‚‹
+		item();
+		// TODOã€€ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—ã®å‡¦ç†ã‚’å®Ÿè£…ã™ã‚‹
+		levelUp();
+	}
+
+	public void item() {
 
 	}
 
-	public void EndTurn() {
+	public void levelUp() {
 
 	}
 
-	public boolean isBattleEnd(boolean isEnd) {
-		return isEnd;
-	}
-
+	// ------------------------------------------------------------------------------------------------------------
+	// ãƒã‚§ãƒƒã‚¯ç³»ã®ãƒ¡ã‚½ãƒƒãƒ‰
 	public boolean isHaveNecessaryPoint(SelectedActionList selectedAction, CharacterEntity character) {
 		return battleService.isEnoughSkillPoint(character.skillList[selectedAction.getActionNo()], character);
+	}
+
+	public boolean isBattleEnd() {
+		return battleElements.getEnemy().currentHp <= 0;
 	}
 
 	public boolean isSetSkill(SelectedActionList selectedAction, BattleElements elements) {
 		return battleService.isSetSkill(selectedAction, elements);
 	}
 
-	private void setEnemyActionRate() {
-		String attackRate = String.valueOf(((Enemy) battleElements.getEnemy()).attackRate);
-		String defenseRate = String.valueOf(((Enemy) battleElements.getEnemy()).defenseRate);
-		String chargerate = String.valueOf(((Enemy) battleElements.getEnemy()).chargeRate);
-		enemyActionRate = "UŒ‚Šm—¦F" + attackRate + " –hŒäŠm—¦F" + defenseRate + " ƒ`ƒƒ[ƒWŠm—¦F" + chargerate;
-	}
+	// ------------------------------------------------------------------------------------------------------------
+
 }

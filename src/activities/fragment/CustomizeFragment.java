@@ -2,6 +2,8 @@ package activities.fragment;
 
 import java.util.List;
 
+import org.w3c.dom.Text;
+
 import com.games.Trilemma.R;
 
 import dao.DaoManager;
@@ -37,6 +39,8 @@ public class CustomizeFragment extends Fragment implements OnClickListener {
 	public TextView mTextDefense;
 	public TextView mTextWeapon;
 	public TextView mTextArmor;
+	public TextView mTextGold;
+	public TextView mTextExp;
 
 	public Button mWeaponButton;
 	public Button mArmorButton;
@@ -63,6 +67,8 @@ public class CustomizeFragment extends Fragment implements OnClickListener {
 		mTextDefense = (TextView) v.findViewById(R.id.CustomizeFragment_textView_Defense);
 		mTextWeapon = (TextView) v.findViewById(R.id.CustomizeFragment_textView_Weapon);
 		mTextArmor = (TextView) v.findViewById(R.id.CustomizeFragment_textView_Armor);
+		mTextGold = (TextView) v.findViewById(R.id.CustomizeFragment_textView_Gold);
+		mTextExp = (TextView) v.findViewById(R.id.CustomizeFragment_textView_Exp);
 
 		mWeaponButton = (Button) v.findViewById(R.id.CustomizeFragment_button_weaponChange);
 		mArmorButton = (Button) v.findViewById(R.id.CustomizeFragment_button_armorChange);
@@ -89,11 +95,7 @@ public class CustomizeFragment extends Fragment implements OnClickListener {
 		List<LEARNED_SKILL> playerLearnedSkillList = dao.getPlayerLearnedSkill();
 		List<SKILL> playerSkillList = dao.getPlayerSkillList(playerLearnedSkillList);
 
-		PlayerDto playerDto = dao.getPlayerDto();
-
-		Player player = new Player(playerDto, playerLearnedSkillList, playerSkillList, defense, charge);
-
-		this.player = player;
+		this.player = new Player(dao.getPlayerDto(), playerLearnedSkillList, playerSkillList, defense, charge);
 	}
 
 	@Override
@@ -119,5 +121,7 @@ public class CustomizeFragment extends Fragment implements OnClickListener {
 		mTextDefense.setText("DEFENSE:" + String.valueOf(player.defense));
 		mTextWeapon.setText("WEAPON:" + player.weapon.weaponName);
 		mTextArmor.setText("DEFENSE:" + player.armor.armorName);
+		mTextGold.setText("Gold: " + player.gold);
+		mTextExp.setText("EXP: " + player.exp);
 	}
 }

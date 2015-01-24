@@ -13,4 +13,6 @@ public class PlayerDto {
 	public int defense;
 	public Weapon weapon;
 	public Armor armor;
+	public int gold;
+	public int exp;
 }

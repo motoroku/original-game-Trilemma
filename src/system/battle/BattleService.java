@@ -1,4 +1,4 @@
-package system.battle;
+ï»¿package system.battle;
 
 import entity.BattleStatus;
 import entity.BattleStatus.SelectedActionList;
@@ -13,7 +13,7 @@ public class BattleService {
 	SkillManager mSkillManager = new SkillManager();
 
 	/**
-	 * g—pƒXƒLƒ‹‚ğİ’è‚·‚é
+	 * ä½¿ç”¨ã‚¹ã‚­ãƒ«ã‚’è¨­å®šã™ã‚‹
 	 * @param elements
 	 * @param actorType
 	 * @return
@@ -32,10 +32,10 @@ public class BattleService {
 	}
 
 	/**
-	 * ‘I‘ğ‚µ‚½ƒXƒLƒ‹‚ªİ’è‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğ”»’è‚·‚é
+	 * é¸æŠã—ãŸã‚¹ã‚­ãƒ«ãŒè¨­å®šã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹ã‚’åˆ¤å®šã™ã‚‹
 	 * @param selectedAction
 	 * @param elements
-	 * @return İ’è‚³‚ê‚Ä‚¢‚é‚Ætrue.İ’è‚³‚ê‚Ä‚¢‚È‚¢‚Æfalse.
+	 * @return è¨­å®šã•ã‚Œã¦ã„ã‚‹ã¨true.è¨­å®šã•ã‚Œã¦ã„ãªã„ã¨false.
 	 */
 	public boolean isSetSkill(SelectedActionList selectedAction, BattleElements elements) {
 		int num = elements.getInputButton(selectedAction);
@@ -50,7 +50,7 @@ public class BattleService {
 	}
 
 	/**
-	 * g—pƒXƒLƒ‹‚Ì•K—vƒXƒLƒ‹ƒ|ƒCƒ“ƒg‚ğ‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğ”»’è‚·‚é
+	 * ä½¿ç”¨ã‚¹ã‚­ãƒ«ã®å¿…è¦ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆã‚’æŒã£ã¦ã„ã‚‹ã‹ã©ã†ã‹ã‚’åˆ¤å®šã™ã‚‹
 	 * @param buttonNum
 	 * @param character
 	 * @return
@@ -60,9 +60,9 @@ public class BattleService {
 	}
 
 	/**
-	 * í“¬ˆ—‚ğs‚¤B
+	 * æˆ¦é—˜å‡¦ç†ã‚’è¡Œã†ã€‚
 	 * @param elements
-	 * @param actorType s“®‚ğs‚¤ƒLƒƒƒ‰ƒNƒ^[
+	 * @param actorType è¡Œå‹•ã‚’è¡Œã†ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼
 	 * @return
 	 */
 	public boolean processBattleAction(BattleElements elements, String actorType) {
@@ -77,22 +77,22 @@ public class BattleService {
 			receiverAction = elements.getPlayer().usingSkill.actionStatus;
 		}
 
-		// g—pƒXƒLƒ‹‚ÌŸ”s”»’è‚ğs‚¤
+		// ä½¿ç”¨ã‚¹ã‚­ãƒ«ã®å‹æ•—åˆ¤å®šã‚’è¡Œã†
 		elements.result = getActionResult(actorAction, receiverAction);
-		// ƒXƒLƒ‹g—pÒ‚Æ‚»‚Ì‘ÎÛ‚ğİ’è‚·‚é
+		// ã‚¹ã‚­ãƒ«ä½¿ç”¨è€…ã¨ãã®å¯¾è±¡ã‚’è¨­å®šã™ã‚‹
 		setSkillActor(elements, actorType);
-		// ƒXƒLƒ‹‚ğ”­“®‚·‚éˆ—‚ğs‚¤
+		// ã‚¹ã‚­ãƒ«ã‚’ç™ºå‹•ã™ã‚‹å‡¦ç†ã‚’è¡Œã†
 		elements = mSkillManager.transactSkill(elements);
-		// ƒXƒLƒ‹‚ÌŒø‰Ê‚ğ“K—p‚µ‚½Œ‹‰Ê‚ğƒGƒŒƒƒ“ƒg‚ÌƒLƒƒƒ‰ƒNƒ^[‚É”½‰f‚³‚¹‚é
+		// ã‚¹ã‚­ãƒ«ã®åŠ¹æœã‚’é©ç”¨ã—ãŸçµæœã‚’ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆã®ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã«åæ˜ ã•ã›ã‚‹
 		elements.applyBattleResult();
-		// ƒXƒLƒ‹‚Ìg—p—š—ğ‚ğ•Û‘¶
+		// ã‚¹ã‚­ãƒ«ã®ä½¿ç”¨å±¥æ­´ã‚’ä¿å­˜
 		elements.setTurnHistory();
 
 		return true;
 	}
 
 	/**
-	 * ƒ^[ƒ“I—¹‚Ìˆ—‚ğs‚¤ Bí“¬—v‘f‚Ì‰Šú‰»B
+	 * ã‚¿ãƒ¼ãƒ³çµ‚äº†æ™‚ã®å‡¦ç†ã‚’è¡Œã† ã€‚æˆ¦é—˜è¦ç´ ã®åˆæœŸåŒ–ã€‚
 	 * @param elements
 	 * @return
 	 */
@@ -113,7 +113,7 @@ public class BattleService {
 	// Private Method
 
 	/**
-	 * g—pƒXƒLƒ‹‚ÌŸ”s”»’è‚ğs‚¤
+	 * ä½¿ç”¨ã‚¹ã‚­ãƒ«ã®å‹æ•—åˆ¤å®šã‚’è¡Œã†
 	 * @param playerAction
 	 * @param npcAction
 	 * @return
@@ -121,19 +121,19 @@ public class BattleService {
 	private BattleResult getActionResult(ActionStatus playerAction, ActionStatus npcAction) {
 		BattleResult result;
 
-		if (playerAction == ActionStatus.UŒ‚ && npcAction == ActionStatus.–hŒä) {
+		if (playerAction == ActionStatus.æ”»æ’ƒ && npcAction == ActionStatus.é˜²å¾¡) {
 			result = BattleResult.lose;
-		} else if (playerAction == ActionStatus.UŒ‚ && npcAction == ActionStatus.ƒ`ƒƒ[ƒW) {
+		} else if (playerAction == ActionStatus.æ”»æ’ƒ && npcAction == ActionStatus.ãƒãƒ£ãƒ¼ã‚¸) {
 			result = BattleResult.win;
-		} else if (playerAction == ActionStatus.UŒ‚ && npcAction == ActionStatus.UŒ‚) {
+		} else if (playerAction == ActionStatus.æ”»æ’ƒ && npcAction == ActionStatus.æ”»æ’ƒ) {
 			result = BattleResult.clash;
-		} else if (playerAction == ActionStatus.ƒ`ƒƒ[ƒW && npcAction == ActionStatus.UŒ‚) {
+		} else if (playerAction == ActionStatus.ãƒãƒ£ãƒ¼ã‚¸ && npcAction == ActionStatus.æ”»æ’ƒ) {
 			result = BattleResult.lose;
-		} else if (playerAction == ActionStatus.ƒ`ƒƒ[ƒW && npcAction == ActionStatus.–hŒä) {
+		} else if (playerAction == ActionStatus.ãƒãƒ£ãƒ¼ã‚¸ && npcAction == ActionStatus.é˜²å¾¡) {
 			result = BattleResult.win;
-		} else if (playerAction == ActionStatus.–hŒä && npcAction == ActionStatus.UŒ‚) {
+		} else if (playerAction == ActionStatus.é˜²å¾¡ && npcAction == ActionStatus.æ”»æ’ƒ) {
 			result = BattleResult.win;
-		} else if (playerAction == ActionStatus.–hŒä && npcAction == ActionStatus.ƒ`ƒƒ[ƒW) {
+		} else if (playerAction == ActionStatus.é˜²å¾¡ && npcAction == ActionStatus.ãƒãƒ£ãƒ¼ã‚¸) {
 			result = BattleResult.lose;
 		} else {
 			result = BattleResult.draw;
@@ -143,7 +143,7 @@ public class BattleService {
 	}
 
 	/**
-	 * s“®‚·‚éƒLƒƒƒ‰ƒNƒ^[‚ÆƒXƒLƒ‹‚Ì‘ÎÛ‚ğİ’è‚·‚é
+	 * è¡Œå‹•ã™ã‚‹ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã¨ã‚¹ã‚­ãƒ«ã®å¯¾è±¡ã‚’è¨­å®šã™ã‚‹
 	 * @param elements
 	 * @param actorType
 	 * @return
@@ -154,14 +154,14 @@ public class BattleService {
 		} else if (actorType == BattleStatus.ENEMY) {
 			elements.setEnemyTurn();
 		} else {
-			// ƒAƒNƒ^[‚ªãè‚­İ’è‚³‚ê‚Ä‚È‚©‚Á‚½‚çƒGƒlƒ~[‚Ìƒ^[ƒ“
+			// ã‚¢ã‚¯ã‚¿ãƒ¼ãŒä¸Šæ‰‹ãè¨­å®šã•ã‚Œã¦ãªã‹ã£ãŸã‚‰ã‚¨ãƒãƒŸãƒ¼ã®ã‚¿ãƒ¼ãƒ³
 			elements.setEnemyTurn();
 		}
 		setTarget(elements);
 	}
 
 	/**
-	 * g—pƒXƒLƒ‹‚Ì‘ÎÛ‚ğİ’è‚·‚é
+	 * ä½¿ç”¨ã‚¹ã‚­ãƒ«ã®å¯¾è±¡ã‚’è¨­å®šã™ã‚‹
 	 * @param elements
 	 * @return
 	 */

@@ -40,7 +40,7 @@ public class StoryListFragment extends Fragment implements OnItemClickListener {
 	private void setStory(View v) {
 		// ‚±‚±‚Ålistview‚Ì’†g‚ğ‹l‚ß‚éB
 		DaoManager dao = new DaoManager(v.getContext());
-		townList = dao.session.getTOWNDao().getSession().loadAll(TOWN.class);
+		townList = dao.session.getTOWNDao().loadAll();
 		for (int i = 0; i < townList.size(); i++) {
 			storyAdapter.add(townList.get(i).getTown_name());
 		}

@@ -1,7 +1,7 @@
-package entity;
+ï»¿package entity;
 
 /**
- * í“¬ŠÖ˜A‚Å—˜—p‚·‚éenumƒNƒ‰ƒX‚ğ‚Ü‚Æ‚ß‚éƒNƒ‰ƒX
+ * æˆ¦é—˜é–¢é€£ã§åˆ©ç”¨ã™ã‚‹enumã‚¯ãƒ©ã‚¹ã‚’ã¾ã¨ã‚ã‚‹ã‚¯ãƒ©ã‚¹
  * @author mori_yu
  * 
  */
@@ -13,7 +13,7 @@ public class BattleStatus {
 	// ---------------------------------------------------
 	// Enum
 	public enum ActionStatus {
-		UŒ‚("UŒ‚"), –hŒä("–hŒä"), ƒ`ƒƒ[ƒW("ƒ`ƒƒ[ƒW");
+		æ”»æ’ƒ("æ”»æ’ƒ"), é˜²å¾¡("é˜²å¾¡"), ãƒãƒ£ãƒ¼ã‚¸("ãƒãƒ£ãƒ¼ã‚¸");
 
 		public String getValue() {
 			return type;
@@ -30,7 +30,7 @@ public class BattleStatus {
 		}
 
 		public static ActionStatus fromValue(String type) {
-			ActionStatus result = ActionStatus.UŒ‚;
+			ActionStatus result = ActionStatus.æ”»æ’ƒ;
 
 			for (ActionStatus status : values()) {
 				if (status.toValue().equals(type)) {
