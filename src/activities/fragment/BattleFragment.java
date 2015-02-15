@@ -8,17 +8,14 @@ import com.games.Trilemma.R;
 
 import dao.DaoManager;
 import dao.PlayerDto;
-
 import system.battle.BattleSystem;
 import utility.ImageSelector;
 import utility.Utility;
-
 import entity.BattleStatus;
 import entity.CharacterEntity;
 import entity.BattleStatus.SelectedActionList;
 import entity.Enemy;
 import entity.Player;
-
 import Trilemma.CHARACTER;
 import Trilemma.LEARNED_SKILL;
 import Trilemma.SKILL;
@@ -32,7 +29,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
@@ -41,18 +40,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
-public class BattleFragment extends Fragment implements OnClickListener {
+public class BattleFragment extends Fragment implements OnClickListener, OnTouchListener {
 
 	// ---------------------------------------------------
 	// View
-	private Button mButtonSkill1;
-	private Button mButtonSkill2;
-	private Button mButtonSkill3;
-	private Button mButtonSkill4;
-	private Button mButtonSkill5;
+	private Button mButtonSkill;
+	private Button mPopupButtonSkill1;
+	private Button mPopupButtonSkill2;
+	private Button mPopupButtonSkill3;
+	private Button mPopupButtonSkill4;
 	private Button mButtonDefense;
 	private Button mButtonCharge;
 	private Button mButtonxxx;
@@ -72,6 +73,11 @@ public class BattleFragment extends Fragment implements OnClickListener {
 
 	private LinearLayout mLinearLayoutEnemyBackGround;
 	private LinearLayout mLinearLayoutAllBackGround;
+
+	private PopupWindow popupWindowSkill1;
+	private PopupWindow popupWindowSkill2;
+	private PopupWindow popupWindowSkill3;
+	private PopupWindow popupWindowSkill4;
 
 	// ---------------------------------------------------
 	// Adapter
@@ -93,6 +99,13 @@ public class BattleFragment extends Fragment implements OnClickListener {
 	// ---------------------------------------------------
 	int x;
 	int y;
+	int skillButtonSizeX;
+	int skillButtonSizeY;
+
+	float lastTouchX;
+	float lastTouchY;
+	float currentX;
+	float currentY;
 
 	// ---------------------------------------------------
 	Player player;
@@ -131,21 +144,14 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		/*
 		 * 画面に表示されるViewをバインドする
 		 */
-		mButtonSkill1 = (Button) v.findViewById(R.id.BattleFragment_button_Skill1);
-		mButtonSkill2 = (Button) v.findViewById(R.id.BattleFragment_button_Skill2);
-		mButtonSkill3 = (Button) v.findViewById(R.id.BattleFragment_button_Skill3);
-		mButtonSkill4 = (Button) v.findViewById(R.id.BattleFragment_button_Skill4);
-		mButtonSkill5 = (Button) v.findViewById(R.id.BattleFragment_button_Skill5);
+		mButtonSkill = (Button) v.findViewById(R.id.BattleFragment_button_Skill);
 		mButtonDefense = (Button) v.findViewById(R.id.BattleFragment_button_Defense);
 		mButtonCharge = (Button) v.findViewById(R.id.BattleFragment_button_Charge);
 		mButtonxxx = (Button) v.findViewById(R.id.BattleFragment_button_xxx);
 		mButtonyyy = (Button) v.findViewById(R.id.BattleFragment_button_yyy);
 
-		mButtonSkill1.setOnClickListener(this);
-		mButtonSkill2.setOnClickListener(this);
-		mButtonSkill3.setOnClickListener(this);
-		mButtonSkill4.setOnClickListener(this);
-		mButtonSkill5.setOnClickListener(this);
+		mButtonSkill.setOnClickListener(this);
+		mButtonSkill.setOnTouchListener(this);
 		mButtonDefense.setOnClickListener(this);
 		mButtonCharge.setOnClickListener(this);
 		mButtonxxx.setOnClickListener(this);
@@ -170,6 +176,45 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		mListViewA = (ListView) v.findViewById(R.id.BattleFragment_listViewA);
 		mAdapterA = new ArrayAdapter<String>(context, R.layout.list_row_chara_white);
 		mListViewA.setAdapter(mAdapterA);
+
+		// PopupWindowを作成
+		LinearLayout popupSkillLayout1 = (LinearLayout) getActivity().getLayoutInflater().inflate(
+				R.layout.popupwindow_battle_skill, null);
+		mPopupButtonSkill1 = (Button) popupSkillLayout1.findViewById(R.id.popupwindow_button_skill);
+		LinearLayout popupSkillLayout2 = (LinearLayout) getActivity().getLayoutInflater().inflate(
+				R.layout.popupwindow_battle_skill, null);
+		mPopupButtonSkill2 = (Button) popupSkillLayout2.findViewById(R.id.popupwindow_button_skill);
+		LinearLayout popupSkillLayout3 = (LinearLayout) getActivity().getLayoutInflater().inflate(
+				R.layout.popupwindow_battle_skill, null);
+		mPopupButtonSkill3 = (Button) popupSkillLayout3.findViewById(R.id.popupwindow_button_skill);
+		LinearLayout popupSkillLayout4 = (LinearLayout) getActivity().getLayoutInflater().inflate(
+				R.layout.popupwindow_battle_skill, null);
+		mPopupButtonSkill4 = (Button) popupSkillLayout4.findViewById(R.id.popupwindow_button_skill);
+
+		popupWindowSkill1 = new PopupWindow(getActivity());
+		popupWindowSkill1.setWindowLayoutMode(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		popupWindowSkill1.setContentView(popupSkillLayout1);
+		popupWindowSkill1.setOutsideTouchable(true);
+		popupWindowSkill1.setFocusable(true);
+
+		popupWindowSkill2 = new PopupWindow(getActivity());
+		popupWindowSkill2.setWindowLayoutMode(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		popupWindowSkill2.setContentView(popupSkillLayout2);
+		popupWindowSkill2.setOutsideTouchable(true);
+		popupWindowSkill2.setFocusable(true);
+
+		popupWindowSkill3 = new PopupWindow(getActivity());
+		popupWindowSkill3.setWindowLayoutMode(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		popupWindowSkill3.setContentView(popupSkillLayout3);
+		popupWindowSkill3.setOutsideTouchable(true);
+		popupWindowSkill3.setFocusable(true);
+
+		popupWindowSkill4 = new PopupWindow(getActivity());
+		popupWindowSkill4.setWindowLayoutMode(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		popupWindowSkill4.setContentView(popupSkillLayout4);
+		popupWindowSkill4.setOutsideTouchable(true);
+		popupWindowSkill4.setFocusable(true);
+
 	}
 
 	private void setViewValues(Bundle bundle) {
@@ -180,19 +225,16 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		mLinearLayoutEnemyBackGround.getLayoutParams().height = y / 3;
 
 		if (player.skillList.length > 2) {
-			mButtonSkill1.setText(player.skillList[2].skillName);
+			mPopupButtonSkill1.setText(player.skillList[2].skillName);
 		}
 		if (player.skillList.length > 3) {
-			mButtonSkill2.setText(player.skillList[3].skillName);
+			mPopupButtonSkill2.setText(player.skillList[3].skillName);
 		}
 		if (player.skillList.length > 4) {
-			mButtonSkill3.setText(player.skillList[4].skillName);
+			mPopupButtonSkill3.setText(player.skillList[4].skillName);
 		}
 		if (player.skillList.length > 5) {
-			mButtonSkill4.setText(player.skillList[5].skillName);
-		}
-		if (player.skillList.length > 6) {
-			mButtonSkill5.setText(player.skillList[6].skillName);
+			mPopupButtonSkill4.setText(player.skillList[5].skillName);
 		}
 	}
 
@@ -324,25 +366,25 @@ public class BattleFragment extends Fragment implements OnClickListener {
 		return "攻撃確率：" + attackRate + " 防御確率：" + defenseRate + " チャージ確率：" + chargerate;
 	}
 
+	private void endTurn() {
+		if (battleSystem.isBattleEnd()) {
+			outPutInfoToA("WIN");
+			battleSystem.endBattle();
+			// TODO 戦闘画面を抜ける方法を考える
+		}
+		mListViewA.setSelection(mAdapterA.getCount());
+		mTextViewB1.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).currentHp);
+		mTextViewC1.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).currentSp);
+		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).currentHp);
+		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).currentSp);
+	}
+
 	// ------------------------------------------------------------------------------------------------------
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.BattleFragment_button_Skill1:
-				startAction(SelectedActionList.skill1);
-				break;
-			case R.id.BattleFragment_button_Skill2:
-				startAction(SelectedActionList.skill2);
-				break;
-			case R.id.BattleFragment_button_Skill3:
-				startAction(SelectedActionList.skill3);
-				break;
-			case R.id.BattleFragment_button_Skill4:
-				startAction(SelectedActionList.skill4);
-				break;
-			case R.id.BattleFragment_button_Skill5:
-				startAction(SelectedActionList.skill5);
+			case R.id.BattleFragment_button_Skill:
 				break;
 			case R.id.BattleFragment_button_Defense:
 				startAction(SelectedActionList.defense);
@@ -370,18 +412,62 @@ public class BattleFragment extends Fragment implements OnClickListener {
 			default:
 				break;
 		}
+		endTurn();
+	}
 
-		if (battleSystem.isBattleEnd()) {
-			outPutInfoToA("WIN");
-			battleSystem.endBattle();
-			// TODO 戦闘画面を抜ける方法を考える
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		float x = event.getX();
+		float y = event.getY();
+		skillButtonSizeX = mButtonSkill.getWidth();
+		skillButtonSizeY = mButtonSkill.getHeight();
+
+		switch (event.getAction()) {
+		// タッチ
+			case MotionEvent.ACTION_DOWN:
+				lastTouchX = x;
+				lastTouchY = y;
+				popupWindowSkill1.showAsDropDown(v, 0, -skillButtonSizeY * 2);
+				popupWindowSkill2.showAsDropDown(v, skillButtonSizeX, -skillButtonSizeY);
+				popupWindowSkill3.showAsDropDown(v, -skillButtonSizeX, -skillButtonSizeY);
+				popupWindowSkill4.showAsDropDown(v, 0, 0);
+
+				break;
+			case MotionEvent.ACTION_UP:
+				currentX = x;
+				currentY = y;
+				if (popupWindowSkill1.isShowing()) {
+					popupWindowSkill1.dismiss();
+				}
+				if (popupWindowSkill2.isShowing()) {
+					popupWindowSkill2.dismiss();
+				}
+				if (popupWindowSkill3.isShowing()) {
+					popupWindowSkill3.dismiss();
+				}
+				if (popupWindowSkill4.isShowing()) {
+					popupWindowSkill4.dismiss();
+				}
+
+				if (skillButtonSizeX > currentX && currentX > 0 && 0 > currentY && currentY > -skillButtonSizeY) {
+					startAction(SelectedActionList.skill1);
+				}
+				if (skillButtonSizeX * 2 > currentX && currentX > skillButtonSizeX && skillButtonSizeY > currentY
+						&& currentY > 0) {
+					startAction(SelectedActionList.skill2);
+				}
+				if (0 > currentX && currentX > -skillButtonSizeX && skillButtonSizeY > currentY && currentY > 0) {
+					startAction(SelectedActionList.skill3);
+				}
+				if (skillButtonSizeX > currentX && currentX > 0 && skillButtonSizeY * 2 > currentY
+						&& currentY > skillButtonSizeY) {
+					startAction(SelectedActionList.skill4);
+				}
+			default:
+				break;
 		}
-
-		mListViewA.setSelection(mAdapterA.getCount());
-		mTextViewB1.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).currentHp);
-		mTextViewC1.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.PLAYER).currentSp);
-		mTextViewB2.setText("HP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).currentHp);
-		mTextViewC2.setText("SP:" + battleSystem.battleElements.characterMap.get(BattleStatus.ENEMY).currentSp);
+		endTurn();
+		return true;
 	}
 
 	// ------------------------------------------------------------------------------------------------------
