@@ -47,7 +47,7 @@ public class CharacterEntity {
 		Skill defense = null;
 
 		for (int i = 0; i < skillList.length; i++) {
-			if (skillList[i].type.getId() == 2) {
+			if (skillList[i].skillActionStatusId == 2) {
 				defense = skillList[i];
 			}
 		}
@@ -59,7 +59,7 @@ public class CharacterEntity {
 		Skill charge = null;
 
 		for (int i = 0; i < skillList.length; i++) {
-			if (skillList[i].type.getId() == 3) {
+			if (skillList[i].skillActionStatusId == 3) {
 				charge = skillList[i];
 			}
 		}

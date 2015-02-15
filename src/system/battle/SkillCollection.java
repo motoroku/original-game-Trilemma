@@ -5,23 +5,23 @@ import entity.CharacterEntity;
 import entity.Skill;
 
 /**
- * Skill‚Ìˆ—ƒƒ\ƒbƒh‚ğ‚ÂƒNƒ‰ƒX
+ * Skillã®å‡¦ç†ãƒ¡ã‚½ãƒƒãƒ‰ã‚’æŒã¤ã‚¯ãƒ©ã‚¹
  * @author mori_yu
- * 
+ *
  */
 public class SkillCollection {
 	public SkillCollection() {
 	}
 
 	// ----------------------------------------------------------------------------------------
-	// g—pƒXƒLƒ‹‚Ì•ªŠòˆ—
+	// ä½¿ç”¨ã‚¹ã‚­ãƒ«ã®åˆ†å²å‡¦ç†
 	public boolean actAttackSkill(BattleElements elements) {
 		Skill skill = elements.getActorSkill();
-		switch (skill.type.getSkill_type_name()) {
-			case "’ÊíUŒ‚":
+		switch (skill.skillType) {
+			case NormalAttack:
 				normalAttack(elements, skill);
 				break;
-			case "‹­UŒ‚":
+			case SpecialAttack:
 				break;
 			default:
 				break;
@@ -31,11 +31,11 @@ public class SkillCollection {
 
 	public boolean actAttackSkillOnClash(BattleElements elements) {
 		Skill skill = elements.getActorSkill();
-		switch (skill.type.getSkill_type_name()) {
-			case "’ÊíUŒ‚":
+		switch (skill.skillType) {
+			case NormalAttack:
 				normalAttackOnClash(elements, skill);
 				break;
-			case "‹­UŒ‚":
+			case SpecialAttack:
 				break;
 			default:
 				break;
@@ -45,7 +45,7 @@ public class SkillCollection {
 
 	// ----------------------------------------------------------------------------------------
 	/**
-	 * Šî–{UŒ‚ƒXƒLƒ‹
+	 * åŸºæœ¬æ”»æ’ƒã‚¹ã‚­ãƒ«
 	 * @param elements
 	 * @param skill
 	 * @return
@@ -64,7 +64,7 @@ public class SkillCollection {
 	}
 
 	/**
-	 * Šî–{UŒ‚ƒXƒLƒ‹BClash‚É—˜—p‚·‚éB
+	 * åŸºæœ¬æ”»æ’ƒã‚¹ã‚­ãƒ«ã€‚Clashæ™‚ã«åˆ©ç”¨ã™ã‚‹ã€‚
 	 * @param elements
 	 * @param skill
 	 * @return
@@ -87,7 +87,7 @@ public class SkillCollection {
 
 	// ----------------------------------------------------------------------------------------
 	/**
-	 * Šî–{ƒ`ƒƒ[ƒWƒXƒLƒ‹
+	 * åŸºæœ¬ãƒãƒ£ãƒ¼ã‚¸ã‚¹ã‚­ãƒ«
 	 * @param elements
 	 */
 	public void chargeSkillPoint(BattleElements elements) {
@@ -102,7 +102,7 @@ public class SkillCollection {
 
 	// ----------------------------------------------------------------------------------------
 	/**
-	 * ƒXƒLƒ‹ƒ|ƒCƒ“ƒg‚ÌÁ”ïˆ—
+	 * ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆã®æ¶ˆè²»å‡¦ç†
 	 * @param elements
 	 */
 	public void consumeSkillPoint(BattleElements elements) {

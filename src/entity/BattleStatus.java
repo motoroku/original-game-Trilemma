@@ -1,9 +1,11 @@
 ﻿package entity;
 
+import entity.BattleStatus.SkillType;
+
 /**
  * 戦闘関連で利用するenumクラスをまとめるクラス
  * @author mori_yu
- * 
+ *
  */
 public class BattleStatus {
 
@@ -84,6 +86,20 @@ public class BattleStatus {
 			}
 		};
 		public abstract int getNo();
+
+		public static SkillType getType(String name) {
+			if (name.equals("normalAttack")) {
+				return NormalAttack;
+			} else if (name.equals("specialAttack")) {
+				return SpecialAttack;
+			} else if (name.equals("defense")) {
+				return Defense;
+			} else if (name.equals("charge")) {
+				return Charge;
+			} else {
+				return Charge;
+			}
+		}
 	}
 
 	// ---------------------------------------------------
