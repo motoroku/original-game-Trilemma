@@ -5,11 +5,11 @@ import java.util.Random;
 public class Utility {
 
 	/**
-	 * Å‚à‘å‚«‚¢”š‚ğ•Ô‚µ‚Ü‚·
-	 * @param a ”’l
-	 * @param b ”’l
-	 * @param c ”’l
-	 * @return ˆø”‚Ì”’l‚Ì’†‚ÅÅ‚à‘å‚«‚¢”’l
+	 * æœ€ã‚‚å¤§ãã„æ•°å­—ã‚’è¿”ã—ã¾ã™
+	 * @param a æ•°å€¤
+	 * @param b æ•°å€¤
+	 * @param c æ•°å€¤
+	 * @return å¼•æ•°ã®æ•°å€¤ã®ä¸­ã§æœ€ã‚‚å¤§ãã„æ•°å€¤
 	 */
 	public static int getHighestNum(int a, int b, int c) {
 		int result = 0;
@@ -25,9 +25,9 @@ public class Utility {
 	}
 
 	/**
-	 * —”‚ğ•Ô‚µ‚Ü‚·B
-	 * @param max ¶¬‚·‚é—”‚ÌÅ‘å’l
-	 * @param isZero ƒ[ƒ‚ğŠÜ‚ß‚é‚©”Û‚©Btrue ŠÜ‚ß‚é false ŠÜ‚ß‚È‚¢
+	 * ä¹±æ•°ã‚’è¿”ã—ã¾ã™ã€‚
+	 * @param max ç”Ÿæˆã™ã‚‹ä¹±æ•°ã®æœ€å¤§å€¤
+	 * @param isZero ã‚¼ãƒ­ã‚’å«ã‚ã‚‹ã‹å¦ã‹ã€‚true å«ã‚ã‚‹ false å«ã‚ãªã„
 	 * @return
 	 */
 	public static int getRandomNum(int max, boolean isZero) {
