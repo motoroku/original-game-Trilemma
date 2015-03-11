@@ -1,4 +1,30 @@
+# Generated files
 bin/
 gen/
+
+### Eclipse ###
+*.pydevproject
+.metadata
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+
+# Eclipse Core
+.project
+
+# Gradle files
+.gradle/
+build/
+/*/build/
+
+# etc
 .settings/
 assets/
+.idea/
