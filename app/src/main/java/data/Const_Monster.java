@@ -36,7 +36,7 @@ public class Const_Monster {
 			exp(10), Const_PLACE.getNo3Cave().getId());
 	private static final MONSTER 野良ドラゴン = new MONSTER((long) 7, "野良ドラゴン", IMAGE_DORAGON, level(10), maxHp(120),
 			maxSp(6), baseSp(2), attack(12), defense(8), rateAttack(90), rateDefense(10), rateCharge(40), gold(100),
-			exp(46), Const_PLACE.getNo4RockMoutain().getId());
+			exp(46), Const_PLACE.getNo4RockMountain().getId());
 
 	public static List<MONSTER> getAllMonster() {
 		List<MONSTER> result = new ArrayList<MONSTER>();

@@ -11,7 +11,7 @@ public class Const_PLACE {
 	private static final DUNGEON NO1_BASEMENT = new DUNGEON((long) 1, "地下室");
 	private static final DUNGEON NO2_GREEN_FIELD = new DUNGEON((long) 2, "草原");
 	private static final DUNGEON NO3_CAVE = new DUNGEON((long) 3, "近場の洞窟");
-	private static final DUNGEON NO4_ROCK_MOUTAIN = new DUNGEON((long) 4, "荒れた岩山");
+	private static final DUNGEON NO4_ROCK_MOUNTAIN = new DUNGEON((long) 4, "荒れた岩山");
 	private static final DUNGEON NO5_SEA = new DUNGEON((long) 5, "暗い海");
 	private static final DUNGEON NO6_CASTLE = new DUNGEON((long) 6, "怪しい城");
 
@@ -27,7 +27,7 @@ public class Const_PLACE {
 		result.add(getNo1Basement());
 		result.add(getNo2GreenField());
 		result.add(getNo3Cave());
-		result.add(getNo4RockMoutain());
+		result.add(getNo4RockMountain());
 		result.add(getNo5Sea());
 		result.add(getNo6Castle());
 
@@ -58,8 +58,8 @@ public class Const_PLACE {
 		return NO3_CAVE;
 	}
 
-	public static DUNGEON getNo4RockMoutain() {
-		return NO4_ROCK_MOUTAIN;
+	public static DUNGEON getNo4RockMountain() {
+		return NO4_ROCK_MOUNTAIN;
 	}
 
 	public static DUNGEON getNo5Sea() {

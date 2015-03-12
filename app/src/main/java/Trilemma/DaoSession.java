@@ -14,8 +14,8 @@ import Trilemma.TOWN;
 import Trilemma.PEOPLE;
 import Trilemma.DUNGEON;
 import Trilemma.MONSTER;
-import Trilemma.M_ACTIONSTATUS;
-import Trilemma.M_SKILLTYPE;
+import Trilemma.M_ACTION_STATUS;
+import Trilemma.M_SKILL_TYPE;
 import Trilemma.SKILL;
 import Trilemma.LEARNED_SKILL;
 import Trilemma.PLAYER_STATUS;
@@ -30,8 +30,8 @@ import Trilemma.TOWNDao;
 import Trilemma.PEOPLEDao;
 import Trilemma.DUNGEONDao;
 import Trilemma.MONSTERDao;
-import Trilemma.M_ACTIONSTATUSDao;
-import Trilemma.M_SKILLTYPEDao;
+import Trilemma.M_ACTION_STATUSDao;
+import Trilemma.M_SKILL_TYPEDao;
 import Trilemma.SKILLDao;
 import Trilemma.LEARNED_SKILLDao;
 import Trilemma.PLAYER_STATUSDao;
@@ -55,8 +55,8 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig pEOPLEDaoConfig;
     private final DaoConfig dUNGEONDaoConfig;
     private final DaoConfig mONSTERDaoConfig;
-    private final DaoConfig m_ACTIONSTATUSDaoConfig;
-    private final DaoConfig m_SKILLTYPEDaoConfig;
+    private final DaoConfig m_ACTION_STATUSDaoConfig;
+    private final DaoConfig m_SKILL_TYPEDaoConfig;
     private final DaoConfig sKILLDaoConfig;
     private final DaoConfig lEARNED_SKILLDaoConfig;
     private final DaoConfig pLAYER_STATUSDaoConfig;
@@ -71,8 +71,8 @@ public class DaoSession extends AbstractDaoSession {
     private final PEOPLEDao pEOPLEDao;
     private final DUNGEONDao dUNGEONDao;
     private final MONSTERDao mONSTERDao;
-    private final M_ACTIONSTATUSDao m_ACTIONSTATUSDao;
-    private final M_SKILLTYPEDao m_SKILLTYPEDao;
+    private final M_ACTION_STATUSDao m_ACTION_STATUSDao;
+    private final M_SKILL_TYPEDao m_SKILL_TYPEDao;
     private final SKILLDao sKILLDao;
     private final LEARNED_SKILLDao lEARNED_SKILLDao;
     private final PLAYER_STATUSDao pLAYER_STATUSDao;
@@ -101,11 +101,11 @@ public class DaoSession extends AbstractDaoSession {
         mONSTERDaoConfig = daoConfigMap.get(MONSTERDao.class).clone();
         mONSTERDaoConfig.initIdentityScope(type);
 
-        m_ACTIONSTATUSDaoConfig = daoConfigMap.get(M_ACTIONSTATUSDao.class).clone();
-        m_ACTIONSTATUSDaoConfig.initIdentityScope(type);
+        m_ACTION_STATUSDaoConfig = daoConfigMap.get(M_ACTION_STATUSDao.class).clone();
+        m_ACTION_STATUSDaoConfig.initIdentityScope(type);
 
-        m_SKILLTYPEDaoConfig = daoConfigMap.get(M_SKILLTYPEDao.class).clone();
-        m_SKILLTYPEDaoConfig.initIdentityScope(type);
+        m_SKILL_TYPEDaoConfig = daoConfigMap.get(M_SKILL_TYPEDao.class).clone();
+        m_SKILL_TYPEDaoConfig.initIdentityScope(type);
 
         sKILLDaoConfig = daoConfigMap.get(SKILLDao.class).clone();
         sKILLDaoConfig.initIdentityScope(type);
@@ -136,8 +136,8 @@ public class DaoSession extends AbstractDaoSession {
         pEOPLEDao = new PEOPLEDao(pEOPLEDaoConfig, this);
         dUNGEONDao = new DUNGEONDao(dUNGEONDaoConfig, this);
         mONSTERDao = new MONSTERDao(mONSTERDaoConfig, this);
-        m_ACTIONSTATUSDao = new M_ACTIONSTATUSDao(m_ACTIONSTATUSDaoConfig, this);
-        m_SKILLTYPEDao = new M_SKILLTYPEDao(m_SKILLTYPEDaoConfig, this);
+        m_ACTION_STATUSDao = new M_ACTION_STATUSDao(m_ACTION_STATUSDaoConfig, this);
+        m_SKILL_TYPEDao = new M_SKILL_TYPEDao(m_SKILL_TYPEDaoConfig, this);
         sKILLDao = new SKILLDao(sKILLDaoConfig, this);
         lEARNED_SKILLDao = new LEARNED_SKILLDao(lEARNED_SKILLDaoConfig, this);
         pLAYER_STATUSDao = new PLAYER_STATUSDao(pLAYER_STATUSDaoConfig, this);
@@ -152,8 +152,8 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(PEOPLE.class, pEOPLEDao);
         registerDao(DUNGEON.class, dUNGEONDao);
         registerDao(MONSTER.class, mONSTERDao);
-        registerDao(M_ACTIONSTATUS.class, m_ACTIONSTATUSDao);
-        registerDao(M_SKILLTYPE.class, m_SKILLTYPEDao);
+        registerDao(M_ACTION_STATUS.class, m_ACTION_STATUSDao);
+        registerDao(M_SKILL_TYPE.class, m_SKILL_TYPEDao);
         registerDao(SKILL.class, sKILLDao);
         registerDao(LEARNED_SKILL.class, lEARNED_SKILLDao);
         registerDao(PLAYER_STATUS.class, pLAYER_STATUSDao);
@@ -170,8 +170,8 @@ public class DaoSession extends AbstractDaoSession {
         pEOPLEDaoConfig.getIdentityScope().clear();
         dUNGEONDaoConfig.getIdentityScope().clear();
         mONSTERDaoConfig.getIdentityScope().clear();
-        m_ACTIONSTATUSDaoConfig.getIdentityScope().clear();
-        m_SKILLTYPEDaoConfig.getIdentityScope().clear();
+        m_ACTION_STATUSDaoConfig.getIdentityScope().clear();
+        m_SKILL_TYPEDaoConfig.getIdentityScope().clear();
         sKILLDaoConfig.getIdentityScope().clear();
         lEARNED_SKILLDaoConfig.getIdentityScope().clear();
         pLAYER_STATUSDaoConfig.getIdentityScope().clear();
@@ -202,12 +202,12 @@ public class DaoSession extends AbstractDaoSession {
         return mONSTERDao;
     }
 
-    public M_ACTIONSTATUSDao getM_ACTIONSTATUSDao() {
-        return m_ACTIONSTATUSDao;
+    public M_ACTION_STATUSDao getM_ACTION_STATUSDao() {
+        return m_ACTION_STATUSDao;
     }
 
-    public M_SKILLTYPEDao getM_SKILLTYPEDao() {
-        return m_SKILLTYPEDao;
+    public M_SKILL_TYPEDao getM_SKILL_TYPEDao() {
+        return m_SKILL_TYPEDao;
     }
 
     public SKILLDao getSKILLDao() {

@@ -44,45 +44,45 @@ public class DaoManager {
 		PlayerDto player = new PlayerDto();
 
 		player.name = session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.PLAYER_NAME)).list()
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getPlayerName().getStatus_name())).list()
 				.get(0).getStatus_value();
 		player.hp = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.HP)).list().get(0)
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getHp().getStatus_name())).list().get(0)
 				.getStatus_value());
 		player.maxSp = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.MAX_SP)).list().get(0)
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getMaxSp().getStatus_name())).list().get(0)
 				.getStatus_value());
 		player.baseSp = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.BASE_SP)).list().get(0)
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getBaseSp().getStatus_name())).list().get(0)
 				.getStatus_value());
 		player.level = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.LEVEL)).list().get(0)
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getLevel().getStatus_name())).list().get(0)
 				.getStatus_value());
 		try {
 			player.attack = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-					.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.ATTACK)).list()
+					.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getAttack().getStatus_name())).list()
 					.get(0).getStatus_value());
 		} catch (Exception e) {
 			player.attack = 1;
 		}
 		try {
 			player.defense = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-					.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.DEFENSE)).list()
+					.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getDefense().getStatus_name())).list()
 					.get(0).getStatus_value());
 		} catch (Exception e) {
 			player.defense = 1;
 		}
 		player.gold = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.GOLD)).list().get(0)
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getGold().getStatus_name())).list().get(0)
 				.getStatus_value());
 		player.exp = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.EXP)).list().get(0)
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getExp().getStatus_name())).list().get(0)
 				.getStatus_value());
 		int weaponId = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.EQUIPMENT_WEAPON)).list()
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getEquipmentWeapon().getStatus_name())).list()
 				.get(0).getStatus_value());
 		int armorId = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.EQUIPMENT_ARMOR)).list()
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getEquipmentArmor().getStatus_name())).list()
 				.get(0).getStatus_value());
 
 		if (weaponId == 0) {
@@ -159,7 +159,7 @@ public class DaoManager {
 	public void changeNextWeapon() {
 		List<WEAPON_INVENTORY> weaponInventoryList = session.getWEAPON_INVENTORYDao().loadAll();
 		PLAYER_STATUS playerStatus = session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.EQUIPMENT_WEAPON)).list()
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getEquipmentWeapon().getStatus_name())).list()
 				.get(0);
 
 		int weaponId = Integer.parseInt(playerStatus.getStatus_value());
@@ -193,7 +193,7 @@ public class DaoManager {
 	public void changeNextArmor() {
 		List<ARMOR_INVENTORY> armorInventoryList = session.getARMOR_INVENTORYDao().loadAll();
 		PLAYER_STATUS playerStatus = session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.EQUIPMENT_ARMOR)).list()
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getEquipmentArmor().getStatus_name())).list()
 				.get(0);
 		int armorId = Integer.parseInt(playerStatus.getStatus_value());
 		ARMOR nextArmor = null;
@@ -225,7 +225,7 @@ public class DaoManager {
 	 */
 	public int getGold() {
 		return Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.GOLD)).list().get(0)
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getGold().getStatus_name())).list().get(0)
 				.getStatus_value());
 	}
 
@@ -238,7 +238,7 @@ public class DaoManager {
 		int result = currentGold + profitGold;
 
 		PLAYER_STATUS gold = session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.GOLD)).list().get(0);
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getGold().getStatus_name())).list().get(0);
 
 		gold.setStatus_value(String.valueOf(result));
 
@@ -258,7 +258,7 @@ public class DaoManager {
 		}
 
 		PLAYER_STATUS gold = session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.GOLD)).list().get(0);
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getGold().getStatus_name())).list().get(0);
 
 		gold.setStatus_value(String.valueOf(result));
 		session.getPLAYER_STATUSDao().update(gold);
@@ -270,7 +270,7 @@ public class DaoManager {
 	 */
 	public int getExp() {
 		return Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.EXP)).list().get(0)
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getExp().getStatus_name())).list().get(0)
 				.getStatus_value());
 	}
 
@@ -282,7 +282,7 @@ public class DaoManager {
 		int currentExp = getExp();
 		int result = currentExp + profitExp;
 		PLAYER_STATUS exp = session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.EXP)).list().get(0);
+				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getExp().getStatus_name())).list().get(0);
 		exp.setStatus_value(String.valueOf(result));
 		session.getPLAYER_STATUSDao().update(exp);
 	}

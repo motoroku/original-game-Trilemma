@@ -1,215 +1,208 @@
 package entity;
 
+import android.app.Notification;
+
 import entity.BattleStatus.SkillType;
 
 /**
  * 戦闘関連で利用するenumクラスをまとめるクラス
- * @author mori_yu
  *
+ * @author mori_yu
  */
 public class BattleStatus {
 
-	public static final String PLAYER = "player";
-	public static final String ENEMY = "enemy";
+    public static final String PLAYER = "player";
+    public static final String ENEMY = "enemy";
 
-	// ---------------------------------------------------
-	// Enum
-	public enum ActionStatus {
-		攻撃("攻撃"), 防御("防御"), チャージ("チャージ");
+    // ---------------------------------------------------
+    // Enum
+    public enum ActionStatus {
+        攻撃("攻撃", 1), 防御("防御", 2), チャージ("チャージ", 3);
 
-		public String getValue() {
-			return type;
-		}
+        private String type;
+        private int id;
 
-		private String type;
+        private ActionStatus(String type, int id) {
+            this.type = type;
+            this.id = id;
+        }
 
-		private ActionStatus(String type) {
-			this.type = type;
-		}
+        public String getValue() {
+            return type;
+        }
 
-		private String toValue() {
-			return type;
-		}
+        public int getId() {
+            return id;
+        }
 
-		public static ActionStatus fromValue(String type) {
-			ActionStatus result = ActionStatus.攻撃;
+        private String toValue() {
+            return type;
+        }
 
-			for (ActionStatus status : values()) {
-				if (status.toValue().equals(type)) {
-					result = status;
-				}
-			}
+        public static ActionStatus fromValue(String type) {
+            ActionStatus result = ActionStatus.攻撃;
 
-			return result;
-		}
-	}
+            for (ActionStatus status : values()) {
+                if (status.toValue().equals(type)) {
+                    result = status;
+                }
+            }
 
-	// ---------------------------------------------------
+            return result;
+        }
+    }
 
-	public enum BattleResult {
-		win, lose, draw, clash
-	}
+    // ---------------------------------------------------
 
-	// ---------------------------------------------------
+    public enum BattleResult {
+        win, lose, draw, clash
+    }
 
-	public enum SkillType {
-		Defense {
-			public int no = -1;
+    // ---------------------------------------------------
 
-			@Override
-			public int getNo() {
-				return no;
-			}
-		},
-		Charge {
-			public int no = 0;
+    public enum SkillType {
+        NormalAttack("NormalAttack",1,ActionStatus.攻撃),
+        Defense("Defense", 2,ActionStatus.防御),
+        Charge("Charge",3,ActionStatus.チャージ),
+        SpecialAttack("SpecialAttack",4,ActionStatus.攻撃);
 
-			@Override
-			public int getNo() {
-				return no;
-			}
-		},
-		NormalAttack {
-			public int no = 1;
+        private String name;
+        private int id;
+        private ActionStatus action;
 
-			@Override
-			public int getNo() {
-				return no;
-			}
-		},
-		SpecialAttack {
-			public int no = 2;
+        private SkillType(String name, int id, ActionStatus action) {
+            this.name = name;
+            this.id = id;
+            this.action = action;
+        }
 
-			@Override
-			public int getNo() {
-				return no;
-			}
-		};
-		public abstract int getNo();
+        public String getName(){return name;}
+        public int getId(){return id;}
+        public ActionStatus getActionStatus(){return action;}
 
-		public static SkillType getType(String name) {
-			if (name.equals("normalAttack")) {
-				return NormalAttack;
-			} else if (name.equals("specialAttack")) {
-				return SpecialAttack;
-			} else if (name.equals("defense")) {
-				return Defense;
-			} else if (name.equals("charge")) {
-				return Charge;
-			} else {
-				return Charge;
-			}
-		}
-	}
+        public static SkillType getType(String name) {
+            if (name.equals("normalAttack")) {
+                return NormalAttack;
+            } else if (name.equals("specialAttack")) {
+                return SpecialAttack;
+            } else if (name.equals("defense")) {
+                return Defense;
+            } else if (name.equals("charge")) {
+                return Charge;
+            } else {
+                return Charge;
+            }
+        }
+        }
 
-	// ---------------------------------------------------
+    // ---------------------------------------------------
 
-	public enum SelectedActionList {
-		skill1 {
-			public int no = 2;
+    public enum SelectedActionList {
+        skill1 {
+            public int no = 2;
 
-			@Override
-			public int getActionNo() {
-				return no;
-			}
-		},
-		skill2 {
-			public int no = 3;
+            @Override
+            public int getActionNo() {
+                return no;
+            }
+        },
+        skill2 {
+            public int no = 3;
 
-			@Override
-			public int getActionNo() {
-				return no;
-			}
+            @Override
+            public int getActionNo() {
+                return no;
+            }
 
-		},
-		skill3 {
-			public int no = 4;
+        },
+        skill3 {
+            public int no = 4;
 
-			@Override
-			public int getActionNo() {
-				return no;
-			}
+            @Override
+            public int getActionNo() {
+                return no;
+            }
 
-		},
-		skill4 {
-			public int no = 5;
+        },
+        skill4 {
+            public int no = 5;
 
-			@Override
-			public int getActionNo() {
-				return no;
-			}
+            @Override
+            public int getActionNo() {
+                return no;
+            }
 
-		},
-		skill5 {
-			public int no = 6;
+        },
+        skill5 {
+            public int no = 6;
 
-			@Override
-			public int getActionNo() {
-				return no;
-			}
+            @Override
+            public int getActionNo() {
+                return no;
+            }
 
-		},
-		defense {
-			public int no = 0;
+        },
+        defense {
+            public int no = 0;
 
-			@Override
-			public int getActionNo() {
-				return no;
-			}
+            @Override
+            public int getActionNo() {
+                return no;
+            }
 
-		},
-		charge {
-			public int no = 1;
+        },
+        charge {
+            public int no = 1;
 
-			@Override
-			public int getActionNo() {
-				return no;
-			}
+            @Override
+            public int getActionNo() {
+                return no;
+            }
 
-		},
-		;
-		public abstract int getActionNo();
-	}
+        },;
 
-	public static SelectedActionList getSelectedAction(int num) {
-		SelectedActionList result = null;
+        public abstract int getActionNo();
+    }
 
-		SelectedActionList.skill1.getActionNo();
+    public static SelectedActionList getSelectedAction(int num) {
+        SelectedActionList result = null;
 
-		switch (num) {
-			case 0:
-				result = SelectedActionList.skill1;
-				break;
-			case 1:
-				result = SelectedActionList.skill2;
-				break;
-			case 2:
-				result = SelectedActionList.skill3;
-				break;
-			case 3:
-				result = SelectedActionList.skill4;
-				break;
-			case 4:
-				result = SelectedActionList.skill5;
-				break;
-			case 5:
-				result = SelectedActionList.defense;
-				break;
-			case 6:
-				result = SelectedActionList.charge;
-				break;
-			default:
-				break;
-		}
+        SelectedActionList.skill1.getActionNo();
 
-		return result;
-	}
+        switch (num) {
+            case 0:
+                result = SelectedActionList.skill1;
+                break;
+            case 1:
+                result = SelectedActionList.skill2;
+                break;
+            case 2:
+                result = SelectedActionList.skill3;
+                break;
+            case 3:
+                result = SelectedActionList.skill4;
+                break;
+            case 4:
+                result = SelectedActionList.skill5;
+                break;
+            case 5:
+                result = SelectedActionList.defense;
+                break;
+            case 6:
+                result = SelectedActionList.charge;
+                break;
+            default:
+                break;
+        }
 
-	public enum TargetStatus {
-		self, enemy
-	}
+        return result;
+    }
 
-	public enum AbilityType {
-		statusUp, skillBoost, battleAssist
-	}
+    public enum TargetStatus {
+        self, enemy
+    }
+
+    public enum AbilityType {
+        statusUp, skillBoost, battleAssist
+    }
 }

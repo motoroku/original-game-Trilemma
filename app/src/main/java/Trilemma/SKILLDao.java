@@ -158,9 +158,9 @@ public class SKILLDao extends AbstractDao<SKILL, Long> {
             StringBuilder builder = new StringBuilder("SELECT ");
             SqlUtils.appendColumns(builder, "T", getAllColumns());
             builder.append(',');
-            SqlUtils.appendColumns(builder, "T0", daoSession.getM_SKILLTYPEDao().getAllColumns());
+            SqlUtils.appendColumns(builder, "T0", daoSession.getM_SKILL_TYPEDao().getAllColumns());
             builder.append(" FROM SKILL T");
-            builder.append(" LEFT JOIN M__SKILLTYPE T0 ON T.'SKILL_TYPE_ID'=T0.'_id'");
+            builder.append(" LEFT JOIN M__SKILL__TYPE T0 ON T.'SKILL_TYPE_ID'=T0.'_id'");
             builder.append(' ');
             selectDeep = builder.toString();
         }
@@ -171,8 +171,8 @@ public class SKILLDao extends AbstractDao<SKILL, Long> {
         SKILL entity = loadCurrent(cursor, 0, lock);
         int offset = getAllColumns().length;
 
-        M_SKILLTYPE m_SKILLTYPE = loadCurrentOther(daoSession.getM_SKILLTYPEDao(), cursor, offset);
-        entity.setM_SKILLTYPE(m_SKILLTYPE);
+        M_SKILL_TYPE m_SKILL_TYPE = loadCurrentOther(daoSession.getM_SKILL_TYPEDao(), cursor, offset);
+        entity.setM_SKILL_TYPE(m_SKILL_TYPE);
 
         return entity;    
     }

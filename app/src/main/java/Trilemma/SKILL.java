@@ -21,8 +21,8 @@ public class SKILL {
     /** Used for active entity operations. */
     private transient SKILLDao myDao;
 
-    private M_SKILLTYPE m_SKILLTYPE;
-    private Long m_SKILLTYPE__resolvedKey;
+    private M_SKILL_TYPE m_SKILL_TYPE;
+    private Long m_SKILL_TYPE__resolvedKey;
 
 
     public SKILL() {
@@ -87,27 +87,27 @@ public class SKILL {
     }
 
     /** To-one relationship, resolved on first access. */
-    public M_SKILLTYPE getM_SKILLTYPE() {
+    public M_SKILL_TYPE getM_SKILL_TYPE() {
         Long __key = this.skill_type_id;
-        if (m_SKILLTYPE__resolvedKey == null || !m_SKILLTYPE__resolvedKey.equals(__key)) {
+        if (m_SKILL_TYPE__resolvedKey == null || !m_SKILL_TYPE__resolvedKey.equals(__key)) {
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
-            M_SKILLTYPEDao targetDao = daoSession.getM_SKILLTYPEDao();
-            M_SKILLTYPE m_SKILLTYPENew = targetDao.load(__key);
+            M_SKILL_TYPEDao targetDao = daoSession.getM_SKILL_TYPEDao();
+            M_SKILL_TYPE m_SKILL_TYPENew = targetDao.load(__key);
             synchronized (this) {
-                m_SKILLTYPE = m_SKILLTYPENew;
-            	m_SKILLTYPE__resolvedKey = __key;
+                m_SKILL_TYPE = m_SKILL_TYPENew;
+            	m_SKILL_TYPE__resolvedKey = __key;
             }
         }
-        return m_SKILLTYPE;
+        return m_SKILL_TYPE;
     }
 
-    public void setM_SKILLTYPE(M_SKILLTYPE m_SKILLTYPE) {
+    public void setM_SKILL_TYPE(M_SKILL_TYPE m_SKILL_TYPE) {
         synchronized (this) {
-            this.m_SKILLTYPE = m_SKILLTYPE;
-            skill_type_id = m_SKILLTYPE == null ? null : m_SKILLTYPE.getId();
-            m_SKILLTYPE__resolvedKey = skill_type_id;
+            this.m_SKILL_TYPE = m_SKILL_TYPE;
+            skill_type_id = m_SKILL_TYPE == null ? null : m_SKILL_TYPE.getId();
+            m_SKILL_TYPE__resolvedKey = skill_type_id;
         }
     }
 
