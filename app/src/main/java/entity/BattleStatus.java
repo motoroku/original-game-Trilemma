@@ -81,13 +81,13 @@ public class BattleStatus {
         public ActionStatus getActionStatus(){return action;}
 
         public static SkillType getType(String name) {
-            if (name.equals("normalAttack")) {
+            if (name.equals(NormalAttack.getName())) {
                 return NormalAttack;
-            } else if (name.equals("specialAttack")) {
+            } else if (name.equals(SpecialAttack.getName())) {
                 return SpecialAttack;
-            } else if (name.equals("defense")) {
+            } else if (name.equals(Defense.getName())) {
                 return Defense;
-            } else if (name.equals("charge")) {
+            } else if (name.equals(Charge.getName())) {
                 return Charge;
             } else {
                 return Charge;

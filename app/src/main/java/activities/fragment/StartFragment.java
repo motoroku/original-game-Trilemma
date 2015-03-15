@@ -5,6 +5,7 @@ import java.util.EventListener;
 import com.games.Trilemma.R;
 
 import dao.DaoManager;
+import data.DataManager;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -25,8 +26,6 @@ public class StartFragment extends Fragment implements OnClickListener {
 		View v = inflater.inflate(R.layout.fragment_home_start, container, false);
 		Context context = getActivity();
 
-		DaoManager daoManager = new DaoManager(context);
-
 		setViews(v);
 
 		return v;
@@ -36,7 +35,8 @@ public class StartFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.StartFragment_button_start:
-				mListener.onStartGame();
+				dataLoad();
+                mListener.onStartGame();
 				break;
 
 			default:
@@ -45,7 +45,12 @@ public class StartFragment extends Fragment implements OnClickListener {
 
 	}
 
-	private void setViews(View v) {
+    private void dataLoad() {
+        DataManager dataManager = new DataManager(getActivity());
+        dataManager.setFirstSkill();
+    }
+
+    private void setViews(View v) {
 		mButtonGameStart = (Button) v.findViewById(R.id.StartFragment_button_start);
 
 		mButtonGameStart.setOnClickListener(this);

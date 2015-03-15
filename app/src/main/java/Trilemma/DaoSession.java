@@ -18,6 +18,7 @@ import Trilemma.M_ACTION_STATUS;
 import Trilemma.M_SKILL_TYPE;
 import Trilemma.SKILL;
 import Trilemma.LEARNED_SKILL;
+import Trilemma.PLAYER_SKILL;
 import Trilemma.PLAYER_STATUS;
 import Trilemma.STORY_FLAG;
 import Trilemma.WEAPON;
@@ -34,6 +35,7 @@ import Trilemma.M_ACTION_STATUSDao;
 import Trilemma.M_SKILL_TYPEDao;
 import Trilemma.SKILLDao;
 import Trilemma.LEARNED_SKILLDao;
+import Trilemma.PLAYER_SKILLDao;
 import Trilemma.PLAYER_STATUSDao;
 import Trilemma.STORY_FLAGDao;
 import Trilemma.WEAPONDao;
@@ -59,6 +61,7 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig m_SKILL_TYPEDaoConfig;
     private final DaoConfig sKILLDaoConfig;
     private final DaoConfig lEARNED_SKILLDaoConfig;
+    private final DaoConfig pLAYER_SKILLDaoConfig;
     private final DaoConfig pLAYER_STATUSDaoConfig;
     private final DaoConfig sTORY_FLAGDaoConfig;
     private final DaoConfig wEAPONDaoConfig;
@@ -75,6 +78,7 @@ public class DaoSession extends AbstractDaoSession {
     private final M_SKILL_TYPEDao m_SKILL_TYPEDao;
     private final SKILLDao sKILLDao;
     private final LEARNED_SKILLDao lEARNED_SKILLDao;
+    private final PLAYER_SKILLDao pLAYER_SKILLDao;
     private final PLAYER_STATUSDao pLAYER_STATUSDao;
     private final STORY_FLAGDao sTORY_FLAGDao;
     private final WEAPONDao wEAPONDao;
@@ -113,6 +117,9 @@ public class DaoSession extends AbstractDaoSession {
         lEARNED_SKILLDaoConfig = daoConfigMap.get(LEARNED_SKILLDao.class).clone();
         lEARNED_SKILLDaoConfig.initIdentityScope(type);
 
+        pLAYER_SKILLDaoConfig = daoConfigMap.get(PLAYER_SKILLDao.class).clone();
+        pLAYER_SKILLDaoConfig.initIdentityScope(type);
+
         pLAYER_STATUSDaoConfig = daoConfigMap.get(PLAYER_STATUSDao.class).clone();
         pLAYER_STATUSDaoConfig.initIdentityScope(type);
 
@@ -140,6 +147,7 @@ public class DaoSession extends AbstractDaoSession {
         m_SKILL_TYPEDao = new M_SKILL_TYPEDao(m_SKILL_TYPEDaoConfig, this);
         sKILLDao = new SKILLDao(sKILLDaoConfig, this);
         lEARNED_SKILLDao = new LEARNED_SKILLDao(lEARNED_SKILLDaoConfig, this);
+        pLAYER_SKILLDao = new PLAYER_SKILLDao(pLAYER_SKILLDaoConfig, this);
         pLAYER_STATUSDao = new PLAYER_STATUSDao(pLAYER_STATUSDaoConfig, this);
         sTORY_FLAGDao = new STORY_FLAGDao(sTORY_FLAGDaoConfig, this);
         wEAPONDao = new WEAPONDao(wEAPONDaoConfig, this);
@@ -156,6 +164,7 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(M_SKILL_TYPE.class, m_SKILL_TYPEDao);
         registerDao(SKILL.class, sKILLDao);
         registerDao(LEARNED_SKILL.class, lEARNED_SKILLDao);
+        registerDao(PLAYER_SKILL.class, pLAYER_SKILLDao);
         registerDao(PLAYER_STATUS.class, pLAYER_STATUSDao);
         registerDao(STORY_FLAG.class, sTORY_FLAGDao);
         registerDao(WEAPON.class, wEAPONDao);
@@ -174,6 +183,7 @@ public class DaoSession extends AbstractDaoSession {
         m_SKILL_TYPEDaoConfig.getIdentityScope().clear();
         sKILLDaoConfig.getIdentityScope().clear();
         lEARNED_SKILLDaoConfig.getIdentityScope().clear();
+        pLAYER_SKILLDaoConfig.getIdentityScope().clear();
         pLAYER_STATUSDaoConfig.getIdentityScope().clear();
         sTORY_FLAGDaoConfig.getIdentityScope().clear();
         wEAPONDaoConfig.getIdentityScope().clear();
@@ -216,6 +226,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public LEARNED_SKILLDao getLEARNED_SKILLDao() {
         return lEARNED_SKILLDao;
+    }
+
+    public PLAYER_SKILLDao getPLAYER_SKILLDao() {
+        return pLAYER_SKILLDao;
     }
 
     public PLAYER_STATUSDao getPLAYER_STATUSDao() {

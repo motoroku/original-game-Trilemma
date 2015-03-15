@@ -17,6 +17,7 @@ import Trilemma.M_ACTION_STATUSDao;
 import Trilemma.M_SKILL_TYPEDao;
 import Trilemma.SKILLDao;
 import Trilemma.LEARNED_SKILLDao;
+import Trilemma.PLAYER_SKILLDao;
 import Trilemma.PLAYER_STATUSDao;
 import Trilemma.STORY_FLAGDao;
 import Trilemma.WEAPONDao;
@@ -42,6 +43,7 @@ public class DaoMaster extends AbstractDaoMaster {
         M_SKILL_TYPEDao.createTable(db, ifNotExists);
         SKILLDao.createTable(db, ifNotExists);
         LEARNED_SKILLDao.createTable(db, ifNotExists);
+        PLAYER_SKILLDao.createTable(db, ifNotExists);
         PLAYER_STATUSDao.createTable(db, ifNotExists);
         STORY_FLAGDao.createTable(db, ifNotExists);
         WEAPONDao.createTable(db, ifNotExists);
@@ -61,6 +63,7 @@ public class DaoMaster extends AbstractDaoMaster {
         M_SKILL_TYPEDao.dropTable(db, ifExists);
         SKILLDao.dropTable(db, ifExists);
         LEARNED_SKILLDao.dropTable(db, ifExists);
+        PLAYER_SKILLDao.dropTable(db, ifExists);
         PLAYER_STATUSDao.dropTable(db, ifExists);
         STORY_FLAGDao.dropTable(db, ifExists);
         WEAPONDao.dropTable(db, ifExists);
@@ -107,6 +110,7 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(M_SKILL_TYPEDao.class);
         registerDaoClass(SKILLDao.class);
         registerDaoClass(LEARNED_SKILLDao.class);
+        registerDaoClass(PLAYER_SKILLDao.class);
         registerDaoClass(PLAYER_STATUSDao.class);
         registerDaoClass(STORY_FLAGDao.class);
         registerDaoClass(WEAPONDao.class);

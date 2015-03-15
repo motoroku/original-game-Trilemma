@@ -54,15 +54,15 @@ public class BattleElements {
 	}
 
 	public void applyBattleResult() {
-		if (actor.name == BattleStatus.PLAYER) {
+		if (actor.characterType == BattleStatus.PLAYER) {
 			characterMap.put(BattleStatus.PLAYER, actor);
-		} else if (actor.name == BattleStatus.ENEMY) {
+		} else if (actor.characterType == BattleStatus.ENEMY) {
 			characterMap.put(BattleStatus.ENEMY, actor);
 		}
 
-		if (target.name == BattleStatus.PLAYER) {
+		if (target.characterType == BattleStatus.PLAYER) {
 			characterMap.put(BattleStatus.PLAYER, target);
-		} else if (target.name == BattleStatus.ENEMY) {
+		} else if (target.characterType == BattleStatus.ENEMY) {
 			characterMap.put(BattleStatus.ENEMY, target);
 		}
 	}

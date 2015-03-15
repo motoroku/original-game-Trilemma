@@ -40,85 +40,12 @@ public class DaoManager {
 		session = dbHelper.session();
 	}
 
-	public PlayerDto getPlayerDto() {
-		PlayerDto player = new PlayerDto();
+    public DaoSession getsession(Context context){
+        dbHelper = MyOpenHelper.getInstance(context);
+        return dbHelper.session();
+    }
 
-		player.name = session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getPlayerName().getStatus_name())).list()
-				.get(0).getStatus_value();
-		player.hp = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getHp().getStatus_name())).list().get(0)
-				.getStatus_value());
-		player.maxSp = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getMaxSp().getStatus_name())).list().get(0)
-				.getStatus_value());
-		player.baseSp = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getBaseSp().getStatus_name())).list().get(0)
-				.getStatus_value());
-		player.level = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getLevel().getStatus_name())).list().get(0)
-				.getStatus_value());
-		try {
-			player.attack = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-					.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getAttack().getStatus_name())).list()
-					.get(0).getStatus_value());
-		} catch (Exception e) {
-			player.attack = 1;
-		}
-		try {
-			player.defense = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-					.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getDefense().getStatus_name())).list()
-					.get(0).getStatus_value());
-		} catch (Exception e) {
-			player.defense = 1;
-		}
-		player.gold = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getGold().getStatus_name())).list().get(0)
-				.getStatus_value());
-		player.exp = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getExp().getStatus_name())).list().get(0)
-				.getStatus_value());
-		int weaponId = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getEquipmentWeapon().getStatus_name())).list()
-				.get(0).getStatus_value());
-		int armorId = Integer.parseInt(session.getPLAYER_STATUSDao().queryBuilder()
-				.where(Trilemma.PLAYER_STATUSDao.Properties.Status_name.eq(Const_PlayerStatus.getEquipmentArmor().getStatus_name())).list()
-				.get(0).getStatus_value());
 
-		if (weaponId == 0) {
-			player.weapon = new Weapon(Const_Item.getHand());
-		} else {
-			player.weapon = new Weapon(getWeapon(weaponId));
-		}
-		if (armorId == 0) {
-			player.armor = new Armor(Const_Item.getSkin());
-		} else {
-			player.armor = new Armor(getArmor(armorId));
-		}
-
-		return player;
-	}
-
-	public WEAPON getWeapon(long weaponId) {
-		QueryBuilder<WEAPON> weapons = session.getWEAPONDao().queryBuilder()
-				.where(Trilemma.WEAPONDao.Properties.Id.eq(weaponId));
-		WEAPON weapon;
-		if (weapons == null) {
-			weapon = new WEAPON((long) 0, "素手", 1);
-		} else {
-			weapon = weapons.list().get(0);
-		}
-		return weapon;
-	}
-
-	public ARMOR getArmor(long armorId) {
-		ARMOR armor = session.getARMORDao().queryBuilder().where(Trilemma.ARMORDao.Properties.Id.eq(armorId)).list()
-				.get(0);
-		if (armor == null) {
-			armor = new ARMOR((long) 0, "寝間着", 1);
-		}
-		return armor;
-	}
 
 	public List<SKILL> getPlayerSkillList(List<LEARNED_SKILL> learnedSkillList) {
 		List<SKILL> list = new ArrayList<SKILL>();

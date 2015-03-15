@@ -7,7 +7,7 @@ import java.util.List;
 import com.games.Trilemma.R;
 
 import dao.DaoManager;
-import dao.PlayerDto;
+import service.PlayerService;
 import system.battle.BattleSystem;
 import utility.ImageSelector;
 import utility.Utility;
@@ -224,16 +224,16 @@ public class BattleFragment extends Fragment implements OnClickListener, OnTouch
 		((MarginLayoutParams) mImageViewPlayer.getLayoutParams()).rightMargin = x / 15;
 		mLinearLayoutEnemyBackGround.getLayoutParams().height = y / 3;
 
-		if (player.skillList.length > 2) {
+		if (player.skillList[2] != null) {
 			mPopupButtonSkill1.setText(player.skillList[2].skillName);
 		}
-		if (player.skillList.length > 3) {
+		if (player.skillList[3] != null) {
 			mPopupButtonSkill2.setText(player.skillList[3].skillName);
 		}
-		if (player.skillList.length > 4) {
+		if (player.skillList[4] != null) {
 			mPopupButtonSkill3.setText(player.skillList[4].skillName);
 		}
-		if (player.skillList.length > 5) {
+		if (player.skillList[5] != null) {
 			mPopupButtonSkill4.setText(player.skillList[5].skillName);
 		}
 	}
@@ -257,11 +257,12 @@ public class BattleFragment extends Fragment implements OnClickListener, OnTouch
 	// ------------------------------------------------------------------------------------------------------
 	private void setBattleSetting(View v, Context context, Bundle bundle) {
 		DaoManager dao = new DaoManager(v.getContext());
+        PlayerService playerService = new PlayerService(dao);
 
 		// SetEnemy
 		enemy = createEnemy(dao, bundle, context);
 		// SetPlayer
-		player = createPlayer(dao, context);
+		player = setPlayer(dao, context);
 
 		battleSystem = new BattleSystem(player, enemy, context);
 	}
@@ -296,7 +297,7 @@ public class BattleFragment extends Fragment implements OnClickListener, OnTouch
 		return enemy;
 	}
 
-	private Player createPlayer(DaoManager dao, Context context) {
+	private Player setPlayer(DaoManager dao, Context context) {
 		int width;
 		int height;
 
@@ -308,15 +309,8 @@ public class BattleFragment extends Fragment implements OnClickListener, OnTouch
 		mImageViewPlayer.getLayoutParams().width = width * 2;
 		mImageViewPlayer.getLayoutParams().height = height * 2;
 
-		SKILL defense = dao.getDefaultDefenseSkill();
-		SKILL charge = dao.getDefaultChargeSkill();
-
-		playerLearnedSkillList = dao.getPlayerLearnedSkill();
-		playerSkillList = dao.getPlayerSkillList(playerLearnedSkillList);
-
-		PlayerDto playerDto = dao.getPlayerDto();
-
-		Player player = new Player(playerDto, playerLearnedSkillList, playerSkillList, defense, charge);
+        PlayerService playerService = new PlayerService(dao);
+		Player player = playerService.createPlayer();
 
 		return player;
 	}

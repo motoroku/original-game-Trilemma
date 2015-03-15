@@ -6,6 +6,7 @@ import org.w3c.dom.Text;
 
 import com.games.Trilemma.R;
 
+import Trilemma.PLAYER_SKILL;
 import dao.DaoManager;
 import dao.PlayerDto;
 
@@ -13,6 +14,8 @@ import entity.Player;
 
 import Trilemma.LEARNED_SKILL;
 import Trilemma.SKILL;
+import service.PlayerService;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -89,13 +92,8 @@ public class CustomizeFragment extends Fragment implements OnClickListener {
 		// mImageViewPlayer.getLayoutParams().width = width * 2;
 		// mImageViewPlayer.getLayoutParams().height = height * 2;
 
-		SKILL defense = dao.getDefaultDefenseSkill();
-		SKILL charge = dao.getDefaultChargeSkill();
-
-		List<LEARNED_SKILL> playerLearnedSkillList = dao.getPlayerLearnedSkill();
-		List<SKILL> playerSkillList = dao.getPlayerSkillList(playerLearnedSkillList);
-
-		this.player = new Player(dao.getPlayerDto(), playerLearnedSkillList, playerSkillList, defense, charge);
+        PlayerService playerService = new PlayerService(dao);
+		this.player = playerService.createPlayer();
 	}
 
 	@Override
